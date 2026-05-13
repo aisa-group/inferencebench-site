@@ -1,0 +1,12 @@
+screenshots/
+
+# Local environment and credentials
+.env
+.env.*
+*.pem
+*.p12
+*.pfx
+*.key
+
+# Local OS/editor noise
+.DS_Store

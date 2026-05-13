@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="360" viewBox="0 0 1180 360" role="img" aria-labelledby="title desc">
+  <title id="title">InferenceBench Pipeline</title>
+  <desc id="desc">Flow from benchmark inputs to agent optimization, server deployment, quality and integrity gates, and final scoring.</desc>
+  <style>
+    :root {
+      --bg: #f1eee6;
+      --box: #faf8f3;
+      --text: #2d2a23;
+      --muted: #6b655a;
+      --line: #d8d0c3;
+      --terracotta: #a66b4f;
+      --teal: #4f8790;
+      --violet: #84629a;
+      --green: #2f8a4f;
+      --red: #b55248;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #242019;
+        --box: #181612;
+        --text: #eee7dc;
+        --muted: #b1aa9c;
+        --line: #443b2f;
+        --terracotta: #c17d5a;
+        --teal: #6e9a9d;
+        --violet: #9b7ba8;
+        --green: #55a868;
+        --red: #cf6659;
+      }
+    }
+    text { font-family: "JetBrains Mono", "SF Mono", monospace; fill: var(--text); letter-spacing: 0; }
+    .canvas { fill: var(--bg); }
+    .box { fill: var(--box); stroke: var(--line); stroke-width: 2; rx: 8; }
+    .title { font-size: 17px; font-weight: 700; }
+    .small { font-size: 12px; fill: var(--muted); }
+    .arrow { stroke: var(--line); stroke-width: 3; marker-end: url(#arrow); fill: none; }
+    .accent-a { stroke: var(--terracotta); }
+    .accent-b { stroke: var(--teal); }
+    .accent-c { stroke: var(--violet); }
+    .accent-d { stroke: var(--green); }
+    .fail { stroke: var(--red); }
+    .tag { fill: var(--bg); stroke: var(--line); stroke-width: 1; rx: 5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a66b4f"/>
+    </marker>
+  </defs>
+  <rect class="canvas" x="0" y="0" width="1180" height="360" rx="8"/>
+
+  <rect class="box accent-a" x="28" y="88" width="180" height="145"/>
+  <text class="title" x="52" y="123">Inputs</text>
+  <text class="small" x="52" y="151">base model</text>
+  <text class="small" x="52" y="174">one H100 GPU</text>
+  <text class="small" x="52" y="197">scenario objective</text>
+
+  <path class="arrow" d="M 214 160 H 270"/>
+
+  <rect class="box accent-b" x="276" y="70" width="205" height="180"/>
+  <text class="title" x="305" y="108">Agent loop</text>
+  <text class="small" x="305" y="136">choose framework</text>
+  <text class="small" x="305" y="159">set runtime flags</text>
+  <text class="small" x="305" y="182">run evaluator</text>
+  <text class="small" x="305" y="205">repair or iterate</text>
+
+  <path class="arrow" d="M 488 160 H 544"/>
+
+  <rect class="box accent-c" x="550" y="88" width="190" height="145"/>
+  <text class="title" x="578" y="123">Server</text>
+  <text class="small" x="578" y="151">OpenAI-compatible</text>
+  <text class="small" x="578" y="174">/v1/models</text>
+  <text class="small" x="578" y="197">/chat/completions</text>
+
+  <path class="arrow" d="M 748 160 H 804"/>
+
+  <rect class="box accent-d" x="810" y="52" width="164" height="100"/>
+  <text class="title" x="835" y="88">Quality</text>
+  <text class="small" x="835" y="116">MMLU-Pro gate</text>
+  <text class="small" x="835" y="137">95% threshold</text>
+
+  <rect class="box accent-d" x="810" y="184" width="164" height="100"/>
+  <text class="title" x="835" y="220">Integrity</text>
+  <text class="small" x="835" y="248">judge audit</text>
+  <text class="small" x="835" y="269">logs + transcript</text>
+
+  <path class="arrow" d="M 982 104 H 1032"/>
+  <path class="arrow" d="M 982 236 H 1032"/>
+
+  <rect class="box accent-a" x="1038" y="112" width="114" height="128"/>
+  <text class="title" x="1062" y="150">Score</text>
+  <text class="small" x="1062" y="178">TTFT</text>
+  <text class="small" x="1062" y="201">TPOT</text>
+  <text class="small" x="1062" y="224">throughput</text>
+
+  <path class="arrow fail" d="M 892 284 C 840 336, 420 338, 380 256"/>
+  <rect class="tag" x="494" y="302" width="176" height="28"/>
+  <text class="small" x="512" y="321">failed run contributes 1.00x</text>
+</svg>

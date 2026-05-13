@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InferenceBench is a benchmark for open-ended LLM inference optimization by AI agents.">
+    <title>InferenceBench</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260513-footer-visible">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="#overview" aria-label="InferenceBench home">InferenceBench</a>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+            <a href="#overview">Overview</a>
+            <a href="#results">Results</a>
+            <a href="#scenarios">Scenarios</a>
+            <a href="#leaderboard">Leaderboard</a>
+            <a href="#deep-dive">Deep Dive</a>
+            <a href="#analysis">Analysis</a>
+        </nav>
+        <a class="paper-link" href="assets/paper.pdf" target="_blank" rel="noopener">
+            View Paper
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M7 4h9v9h-2V7.42l-8.3 8.3-1.42-1.42 8.3-8.3H7V4Z"></path>
+            </svg>
+        </a>
+    </header>
+
+    <main>
+        <section class="hero section" id="overview">
+            <div class="hero-copy">
+                <h1><span>Benchmarking Open-Ended</span><span>Inference Optimization </span><span>by AI Agents</span></h1>
+                <p class="hero-kicker">We evaluate whether frontier coding agents can optimize LLM serving workloads under a fixed compute
+                    budget, and find that their main bottleneck is experimental discipline rather than knowledge of relevant techniques.</p>
+                <div class="hero-actions">
+                    <a class="primary-action" href="assets/paper.pdf" target="_blank" rel="noopener">
+                        Read Paper
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <path d="M7 4h9v9h-2V7.42l-8.3 8.3-1.42-1.42 8.3-8.3H7V4Z"></path>
+                        </svg>
+                    </a>
+                    <a class="secondary-action" href="https://github.com/aisa-group/InferenceBench" target="_blank" rel="noopener">
+                        View Repository
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <path d="M10 1.4a8.6 8.6 0 0 0-2.72 16.76c.43.08.58-.18.58-.41v-1.44c-2.36.51-2.86-1-2.86-1-.39-.98-.95-1.24-.95-1.24-.78-.53.06-.52.06-.52.86.06 1.32.89 1.32.89.76 1.31 2 0.93 2.49.71.08-.56.3-.93.54-1.15-1.88-.21-3.86-.94-3.86-4.19 0-.93.33-1.68.88-2.27-.09-.22-.38-1.08.08-2.25 0 0 .72-.23 2.35.87A8.1 8.1 0 0 1 10 4.47c.72 0 1.45.1 2.13.29 1.63-1.1 2.34-.87 2.34-.87.46 1.17.17 2.03.08 2.25.55.59.88 1.34.88 2.27 0 3.26-1.98 3.98-3.87 4.19.31.27.58.79.58 1.59v2.36c0 .23.15.5.59.41A8.6 8.6 0 0 0 10 1.4Z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section results-section" id="results">
+            <div class="section-intro">
+                <div>
+                    <p class="eyebrow">Main results</p>
+                    <h2>Main Results</h2>
+                </div>
+                <p>Across all four scenarios, agents outperform the PyTorch baseline and most engine defaults but trail matched-budget hyperparameter search.</p>
+            </div>
+
+            <div class="aggregate-panel">
+                <div class="panel-kicker">Aggregate performance, geometric mean speedup</div>
+                <div class="aggregate-chart" id="aggregate-chart" aria-label="Aggregate performance chart"></div>
+                <p class="panel-note">Agents achieve <strong>8.08×</strong> geometric-mean speedup over the PyTorch baseline, compared to <strong>11.53×</strong> for matched-budget hyperparameter search.</p>
+            </div>
+
+            <div class="benchmark-setup-heading">
+                <p class="eyebrow">Benchmark setup</p>
+                <h3>Each benchmark run targets one serving bottleneck, then scores only the final submitted server after correctness and integrity checks.</h3>
+            </div>
+
+            <section class="scenario-figure section" aria-label="InferenceBench scenario overview figure">
+                <img src="assets/scenario-overview.png" alt="InferenceBench scenario overview figure">
+                <div class="scenario-figure-copy">
+                    <p class="eyebrow">Benchmark flow</p>
+                    <p>Each run gives the agent a base model, hardware environment, and a two-hour wall-clock budget to produce an OpenAI-compatible inference server. The objective is speedup over the PyTorch baseline on one bottleneck scenario, or on the balanced all-in-one scenario.</p>
+                    <p>Final submissions must pass correctness checks and an integrity audit for reward hacking. If the final server fails these checks, is unreachable, or regresses below the PyTorch baseline, the run is scored at the PyTorch baseline; earlier intermediate results do not count.</p>
+                </div>
+            </section>
+
+            <section class="scenario-panel" id="scenarios" aria-labelledby="scenario-title">
+                <div class="scenario-heading">
+                    <p class="eyebrow">Four scenarios</p>
+                    <h2 id="scenario-title">Four serving scenarios, each targeting a distinct bottleneck.</h2>
+                </div>
+                <article class="scenario-card">
+                    <span class="scenario-index">01</span>
+                    <h3>Prefill Latency</h3>
+                    <p>Long-context prompts; measured as time to first token.</p>
+                </article>
+                <article class="scenario-card">
+                    <span class="scenario-index">02</span>
+                    <h3>Decode Latency</h3>
+                    <p>Long generations; measured as time per output token.</p>
+                </article>
+                <article class="scenario-card">
+                    <span class="scenario-index">03</span>
+                    <h3>Throughput</h3>
+                    <p>Concurrent traffic; measured across burst, Poisson, and constant-rate profiles.</p>
+                </article>
+                <article class="scenario-card">
+                    <span class="scenario-index">04</span>
+                    <h3>All-In-One</h3>
+                    <p>Balanced serving; geometric mean of latency and throughput metrics.</p>
+                </article>
+            </section>
+
+        </section>
+
+        <section class="leaderboard section" id="leaderboard">
+            <div class="leaderboard-hero">
+                <div>
+                    <p class="eyebrow">Leaderboard</p>
+                    <h2>Per-agent aggregate performance.</h2>
+                    <p>Ranked by aggregate speedup of each agent's final valid server.</p>
+                    <div class="rank-callout">
+                        <span>i</span>
+                        <p>Default ranking uses aggregate speedup of the final submitted server; scenario focus reranks by a single bottleneck.</p>
+                    </div>
+                </div>
+                <div class="leaderboard-type-note" aria-label="Leaderboard summary">
+                    <span id="leaderboard-top-label">Top agent</span>
+                    <strong id="leaderboard-top-name">Claude Sonnet 4.6</strong>
+                    <p id="leaderboard-top-copy">Sonnet 4.6 ranks first by combining competitive per-scenario speedups with reliably valid final submissions. Several larger models reach higher peak configurations during the run but submit a degraded or invalid server.</p>
+                </div>
+            </div>
+
+            <div class="leaderboard-table-wrap" data-focus="all">
+                <div class="leaderboard-toolbar">
+                    <div>
+                        <span>Scenario focus</span>
+                        <p>Choose a scenario to rerank the table by that metric.</p>
+                    </div>
+                    <div class="scenario-focus" id="scenario-focus" aria-label="Scenario focus">
+                        <button class="is-active" type="button" data-focus="all" aria-pressed="true">All</button>
+                        <button type="button" data-focus="a" aria-pressed="false">Prefill</button>
+                        <button type="button" data-focus="b" aria-pressed="false">Decode</button>
+                        <button type="button" data-focus="c" aria-pressed="false">Throughput</button>
+                        <button type="button" data-focus="d" aria-pressed="false">All-in-one</button>
+                    </div>
+                </div>
+                <div class="leaderboard-head">
+                    <span>Rank</span>
+                    <span>Model / Agent</span>
+                    <span class="numeric-heading">Aggregate</span>
+                    <span class="scenario-heading-cell" data-scenario="a">Prefill</span>
+                    <span class="scenario-heading-cell" data-scenario="b">Decode</span>
+                    <span class="scenario-heading-cell" data-scenario="c">Throughput</span>
+                    <span class="scenario-heading-cell" data-scenario="d">All-in-one</span>
+                </div>
+                <div class="leaderboard-list" id="leaderboard-list"></div>
+            </div>
+
+            <div class="key-insight">
+                <div class="spark-icon" aria-hidden="true">
+                    <svg viewBox="0 0 80 80">
+                        <path d="M18 55 31 42l11 8 20-27"></path>
+                        <circle cx="18" cy="55" r="4"></circle>
+                        <circle cx="31" cy="42" r="4"></circle>
+                        <circle cx="42" cy="50" r="4"></circle>
+                        <circle cx="62" cy="23" r="4"></circle>
+                    </svg>
+                </div>
+                <div>
+                    <span>Key finding</span>
+                    <strong>Aggregate rank reflects repeatable final-server quality.</strong>
+                </div>
+                <p>Agents that find one excellent configuration but fail many other runs score below agents that repeatedly submit valid improvements. This matters for low-supervision automated R&amp;D, where consistency is part of the result.</p>
+            </div>
+
+            <div class="scenario-breakdown">
+                <div class="breakdown-heading">
+                    <h3>Scenario Breakdown</h3>
+                    <p>Median final-agent outcome, agent range, and matched search baseline per scenario. Higher is better.</p>
+                </div>
+                <div class="breakdown-grid" id="scenario-breakdown"></div>
+
+                <div class="scenario-matrix-wrap combined-scenario-matrix">
+                    <div class="matrix-title">
+                        <h3>Top Agents Across Scenarios</h3>
+                        <p>Per-scenario speedup for the leading final-submitted agents.</p>
+                    </div>
+                    <div class="scenario-matrix" id="scenario-matrix"></div>
+                </div>
+            </div>
+
+            <div class="agent-quotes" aria-labelledby="agent-quotes-title">
+                <div class="agent-quotes-heading">
+                    <p class="eyebrow">Agent traces</p>
+                    <h3 id="agent-quotes-title">What the transcripts sound like</h3>
+                </div>
+                <article class="agent-quote-card">
+                    <span>Premature stop</span>
+                    <blockquote>
+                        <p>Baseline performance: generation throughput 63.53 tokens/s. TTFT p50 51.8 ms, p90 400 ms. ITL p50 10.2 ms. TPOT p50 15.7 ms. Quality check: PASS.</p>
+                        <p>The key metric for Scenario B is generation throughput... Let me stop the current server and optimize.</p>
+                        <p>The current server is already valid and passing the checks. Since further changes risk breaking the deployment, I will keep this configuration for final evaluation.</p>
+                    </blockquote>
+                    <em>The agent treats the first valid server as terminal rather than as a baseline for further optimization.</em>
+                </article>
+                <article class="agent-quote-card">
+                    <span>Rollback discipline</span>
+                    <blockquote>
+                        <p>V1 improved the short speed-only probe but did not hold up in the longer end-to-end path, so I’m treating it as unstable for the final submission.</p>
+                        <p>I’m using the remaining time on lower-risk V0 variants; the next one is eager execution, which might trim per-request overhead without changing the serving surface.</p>
+                        <p>--enforce-eager is promising: TTFT improved modestly and, more importantly, the tail got tighter than the current default.</p>
+                    </blockquote>
+                    <em>This run exemplifies the propose-measure-compare-rollback cycle that the benchmark rewards.</em>
+                </article>
+                <article class="agent-quote-card">
+                    <span>Controlled candidate</span>
+                    <blockquote>
+                        <p>candidate A: increase --max-num-seqs to improve batching headroom</p>
+                        <p>candidate B: enable --enable-prefix-caching to reduce repeated-prefix cost</p>
+                        <p>candidate C: change KV-cache dtype to reduce memory pressure</p>
+                    </blockquote>
+                    <em>Stronger runs isolate single-variable changes and retain only those that show measured improvement.</em>
+                </article>
+            </div>
+
+        </section>
+
+        <section class="deep-dive section" id="deep-dive">
+            <div class="section-intro">
+                <div>
+                    <p class="eyebrow">Deep dive</p>
+                    <h2>Where agent gains come from.</h2>
+                </div>
+                <p>Additional time helps initially, but gains saturate quickly and reward-hacking behavior increases at longer budgets.</p>
+            </div>
+
+            <article class="ablation-card">
+                <div class="ablation-heading">
+                    <span>1</span>
+                    <div>
+                        <h3>Time Budget Ablation</h3>
+                        <p>Aggregate speedup versus native PyTorch as the per-run time budget increases. Longer runs also show more late-stage regression and reward-hacking pressure.</p>
+                    </div>
+                </div>
+                <div class="line-chart-grid" id="time-ablation"></div>
+                <div class="takeaway-box">
+                    <span aria-hidden="true">“</span>
+                    <div>
+                        <h4>Takeaway</h4>
+                        <p>Most of the speedup is captured within the first two hours. Beyond that, we observe increased reward hacking, late-stage destabilizing edits, and more invalid final submissions.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="ablation-card">
+                <div class="ablation-heading">
+                    <span>2</span>
+                    <div>
+                        <h3>Forced-Engine Comparison</h3>
+                        <p>Starting from vLLM improves reliability, and forced engine choice helps on the right scenario, but neither closes the non-agent search gap.</p>
+                    </div>
+                </div>
+                <div class="comparison-table-wrap">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>A Prefill</th>
+                                <th>B Decode</th>
+                                <th>C Throughput</th>
+                                <th>D All-In-One</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="dot tone-agent"></span> Default auto</td>
+                                <td>3.53×</td>
+                                <td>2.24×</td>
+                                <td>25.84×</td>
+                                <td>3.25×</td>
+                            </tr>
+                            <tr>
+                                <td><span class="dot tone-search-light"></span> vLLM-only</td>
+                                <td>3.71×</td>
+                                <td>4.08×</td>
+                                <td>27.41×</td>
+                                <td>3.48×</td>
+                            </tr>
+                            <tr>
+                                <td><span class="dot tone-sage"></span> SGLang-only</td>
+                                <td>4.62×</td>
+                                <td>6.84×</td>
+                                <td>29.76×</td>
+                                <td>3.71×</td>
+                            </tr>
+                            <tr>
+                                <td><span class="dot tone-charcoal"></span> TGI-only</td>
+                                <td>3.74×</td>
+                                <td>3.96×</td>
+                                <td class="emphasis">61.38×</td>
+                                <td>5.24×</td>
+                            </tr>
+                            <tr class="search-row">
+                                <td>Per-scenario best non-agent search</td>
+                                <td>5.06×</td>
+                                <td>15.23×</td>
+                                <td>89.00×</td>
+                                <td>6.10×</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="takeaway-box">
+                    <span aria-hidden="true">“</span>
+                    <div>
+                        <h4>Takeaway</h4>
+                        <p>Restricting agents to a single engine improves reliability and matches certain scenarios well (e.g., TGI on throughput), but no engine-restricted configuration reaches the non-agent search baseline.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="analysis section" id="analysis">
+            <div class="analysis-hero">
+                <div>
+                    <p class="eyebrow">Insights</p>
+                    <h2>Failure modes.</h2>
+                    <p>Across 180 runs, agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>Run outcomes across 180 runs</h3>
+                    <div class="stacked-bar" id="outcome-bar" aria-label="Run outcome distribution"></div>
+                    <div class="outcome-grid" id="outcome-grid"></div>
+                </div>
+            </div>
+
+            <div class="behavior-panel">
+                <div class="behavior-summary">
+                    <h3>Agent behavior patterns</h3>
+                    <p><strong>93.9%</strong> of runs submit a vLLM-based server.</p>
+                    <hr>
+                    <span>Transcripts repeatedly name relevant optimizations, while the measured search remains shallow.</span>
+                    <div class="technique-mentions">
+                        <span><strong>97%</strong> Chunked prefill</span>
+                        <span><strong>96%</strong> Quantization</span>
+                        <span><strong>84%</strong> Speculative decoding</span>
+                    </div>
+                </div>
+                <div class="histogram">
+                    <h3>Distribution of distinct non-default configs per run</h3>
+                    <div class="histogram-bars" id="config-histogram"></div>
+                </div>
+            </div>
+
+            <div class="found-panel">
+                <div class="found-copy">
+                    <p class="eyebrow">Found vs submitted</p>
+                    <h3>Found configurations often disappear before submission because agents fail to validate and preserve them.</h3>
+                    <div class="legend">
+                        <span><i class="legend-solid"></i> Speedup</span>
+                        <span><i class="legend-dashed"></i> Drop relative to previous stage</span>
+                    </div>
+                </div>
+                <div class="found-chart" id="found-chart" aria-label="Found versus submitted performance"></div>
+            </div>
+
+            <blockquote class="quote-band">
+                <span aria-hidden="true">“</span>
+                <p>Agents are aware of relevant techniques but conduct <strong>shallow search</strong> and frequently fail to preserve their best configuration in the final submission.</p>
+            </blockquote>
+
+        </section>
+
+        <div class="closing-band">
+            <section class="team-section section" id="team">
+                <h2>Team</h2>
+                <div class="team-authors" aria-label="Authors">
+                    <a href="https://jeybird248.github.io/" target="_blank" rel="noopener">Jehyeok Yeon<sup>1,2</sup></a>
+                    <a href="https://benrank.com/" target="_blank" rel="noopener">Ben Rank<sup>1,2,3</sup></a>
+                    <a href="https://www.andriushchenko.me/" target="_blank" rel="noopener">Maksym Andriushchenko<sup>1,2,3</sup></a>
+                </div>
+                <div class="team-affiliations" aria-label="Affiliations">
+                    <span><sup>1</sup>ELLIS Institute Tübingen</span>
+                    <span><sup>2</sup>Max Planck Institute for Intelligent Systems</span>
+                    <span><sup>3</sup>Tübingen AI Center</span>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <span>InferenceBench</span>
+        <a href="assets/paper.pdf" target="_blank" rel="noopener">Paper PDF</a>
+        <a href="https://github.com/aisa-group/InferenceBench" target="_blank" rel="noopener">Repository</a>
+    </footer>
+
+    <script src="script.js?v=20260513-footer-visible"></script>
+</body>
+</html>
