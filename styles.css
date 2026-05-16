@@ -1529,6 +1529,17 @@ h3 {
     line-height: 1.18;
 }
 
+.found-conclusion {
+    margin: 1.2rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+}
+
+.found-conclusion strong {
+    color: var(--copper-dark);
+}
+
 .legend {
     display: grid;
     gap: 0.55rem;
@@ -1677,41 +1688,6 @@ h3 {
     font-size: 0.84rem;
     font-style: normal;
     line-height: 1.45;
-}
-
-.quote-band {
-    display: grid;
-    grid-template-columns: 132px 1fr;
-    gap: 2rem;
-    align-items: center;
-    margin: 4.2rem 0 0;
-    padding: 42px 70px;
-    border-radius: 8px;
-    background: rgba(231, 224, 214, 0.78);
-}
-
-.quote-band span {
-    display: inline-flex;
-    width: 108px;
-    height: 108px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(44, 54, 90, 0.12);
-    color: var(--copper-dark);
-    font-size: 4rem;
-    line-height: 1;
-}
-
-.quote-band p {
-    max-width: 780px;
-    margin: 0;
-    font-size: 2rem;
-    line-height: 1.25;
-}
-
-.quote-band strong {
-    color: var(--copper-dark);
 }
 
 .closing-band {
@@ -2286,7 +2262,6 @@ h3 {
         font-size: 2.1rem;
     }
 
-    .quote-band,
     .key-insight,
     .takeaway-box {
         grid-template-columns: 1fr;
@@ -2309,10 +2284,6 @@ h3 {
 
     .agent-quote-card p {
         font-size: 1.35rem;
-    }
-
-    .quote-band p {
-        font-size: 1.45rem;
     }
 
     .key-insight p {

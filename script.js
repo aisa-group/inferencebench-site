@@ -636,7 +636,6 @@ function setupScrollExperience() {
             ".behavior-panel",
             ".found-panel",
             ".agent-quotes",
-            ".quote-band",
             ".team-section"
         ].join(", "))
     ].filter(Boolean);
