@@ -289,7 +289,7 @@ function renderAggregateChart(targetId, data) {
                     <span class="aggregate-name">${item.shortLabel ?? item.label}</span>
                     <span class="aggregate-value">${fmt(item.value)}</span>
                 </div>
-                <div class="lollipop" title="${item.label}: ${fmt(item.value)}; ${semLabel}" style="--height:${height}px; --bar:${item.bar}; --dot:${item.dot};">
+                <div class="lollipop" title="${item.label}: ${fmt(item.value)}; ${semLabel}" style="--height:${height}px; --bar:${item.bar === "#2c365a" ? "#6c7693" : item.bar}; --dot:${item.dot};">
                     ${whisker}
                 </div>
             </div>
