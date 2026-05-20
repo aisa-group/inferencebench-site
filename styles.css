@@ -741,9 +741,9 @@ h3 {
 
 .aggregate-label {
     align-self: start;
-    max-width: 104px;
+    max-width: 112px;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.92rem;
     font-weight: 720;
     line-height: 1.2;
 }
@@ -754,9 +754,9 @@ h3 {
 
 .aggregate-value {
     display: block;
-    margin-top: 0.22rem;
+    margin-top: 0.26rem;
     color: var(--ink);
-    font-size: 1.24rem;
+    font-size: 1.42rem;
     font-weight: 800;
 }
 
