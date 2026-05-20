@@ -1,46 +1,77 @@
 const aggregateData = [
     {
         label: "Hyperparameter Search",
+        shortLabel: "Hyperparameter Search",
         value: 11.53,
-        caption: "Best search",
-        bar: "#c4bcb0",
-        dot: "#2c365a"
+        sem: 0.68,
+        bar: "#d6cec2",
+        dot: "#8e887d"
     },
     {
         label: "Claude Sonnet 4.6",
+        shortLabel: "Sonnet 4.6",
         value: 8.08,
-        caption: "Agent rank 1",
+        sem: 1.10,
         bar: "#2c365a",
         dot: "#2c365a"
     },
     {
         label: "GLM-5",
+        shortLabel: "GLM-5",
         value: 6.20,
-        caption: "Agent rank 2",
-        bar: "#657091",
+        sem: 1.48,
+        bar: "#2c365a",
         dot: "#2c365a"
     },
     {
         label: "Gemini 3.1 Pro",
+        shortLabel: "Gemini 3.1",
         value: 6.16,
-        caption: "Agent rank 3",
-        bar: "#8f96ad",
+        sem: 0.78,
+        bar: "#2c365a",
         dot: "#2c365a"
     },
     {
         label: "vLLM Default",
+        shortLabel: "vLLM Default",
         value: 4.05,
-        caption: "Default engine",
+        sem: 0.07,
         bar: "#d6cec2",
         dot: "#8e887d"
     },
     {
-        label: "PyTorch Baseline",
+        label: "PyTorch Default",
+        shortLabel: "PyTorch Default",
         value: 1.0,
-        caption: "Naive baseline",
-        bar: "#9ca3ad",
-        dot: "#2c365a"
+        sem: 0.0,
+        bar: "#d6cec2",
+        dot: "#8e887d"
     }
+];
+
+const aggregateExpandedData = [
+    aggregateData[0],
+    aggregateData[1],
+    aggregateData[2],
+    aggregateData[3],
+    {
+        label: "GPT-5.5 (High)",
+        shortLabel: "GPT-5.5",
+        value: 4.22,
+        sem: 1.30,
+        bar: "#2c365a",
+        dot: "#2c365a"
+    },
+    aggregateData[4],
+    {
+        label: "Claude Opus 4.7",
+        shortLabel: "Opus 4.7",
+        value: 2.25,
+        sem: 0.32,
+        bar: "#2c365a",
+        dot: "#2c365a"
+    },
+    aggregateData[5]
 ];
 
 const scenarioData = [
@@ -103,21 +134,21 @@ const scenarioData = [
 ];
 
 const leaderboardRows = [
-    { rank: 1, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 8.08, type: "agent", a: 3.47, b: 12.03, c: 33.93, d: 3.01 },
-    { rank: 2, model: "GLM-5", scaffold: "OpenCode", value: 6.20, type: "agent", a: 3.44, b: 4.45, c: 26.36, d: 3.66 },
-    { rank: 3, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 6.16, type: "agent", a: 3.35, b: 4.81, c: 31.24, d: 2.87 },
-    { rank: 4, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.48, type: "agent", a: 3.54, b: 3.38, c: 29.0, d: 2.60 },
-    { rank: 5, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 5.08, type: "agent", a: 3.53, b: 2.24, c: 25.84, d: 3.25 },
-    { rank: 6, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 4.86, type: "agent", a: 2.75, b: 3.73, c: 19.30, d: 2.82 },
-    { rank: 7, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
-    { rank: 8, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 3.89, type: "agent", a: 1.00, b: 2.77, c: 25.64, d: 3.21 },
-    { rank: 9, model: "GPT-5.2", scaffold: "Codex CLI", value: 3.82, type: "agent", a: 3.12, b: 1.00, c: 32.61, d: 2.09 },
-    { rank: 10, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.54, type: "agent", a: 1.00, b: 4.66, c: 15.00, d: 2.23 },
-    { rank: 11, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.37, type: "agent", a: 3.69, b: 1.00, c: 18.01, d: 1.93 },
-    { rank: 12, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 2.96, type: "agent", a: 2.67, b: 1.00, c: 9.65, d: 2.97 },
-    { rank: 13, model: "Claude Opus 4.7", scaffold: "Claude Code", value: 2.25, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27 },
-    { rank: 14, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.55, type: "agent", a: 3.07, b: 1.00, c: 1.00, d: 1.87 },
-    { rank: 15, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 1.24, type: "agent", a: 0.77, b: 1.00, c: 3.11, d: 1.00 }
+    { rank: 1, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 8.08, sem: 1.10, type: "agent", a: 3.47, b: 12.03, c: 33.93, d: 3.01 },
+    { rank: 2, model: "GLM-5", scaffold: "OpenCode", value: 6.20, sem: 1.48, type: "agent", a: 3.44, b: 4.45, c: 26.36, d: 3.66 },
+    { rank: 3, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 6.16, sem: 0.78, type: "agent", a: 3.35, b: 4.81, c: 31.24, d: 2.87 },
+    { rank: 4, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.48, sem: 0.51, type: "agent", a: 3.54, b: 3.38, c: 29.0, d: 2.60 },
+    { rank: 5, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 5.08, sem: 0.92, type: "agent", a: 3.53, b: 2.24, c: 25.84, d: 3.25 },
+    { rank: 6, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 4.86, sem: 1.14, type: "agent", a: 2.75, b: 3.73, c: 19.30, d: 2.82 },
+    { rank: 7, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.30, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
+    { rank: 8, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 3.89, sem: 1.17, type: "agent", a: 1.00, b: 2.77, c: 25.64, d: 3.21 },
+    { rank: 9, model: "GPT-5.2", scaffold: "Codex CLI", value: 3.82, sem: 0.85, type: "agent", a: 3.12, b: 1.00, c: 32.61, d: 2.09 },
+    { rank: 10, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.54, sem: 0.69, type: "agent", a: 1.00, b: 4.66, c: 15.00, d: 2.23 },
+    { rank: 11, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.37, sem: 0.98, type: "agent", a: 3.69, b: 1.00, c: 18.01, d: 1.93 },
+    { rank: 12, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 2.96, sem: 1.02, type: "agent", a: 2.67, b: 1.00, c: 9.65, d: 2.97 },
+    { rank: 13, model: "Claude Opus 4.7", scaffold: "Claude Code", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27 },
+    { rank: 14, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.55, sem: 0.27, type: "agent", a: 3.07, b: 1.00, c: 1.00, d: 1.87 },
+    { rank: 15, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 1.24, sem: 0.19, type: "agent", a: 0.77, b: 1.00, c: 3.11, d: 1.00 }
 ];
 
 const scenarioColumns = [
@@ -196,12 +227,30 @@ const foundData = [
 ];
 
 const timeBudgetData = [
-    { model: "Claude Haiku 4.5", values: [1.05, 1.24, 1.30, 1.35] },
-    { model: "Claude Sonnet 4.5", values: [1.92, 2.96, 2.92, 2.81] },
-    { model: "Claude Opus 4.5", values: [2.42, 3.37, 3.31, 3.24] }
+    {
+        model: "Claude Haiku 4.5",
+        values: [1.05, 1.24, 1.30, 1.35],
+        sem: [0.16, 0.19, 0.20, 0.21],
+        estimated: [true, false, true, true]
+    },
+    {
+        model: "Claude Sonnet 4.5",
+        values: [1.92, 2.96, 2.92, 2.81],
+        sem: [0.66, 1.02, 1.01, 0.97],
+        estimated: [true, false, true, true]
+    },
+    {
+        model: "Claude Opus 4.5",
+        values: [2.42, 3.37, 3.31, 3.24],
+        sem: [0.70, 0.98, 0.96, 0.94],
+        estimated: [true, false, true, true]
+    }
 ];
 
 const timeLabels = ["1h", "2h", "4h", "8h"];
+const AGGREGATE_MIN = 1;
+const AGGREGATE_MAX = 12.5;
+const AGGREGATE_PLOT_HEIGHT = 250;
 
 function fmt(value) {
     return `${value.toFixed(2)}×`;
@@ -214,24 +263,44 @@ function median(values) {
     return (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
-function renderAggregateChart() {
-    const target = document.getElementById("aggregate-chart");
+function renderAggregateChart(targetId, data) {
+    const target = document.getElementById(targetId);
     if (!target) return;
 
-    const max = 12;
-    target.innerHTML = aggregateData.map((item) => {
-        const height = Math.max(24, (item.value / max) * 250);
+    const plotHeight = (value) => {
+        const clamped = Math.max(AGGREGATE_MIN, Math.min(AGGREGATE_MAX, value));
+        return ((clamped - AGGREGATE_MIN) / (AGGREGATE_MAX - AGGREGATE_MIN)) * AGGREGATE_PLOT_HEIGHT;
+    };
+
+    const items = data.map((item) => {
+        const height = plotHeight(item.value);
+        const sem = item.sem ?? 0;
+        const semLabel = sem > 0 ? `SEM ±${fmt(sem)}` : "no SEM";
+        const whiskerLow = Math.max(AGGREGATE_MIN, item.value - sem);
+        const whiskerHigh = item.value + sem;
+        const whiskerLowHeight = plotHeight(whiskerLow);
+        const whiskerHighHeight = Math.max(whiskerLowHeight, plotHeight(whiskerHigh));
+        const whisker = sem > 0
+            ? `<span class="ci-whisker" style="--ci-bottom:${whiskerLowHeight.toFixed(1)}px; --ci-top:${whiskerHighHeight.toFixed(1)}px;"></span>`
+            : "";
         return `
-            <div class="aggregate-item">
-                <div class="aggregate-label">
-                    ${item.label}
+            <div class="aggregate-item" aria-label="${item.label}: ${fmt(item.value)}, ${semLabel}">
+                <div class="aggregate-label" title="${item.label}">
+                    <span class="aggregate-name">${item.shortLabel ?? item.label}</span>
                     <span class="aggregate-value">${fmt(item.value)}</span>
                 </div>
-                <div class="lollipop" style="--height:${height}px; --bar:${item.bar}; --dot:${item.dot};"></div>
-                <div class="aggregate-caption">${item.caption}</div>
+                <div class="lollipop" title="${item.label}: ${fmt(item.value)}; ${semLabel}" style="--height:${height}px; --bar:${item.bar}; --dot:${item.dot};">
+                    ${whisker}
+                </div>
             </div>
         `;
     }).join("");
+
+    target.innerHTML = `<span class="aggregate-baseline" aria-hidden="true"><span>1x baseline</span></span>${items}`;
+}
+
+function renderAggregateCharts() {
+    renderAggregateChart("aggregate-chart-expanded", aggregateExpandedData);
 }
 
 function renderScenarioBreakdown() {
@@ -301,7 +370,10 @@ function renderLeaderboard(focus = "all") {
                 <div class="speed-track" aria-hidden="true">
                     <span class="speed-fill" style="--w:${width}%"></span>
                 </div>
-                <span class="row-speed">${fmt(row.value)}</span>
+                <span class="row-speed">
+                    <span class="row-speed-value">${fmt(row.value)}</span>
+                    <span class="row-speed-sem">±${row.sem.toFixed(2)}×</span>
+                </span>
                 ${scenarioCells}
             </div>
         `;
@@ -486,14 +558,22 @@ function renderTimeAblation() {
         const minY = 1;
         const maxY = 4;
 
+        const clampY = (value) => Math.max(minY, Math.min(maxY, value));
         const point = (value, index) => {
             const x = left + (index / (series.values.length - 1)) * plotW;
-            const y = top + ((maxY - value) / (maxY - minY)) * plotH;
+            const y = top + ((maxY - clampY(value)) / (maxY - minY)) * plotH;
             return { x, y };
         };
 
         const points = series.values.map(point);
         const path = points.map((p, index) => `${index === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" ");
+        const upperPoints = series.values.map((value, index) => point(value + (series.sem?.[index] ?? 0), index));
+        const lowerPoints = series.values.map((value, index) => point(value - (series.sem?.[index] ?? 0), index)).reverse();
+        const bandPath = [
+            ...upperPoints.map((p, index) => `${index === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`),
+            ...lowerPoints.map((p) => `L${p.x.toFixed(1)} ${p.y.toFixed(1)}`),
+            "Z"
+        ].join(" ");
         const gridLines = [1, 1.5, 2, 2.5, 3, 3.5, 4].map((tick) => {
             const y = top + ((maxY - tick) / (maxY - minY)) * plotH;
             return `<line class="grid" x1="${left}" x2="${width - right}" y1="${y}" y2="${y}"></line>`;
@@ -514,6 +594,7 @@ function renderTimeAblation() {
                     ${gridLines}
                     <line class="axis" x1="${left}" x2="${left}" y1="${top}" y2="${height - bottom}"></line>
                     <line class="axis" x1="${left}" x2="${width - right}" y1="${height - bottom}" y2="${height - bottom}"></line>
+                    <path class="uncertainty" d="${bandPath}"></path>
                     <path class="series" d="${path}"></path>
                     ${circles}
                     ${valueLabels}
@@ -689,7 +770,7 @@ function setupScrollExperience() {
     });
 }
 
-renderAggregateChart();
+renderAggregateCharts();
 renderScenarioBreakdown();
 renderLeaderboard();
 setupScenarioFocus();
