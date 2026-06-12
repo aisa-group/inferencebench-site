@@ -1,4 +1,5 @@
 screenshots/
+data/
 
 # Local environment and credentials
 .env

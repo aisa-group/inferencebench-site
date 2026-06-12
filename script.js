@@ -8,26 +8,34 @@ const aggregateData = [
         dot: "#8e887d"
     },
     {
-        label: "Claude Sonnet 4.6",
-        shortLabel: "Sonnet 4.6",
-        value: 8.08,
-        sem: 1.10,
+        label: "Claude Fable 5 (Low)",
+        shortLabel: "Fable 5 (Low) *†",
+        value: 8.74,
+        sem: 1.91,
         bar: "#2c365a",
         dot: "#2c365a"
     },
     {
-        label: "GLM-5",
-        shortLabel: "GLM-5",
-        value: 6.20,
-        sem: 1.48,
+        label: "Claude Opus 4.8",
+        shortLabel: "Opus 4.8 *",
+        value: 7.6,
+        sem: 2.16,
         bar: "#2c365a",
         dot: "#2c365a"
     },
     {
-        label: "Gemini 3.1 Pro",
-        shortLabel: "Gemini 3.1",
-        value: 6.16,
-        sem: 0.78,
+        label: "Claude Fable 5",
+        shortLabel: "Fable 5 *†",
+        value: 7.52,
+        sem: 1.58,
+        bar: "#2c365a",
+        dot: "#2c365a"
+    },
+    {
+        label: "GPT-5.5 (xHigh)",
+        shortLabel: "GPT-5.5 (xHigh)",
+        value: 5.45,
+        sem: 1.25,
         bar: "#2c365a",
         dot: "#2c365a"
     },
@@ -40,6 +48,14 @@ const aggregateData = [
         dot: "#8e887d"
     },
     {
+        label: "GLM-5",
+        shortLabel: "GLM-5",
+        value: 3.22,
+        sem: 0.85,
+        bar: "#2c365a",
+        dot: "#2c365a"
+    },
+    {
         label: "PyTorch Default",
         shortLabel: "PyTorch Default",
         value: 1.0,
@@ -49,30 +65,7 @@ const aggregateData = [
     }
 ];
 
-const aggregateExpandedData = [
-    aggregateData[0],
-    aggregateData[1],
-    aggregateData[2],
-    aggregateData[3],
-    {
-        label: "GPT-5.5 (High)",
-        shortLabel: "GPT-5.5",
-        value: 4.22,
-        sem: 1.30,
-        bar: "#2c365a",
-        dot: "#2c365a"
-    },
-    aggregateData[4],
-    {
-        label: "Claude Opus 4.7",
-        shortLabel: "Opus 4.7",
-        value: 2.25,
-        sem: 0.32,
-        bar: "#2c365a",
-        dot: "#2c365a"
-    },
-    aggregateData[5]
-];
+const aggregateExpandedData = aggregateData;
 
 const scenarioData = [
     {
@@ -80,11 +73,11 @@ const scenarioData = [
         key: "a",
         title: "Time to First Token (TTFT)",
         metric: "Prefill Latency",
-        headline: 3.47,
+        headline: 4.53,
         description: "Agents reduce time to first token substantially, though search still leads.",
         values: [
             { label: "Search", value: 4.37, color: "#2c365a" },
-            { label: "Best agent", value: 3.47, color: "#657091" },
+            { label: "Best agent", value: 4.53, color: "#657091" },
             { label: "vLLM", value: 1.25, color: "#c4bcb0" },
             { label: "PyTorch", value: 1.0, color: "#8e887d" }
         ]
@@ -94,11 +87,11 @@ const scenarioData = [
         key: "b",
         title: "Time Per Output Token (TPOT)",
         metric: "Decode Latency",
-        headline: 12.03,
+        headline: 12.16,
         description: "Agents dramatically improve per-token latency, narrowing much of the gap.",
         values: [
             { label: "Search", value: 15.23, color: "#2c365a" },
-            { label: "Best agent", value: 12.03, color: "#657091" },
+            { label: "Best agent", value: 12.16, color: "#657091" },
             { label: "vLLM", value: 2.25, color: "#c4bcb0" },
             { label: "PyTorch", value: 1.0, color: "#8e887d" }
         ]
@@ -108,11 +101,11 @@ const scenarioData = [
         key: "c",
         title: "Throughput (Requests / s)",
         metric: "Concurrent Traffic",
-        headline: 33.93,
+        headline: 38.52,
         description: "Agents unlock major throughput gains, but search and defaults can climb higher.",
         values: [
             { label: "Search", value: 46.7, color: "#2c365a" },
-            { label: "Best agent", value: 33.93, color: "#657091" },
+            { label: "Best agent", value: 38.52, color: "#657091" },
             { label: "vLLM", value: 48.69, color: "#c4bcb0" },
             { label: "PyTorch", value: 1.0, color: "#8e887d" }
         ]
@@ -122,11 +115,11 @@ const scenarioData = [
         key: "d",
         title: "Aggregate (Geometric Mean)",
         metric: "All-In-One",
-        headline: 3.01,
+        headline: 4.65,
         description: "Balanced objectives expose the discipline gap most clearly.",
         values: [
             { label: "Search", value: 5.69, color: "#2c365a" },
-            { label: "Best agent", value: 3.01, color: "#657091" },
+            { label: "Best agent", value: 4.65, color: "#657091" },
             { label: "vLLM", value: 1.96, color: "#c4bcb0" },
             { label: "PyTorch", value: 1.0, color: "#8e887d" }
         ]
@@ -134,38 +127,50 @@ const scenarioData = [
 ];
 
 const leaderboardRows = [
-    { rank: 1, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 8.08, sem: 1.10, type: "agent", a: 3.47, b: 12.03, c: 33.93, d: 3.01 },
-    { rank: 2, model: "GLM-5", scaffold: "OpenCode", value: 6.20, sem: 1.48, type: "agent", a: 3.44, b: 4.45, c: 26.36, d: 3.66 },
-    { rank: 3, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 6.16, sem: 0.78, type: "agent", a: 3.35, b: 4.81, c: 31.24, d: 2.87 },
-    { rank: 4, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.48, sem: 0.51, type: "agent", a: 3.54, b: 3.38, c: 29.0, d: 2.60 },
-    { rank: 5, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 5.08, sem: 0.92, type: "agent", a: 3.53, b: 2.24, c: 25.84, d: 3.25 },
-    { rank: 6, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 4.86, sem: 1.14, type: "agent", a: 2.75, b: 3.73, c: 19.30, d: 2.82 },
-    { rank: 7, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.30, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
-    { rank: 8, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 3.89, sem: 1.17, type: "agent", a: 1.00, b: 2.77, c: 25.64, d: 3.21 },
-    { rank: 9, model: "GPT-5.2", scaffold: "Codex CLI", value: 3.82, sem: 0.85, type: "agent", a: 3.12, b: 1.00, c: 32.61, d: 2.09 },
-    { rank: 10, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.54, sem: 0.69, type: "agent", a: 1.00, b: 4.66, c: 15.00, d: 2.23 },
-    { rank: 11, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.37, sem: 0.98, type: "agent", a: 3.69, b: 1.00, c: 18.01, d: 1.93 },
-    { rank: 12, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 2.96, sem: 1.02, type: "agent", a: 2.67, b: 1.00, c: 9.65, d: 2.97 },
-    { rank: 13, model: "Claude Opus 4.7", scaffold: "Claude Code", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27 },
-    { rank: 14, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.55, sem: 0.27, type: "agent", a: 3.07, b: 1.00, c: 1.00, d: 1.87 },
-    { rank: 15, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 1.24, sem: 0.19, type: "agent", a: 0.77, b: 1.00, c: 3.11, d: 1.00 }
+    { rank: 1, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 8.74, sem: 1.91, type: "agent", a: 4.17, b: 13.38, c: 21.37, d: 4.89, mark: "*†", key: "fable-5-low-strict", variant: true },
+    { rank: 2, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.175", value: 8.53, sem: 0.80, type: "agent", a: 2.83, b: 11.63, c: 38.52, d: 4.18, mark: "*" },
+    { rank: 3, model: "Claude Opus 4.8", scaffold: "Claude Code · v2.1.175", value: 7.60, sem: 2.16, type: "agent", a: 4.53, b: 12.16, c: 18.62, d: 3.25, mark: "*" },
+    { rank: 4, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 7.52, sem: 1.58, type: "agent", a: 4.27, b: 15.64, c: 11.90, d: 4.03, mark: "*†", key: "fable-5-strict", variant: true },
+    { rank: 5, model: "Claude Opus 4.8 (xHigh)", scaffold: "Claude Code", value: 7.34, sem: 2.37, type: "agent", a: 4.30, b: 7.72, c: 18.77, d: 4.65 },
+    { rank: 6, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25 },
+    { rank: 7, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01 },
+    { rank: 8, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60 },
+    { rank: 9, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14 },
+    { rank: 10, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97 },
+    { rank: 11, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51 },
+    { rank: 12, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21 },
+    { rank: 13, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57 },
+    { rank: 14, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
+    { rank: 15, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50 },
+    { rank: 16, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95 },
+    { rank: 17, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82 },
+    { rank: 18, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87 },
+    { rank: 19, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32 },
+    { rank: 20, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
+    { rank: 21, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24 },
+    { rank: 22, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82 },
+    { rank: 23, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
+    { rank: 24, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low", variant: true },
+    { rank: 25, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87 }
 ];
 
 const scenarioColumns = [
-    { key: "a", label: "A Prefill Latency", shortLabel: "Prefill", color: "#657091", max: 4 },
+    { key: "a", label: "A Prefill Latency", shortLabel: "Prefill", color: "#657091", max: 5 },
     { key: "b", label: "B Decode Latency", shortLabel: "Decode", color: "#2c365a", max: 13 },
-    { key: "c", label: "C Throughput", shortLabel: "Throughput", color: "#202944", max: 35 },
-    { key: "d", label: "D All-In-One", shortLabel: "All-in-one", color: "#8e887d", max: 4 }
+    { key: "c", label: "C Throughput", shortLabel: "Throughput", color: "#202944", max: 40 },
+    { key: "d", label: "D All-In-One", shortLabel: "All-in-one", color: "#8e887d", max: 5 }
 ];
 
 const scenarioFocusNotes = {
-    a: "Prefill optimization is driven by long-context prompt processing, where prefix caching, chunked prefill, and memory bandwidth matter more than decode throughput.",
-    b: "Decode optimization is dominated by per-token generation latency, so batching policy, KV-cache layout, and speculative decoding become more important than prompt ingestion.",
-    c: "Throughput optimization rewards serving many concurrent requests, making scheduling, batching limits, and engine-level queueing behavior central.",
-    d: "All-in-one optimization balances latency and throughput, so robust configurations need to avoid overfitting to a single bottleneck."
+    a: "Opus 4.8 set its batched-token budget large enough to prefill the entire prompt in a single step, which is what drives time to first token down. It passed all three seeds cleanly, while a third of the runs on this scenario failed a gate.",
+    b: "Scenario B is where FP8 helps most, so many agents reached for it by swapping in banned pre-quantized checkpoints, and 38% of runs here failed a gate. Fable 5 quantized to FP8 legitimately and added 16-token speculative decoding, making it one of only two agents to beat matched parameter search on any scenario.",
+    c: "Most agents quantized only the model weights, but Opus 4.7 also quantized the KV cache to FP8, freeing enough memory to batch 384 concurrent requests and lift throughput far higher. Its three seeds all landed between 38.2 and 39.0×, though even that trails tuned parameter search.",
+    d: "The all-in-one score is a geometric mean, so one weak metric sinks it. Rivals tuned hard for a single axis and lost ground elsewhere, while Fable 5 (Low) kept a moderate batch and light speculation that raise every metric at once, letting the lowest-effort run finish on top."
 };
 
 const modelKey = (model) => model.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const rowKey = (row) => row.key || modelKey(row.model);
+const markHtml = (row) => row.mark ? `<sup class="rank-mark">${row.mark}</sup>` : "";
 
 function sortedLeaderboardRows(focus = "all") {
     const key = focus === "all" ? "value" : focus;
@@ -180,7 +185,7 @@ function updateLeaderboardSummary(focus = "all", topRow = sortedLeaderboardRows(
 
     if (focus === "all") {
         label.textContent = "Top agent";
-        name.textContent = topRow.model;
+        name.innerHTML = topRow.model + markHtml(topRow);
         copy.textContent = `${topRow.model} ranks first by combining competitive per-scenario speedups with reliably valid final submissions. Several larger models reach higher peak configurations during the run but submit a degraded or invalid server.`;
         return;
     }
@@ -188,15 +193,15 @@ function updateLeaderboardSummary(focus = "all", topRow = sortedLeaderboardRows(
     const column = scenarioColumns.find((item) => item.key === focus);
     const scenarioName = column?.shortLabel ?? "scenario";
     label.textContent = `Top ${scenarioName}`;
-    name.textContent = topRow.model;
-    copy.textContent = `${topRow.model} leads this scenario with a ${fmt(topRow[focus])} mean speedup. ${scenarioFocusNotes[focus] ?? ""}`;
+    name.innerHTML = topRow.model + markHtml(topRow);
+    copy.textContent = scenarioFocusNotes[focus] ?? "";
 }
 
 const outcomeData = [
-    { label: "Passed both gates", value: 65.0, color: "#2c365a" },
-    { label: "Failed correctness check", value: 18.9, color: "#c4bcb0" },
-    { label: "Integrity-flagged", value: 6.1, color: "#d9d2c7" },
-    { label: "Server/runtime failure", value: 10.0, color: "#586078" }
+    { label: "Passed both gates", value: 67.5, color: "#2c365a" },
+    { label: "Failed/incomplete quality gate", value: 9.9, color: "#c4bcb0" },
+    { label: "Integrity-flagged", value: 13.9, color: "#d9d2c7" },
+    { label: "Server/runtime failure", value: 8.7, color: "#586078" }
 ];
 
 const configDistribution = [
@@ -210,14 +215,14 @@ const foundData = [
     {
         label: "Best final-submitted agent aggregate",
         description: "What agents reliably preserve and submit.",
-        value: 8.62,
-        gap: "+3.72×"
+        value: 9.97,
+        gap: "+3.94×"
     },
     {
         label: "Best-seen agent aggregate",
         description: "Best valid configuration discovered at any point.",
-        value: 12.34,
-        gap: "+1.96×"
+        value: 13.91,
+        gap: "+0.39×"
     },
     {
         label: "Best non-agent search",
@@ -229,19 +234,19 @@ const foundData = [
 const timeBudgetData = [
     {
         model: "Claude Haiku 4.5",
-        values: [1.05, 1.24, 1.30, 1.35],
+        values: [1.05, 2.78, 1.30, 1.35],
         sem: [0.16, 0.19, 0.20, 0.21],
         estimated: [true, false, true, true]
     },
     {
         model: "Claude Sonnet 4.5",
-        values: [1.92, 2.96, 2.92, 2.81],
+        values: [1.92, 3.18, 2.92, 2.81],
         sem: [0.66, 1.02, 1.01, 0.97],
         estimated: [true, false, true, true]
     },
     {
         model: "Claude Opus 4.5",
-        values: [2.42, 3.37, 3.31, 3.24],
+        values: [2.42, 3.76, 3.31, 3.24],
         sem: [0.70, 0.98, 0.96, 0.94],
         estimated: [true, false, true, true]
     }
@@ -309,7 +314,7 @@ function renderScenarioBreakdown() {
 
     target.innerHTML = scenarioData.map((scenario) => {
         const agentValues = leaderboardRows
-            .filter((row) => row.type === "agent")
+            .filter((row) => row.type === "agent" && !row.variant)
             .map((row) => row[scenario.key]);
         const medianValue = median(agentValues);
         const minValue = Math.min(...agentValues);
@@ -361,10 +366,10 @@ function renderLeaderboard(focus = "all") {
             `;
         }).join("");
         return `
-            <div class="leaderboard-row ${row.type}" data-model-key="${modelKey(row.model)}">
+            <div class="leaderboard-row ${row.type}" data-model-key="${rowKey(row)}">
                 <span class="rank-badge ${rankClass}">${index + 1}</span>
                 <div>
-                    <span class="model-name">${row.model}</span>
+                    <span class="model-name">${row.model}${markHtml(row)}</span>
                     <span class="model-subtitle">${row.scaffold}</span>
                 </div>
                 <div class="speed-track" aria-hidden="true">
@@ -395,7 +400,7 @@ function setupScenarioFocus() {
         const existingRows = rowByKey();
 
         orderedRows.forEach((row, index) => {
-            const element = existingRows.get(modelKey(row.model));
+            const element = existingRows.get(rowKey(row));
             if (!element) return;
             const badge = element.querySelector(".rank-badge");
             if (badge) {
@@ -454,7 +459,7 @@ function renderScenarioMatrix() {
 
     const body = rows.map((row) => `
         <div class="matrix-row">
-            <div class="matrix-cell matrix-model">${row.model}</div>
+            <div class="matrix-cell matrix-model">${row.model}${markHtml(row)}</div>
             ${scenarioColumns.map((column) => {
                 const value = row[column.key];
                 const x = Math.min(96, Math.max(4, (value / column.max) * 100));
@@ -533,8 +538,10 @@ function renderFoundChart() {
         const height = Math.max(60, (item.value / max) * 210);
         return `
             <div class="found-item" style="--h:${height}px;" data-gap="${item.gap || ""}">
-                <span class="found-value">${fmt(item.value)}</span>
-                <span class="found-bar"></span>
+                <div class="found-plot">
+                    <span class="found-value">${fmt(item.value)}</span>
+                    <span class="found-bar"></span>
+                </div>
                 <span class="found-label">${item.label}</span>
                 <span class="found-desc">${item.description}</span>
             </div>
@@ -781,3 +788,575 @@ renderFoundChart();
 renderTimeAblation();
 setupNavigation();
 setupScrollExperience();
+initTrajectoryExplorer();
+
+// ============================================================================
+// Trajectory Explorer
+// ============================================================================
+//
+// Fetches inferencebench-site/data/trajectories.json (built offline by
+// scripts/build_trajectory_data.py) and renders a 2D projection of every
+// run's search trajectory. State lives in `trajState`; rendering is a pure
+// function of (trajData, trajState).
+// ============================================================================
+
+const TRAJ_VIEWBOX = 1000;
+const TRAJ_CENTER = TRAJ_VIEWBOX / 2;
+
+const TRAJ_OUTCOME_COLOR = {
+    vllm:     "#2c365a",   // navy (matches site ink)
+    lmdeploy: "#b66f3a",   // warm copper
+    sglang:   "#4f6b4a",   // sage green
+    failed:   "#a8a397",   // muted grey
+};
+const TRAJ_OUTCOME_LABEL = {
+    vllm:     "vLLM",
+    lmdeploy: "LMDeploy",
+    sglang:   "SGLang",
+    failed:   "Failed / no engine",
+};
+
+let trajData = null;
+let trajConfigsById = null;
+const trajState = {
+    scenario:     "all",                 // "all" | "A" | "B" | "C" | "D"
+    agents:       null,                  // null = all (Set of strings otherwise)
+    outcomes:     new Set(["vllm", "lmdeploy", "sglang", "failed"]),
+    projection:   "semantic",            // "semantic" | "umap"
+    pathStyle:    "outcome",             // "all" | "outcome" | "agent" | "none"
+    showFinal:    true,
+    showBestSeen: false,
+    selectedRunId: null,
+    hoveredRunId:  null,
+};
+
+async function initTrajectoryExplorer() {
+    const panel = document.getElementById("trajectory-panel");
+    if (!panel) return;
+    try {
+        const res = await fetch("./data/trajectories.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        trajData = await res.json();
+        trajConfigsById = Object.fromEntries(trajData.configs.map((c) => [c.id, c]));
+    } catch (e) {
+        const canvas = document.getElementById("trajectory-canvas");
+        if (canvas) {
+            canvas.innerHTML = `<div class="trajectory-canvas-error">Could not load trajectory data (${e.message}). The page expects <code>./data/trajectories.json</code> alongside <code>index.html</code>; if running locally, serve via <code>python3 -m http.server</code> rather than opening the file directly.</div>`;
+        }
+        return;
+    }
+    renderTrajectoryExplorer();
+}
+
+function renderTrajectoryExplorer() {
+    if (!trajData) return;
+    renderTrajectoryControls();
+    renderTrajectoryCanvas();
+    renderTrajectoryInspector();
+}
+
+function getFilteredRuns() {
+    if (!trajData) return [];
+    return trajData.runs.filter((r) => {
+        if (trajState.scenario !== "all" && r.scenario !== trajState.scenario) return false;
+        if (trajState.agents && !trajState.agents.has(r.agent)) return false;
+        if (!trajState.outcomes.has(r.outcome)) return false;
+        return true;
+    });
+}
+
+function projectXY(cfg) {
+    // Returns canvas-space coordinates (0..TRAJ_VIEWBOX) for a config.
+    const xy = trajState.projection === "umap" ? cfg.umap_xy : cfg.semantic_xy;
+    return [xy[0] * TRAJ_VIEWBOX, xy[1] * TRAJ_VIEWBOX];
+}
+
+// ---------------------------------------------------------------------------
+// Canvas / SVG
+// ---------------------------------------------------------------------------
+
+function renderTrajectoryCanvas() {
+    const target = document.getElementById("trajectory-canvas");
+    if (!target) return;
+
+    const runs = getFilteredRuns();
+    const involvedConfigIds = new Set();
+    runs.forEach((r) => r.path.forEach((a) => involvedConfigIds.add(a.config_id)));
+    const configs = trajData.configs.filter((c) => involvedConfigIds.has(c.id));
+
+    // Ring guide (1×, 2×, 3× speedup rings - geometric only, evocative).
+    const rings = [0.20, 0.30, 0.40, 0.48].map((r, i) => {
+        const px = r * TRAJ_VIEWBOX;
+        const label = `${i + 1}×`;
+        return `
+            <circle class="traj-ring" cx="${TRAJ_CENTER}" cy="${TRAJ_CENTER}" r="${px.toFixed(1)}" />
+            <text class="traj-ring-label" x="${TRAJ_CENTER + 4}" y="${TRAJ_CENTER - px + 14}">${label}</text>
+        `;
+    }).join("");
+
+    // Per-engine lasso blobs - soft hulls drawn from cluster centroid.
+    const lassos = renderEngineLassos(configs);
+
+    // Trajectory polylines.
+    const edges = runs.map((r) => buildRunEdge(r)).join("");
+
+    // Final-state markers (drawn before nodes so nodes layer on top).
+    const finalMarkers = trajState.showFinal ? renderFinalMarkers(runs) : "";
+    const bestMarkers = trajState.showBestSeen ? renderBestSeenMarkers(runs) : "";
+
+    // Nodes - radius scales with attempt count but capped so a single
+    // hot config (e.g. the failed cluster with hundreds of visits) doesn't
+    // dwarf the rest of the canvas.
+    const nodes = configs.map((c) => {
+        const [x, y] = projectXY(c);
+        const r = Math.min(11, Math.max(2.5, Math.sqrt(c.n_attempts) * 0.9));
+        const tone = c.engine_group;
+        return `<circle class="traj-node traj-node--${tone}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" data-config-id="${c.id}"><title>${c.id} · ${c.engine_group} · ${c.n_final} final · ${c.n_attempts} visits</title></circle>`;
+    }).join("");
+
+    // Engine cluster labels (positioned near each centroid).
+    const labels = renderEngineClusterLabels(configs);
+
+    // Central Start node.
+    const start = `
+        <g class="traj-start">
+            <circle cx="${TRAJ_CENTER}" cy="${TRAJ_CENTER}" r="34" />
+            <text x="${TRAJ_CENTER}" y="${TRAJ_CENTER - 4}" text-anchor="middle">Start</text>
+            <text x="${TRAJ_CENTER}" y="${TRAJ_CENTER + 12}" text-anchor="middle" class="traj-start-sub">vanilla server</text>
+        </g>
+    `;
+
+    target.innerHTML = `
+        <svg class="trajectory-svg" viewBox="0 0 ${TRAJ_VIEWBOX} ${TRAJ_VIEWBOX}" role="img" aria-label="Agent trajectory projection">
+            <g class="traj-rings">${rings}</g>
+            <g class="traj-lassos">${lassos}</g>
+            <g class="traj-edges">${edges}</g>
+            <g class="traj-markers">${finalMarkers}${bestMarkers}</g>
+            <g class="traj-nodes">${nodes}</g>
+            ${start}
+            <g class="traj-cluster-labels">${labels}</g>
+        </svg>
+        <div class="trajectory-legend">
+            ${Object.entries(TRAJ_OUTCOME_LABEL).map(([k, label]) =>
+                `<span class="trajectory-legend-item"><i style="background:${TRAJ_OUTCOME_COLOR[k]}"></i>${label}</span>`).join("")}
+            <span class="trajectory-legend-item"><i class="traj-legend-star"></i>Final state</span>
+            <span class="trajectory-legend-item"><i class="traj-legend-line"></i>Trajectory</span>
+        </div>
+    `;
+
+    // Bind interactivity.
+    target.querySelectorAll(".traj-edge").forEach((el) => {
+        el.addEventListener("mouseenter", onTrajHover);
+        el.addEventListener("mouseleave", onTrajLeave);
+        el.addEventListener("click", onTrajClick);
+    });
+    target.querySelectorAll(".traj-node").forEach((el) => {
+        el.addEventListener("mouseenter", onTrajNodeHover);
+        el.addEventListener("mouseleave", onTrajLeave);
+    });
+}
+
+function buildRunEdge(r) {
+    // Build a polyline path from the Start node out through the run's attempts.
+    let d = `M ${TRAJ_CENTER},${TRAJ_CENTER}`;
+    for (const att of r.path) {
+        const cfg = trajConfigsById[att.config_id];
+        if (!cfg) continue;
+        const [x, y] = projectXY(cfg);
+        d += ` L ${x.toFixed(1)},${y.toFixed(1)}`;
+    }
+    const style = trajState.pathStyle;
+    let color = "#7c8291";
+    if (style === "outcome") color = TRAJ_OUTCOME_COLOR[r.outcome] || color;
+    else if (style === "agent") color = agentColor(r.agent);
+    else if (style === "none") return ""; // skip drawing edges
+    const isSelected = trajState.selectedRunId === r.id;
+    const isHovered = trajState.hoveredRunId === r.id;
+    const opacity = isSelected || isHovered ? 1 : (style === "all" ? 0.06 : 0.12);
+    const width = isSelected || isHovered ? 2 : 1;
+    return `<path class="traj-edge" d="${d}" stroke="${color}" stroke-opacity="${opacity}" stroke-width="${width}" fill="none" data-run-id="${r.id}" />`;
+}
+
+function renderFinalMarkers(runs) {
+    return runs.map((r) => {
+        if (!r.final_config_id) return "";
+        const cfg = trajConfigsById[r.final_config_id];
+        if (!cfg) return "";
+        const [x, y] = projectXY(cfg);
+        const color = TRAJ_OUTCOME_COLOR[r.outcome] || "#7c8291";
+        return `<polygon class="traj-final-star" points="${starPoints(x, y, 5, 2.2)}" fill="${color}" data-run-id="${r.id}" />`;
+    }).join("");
+}
+
+function renderBestSeenMarkers(runs) {
+    return runs.map((r) => {
+        if (!r.best_seen_config_id || r.best_seen_config_id === r.final_config_id) return "";
+        const cfg = trajConfigsById[r.best_seen_config_id];
+        if (!cfg) return "";
+        const [x, y] = projectXY(cfg);
+        return `<circle class="traj-best-ring" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="none" data-run-id="${r.id}" />`;
+    }).join("");
+}
+
+function starPoints(cx, cy, outerR, innerR, n = 5) {
+    const pts = [];
+    for (let i = 0; i < 2 * n; i++) {
+        const r = i % 2 === 0 ? outerR : innerR;
+        const a = (i * Math.PI) / n - Math.PI / 2;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+    }
+    return pts.join(" ");
+}
+
+function renderEngineLassos(configs) {
+    // For each engine group, draw a soft convex blob around its config points.
+    const grouped = {};
+    configs.forEach((c) => {
+        (grouped[c.engine_group] = grouped[c.engine_group] || []).push(c);
+    });
+    return Object.entries(grouped).map(([group, items]) => {
+        if (items.length < 3) return ""; // not enough points to form a hull
+        const pts = items.map((c) => projectXY(c));
+        const hull = convexHull(pts);
+        if (hull.length < 3) return "";
+        // Inflate the hull slightly to give the lasso some breathing room.
+        const centroid = hull.reduce(([sx, sy], [x, y]) => [sx + x, sy + y], [0, 0])
+            .map((v) => v / hull.length);
+        const inflate = 40;
+        const inflated = hull.map(([x, y]) => {
+            const dx = x - centroid[0], dy = y - centroid[1];
+            const d = Math.hypot(dx, dy) || 1;
+            return [x + (dx / d) * inflate, y + (dy / d) * inflate];
+        });
+        const d = inflated.map(([x, y], i) =>
+            (i === 0 ? "M" : "L") + ` ${x.toFixed(1)},${y.toFixed(1)}`).join(" ") + " Z";
+        return `<path class="traj-lasso traj-lasso--${group}" d="${d}" fill="${TRAJ_OUTCOME_COLOR[group]}" />`;
+    }).join("");
+}
+
+function convexHull(points) {
+    // Andrew's monotone chain.
+    const pts = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const cross = (O, A, B) => (A[0] - O[0]) * (B[1] - O[1]) - (A[1] - O[1]) * (B[0] - O[0]);
+    const lower = [];
+    for (const p of pts) {
+        while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+        lower.push(p);
+    }
+    const upper = [];
+    for (let i = pts.length - 1; i >= 0; i--) {
+        const p = pts[i];
+        while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+        upper.push(p);
+    }
+    lower.pop(); upper.pop();
+    return lower.concat(upper);
+}
+
+function renderEngineClusterLabels(configs) {
+    const grouped = {};
+    configs.forEach((c) => {
+        (grouped[c.engine_group] = grouped[c.engine_group] || []).push(c);
+    });
+    return Object.entries(grouped).map(([group, items]) => {
+        if (items.length === 0) return "";
+        const cx = items.reduce((s, c) => s + projectXY(c)[0], 0) / items.length;
+        const cy = items.reduce((s, c) => s + projectXY(c)[1], 0) / items.length;
+        const nFinal = items.reduce((s, c) => s + c.n_final, 0);
+        const label = TRAJ_OUTCOME_LABEL[group];
+        return `<text class="traj-cluster-label traj-cluster-label--${group}" x="${cx.toFixed(0)}" y="${(cy - 70).toFixed(0)}" text-anchor="middle"><tspan x="${cx.toFixed(0)}">${label}</tspan><tspan x="${cx.toFixed(0)}" dy="18" class="traj-cluster-sub">${nFinal} final · ${items.length} configs</tspan></text>`;
+    }).join("");
+}
+
+function agentColor(agent) {
+    // Stable colour per agent string via simple hash.
+    let h = 0;
+    for (let i = 0; i < agent.length; i++) h = ((h * 31) + agent.charCodeAt(i)) | 0;
+    const hue = Math.abs(h) % 360;
+    return `hsl(${hue}, 38%, 38%)`;
+}
+
+// ---------------------------------------------------------------------------
+// Controls
+// ---------------------------------------------------------------------------
+
+function renderTrajectoryControls() {
+    const target = document.getElementById("trajectory-controls");
+    if (!target) return;
+    const allAgents = Array.from(new Set(trajData.runs.map((r) => r.agent))).sort();
+    const agentsActive = trajState.agents;
+    const isActiveAgent = (a) => !agentsActive || agentsActive.has(a);
+
+    target.innerHTML = `
+        <div class="traj-control-block">
+            <div class="traj-control-label">Scenario</div>
+            <div class="traj-segmented" data-control="scenario">
+                ${["all","A","B","C","D"].map((s) =>
+                    `<button type="button" data-value="${s}" class="${trajState.scenario === s ? "is-active" : ""}">${s === "all" ? "All" : s}</button>`).join("")}
+            </div>
+        </div>
+
+        <div class="traj-control-block">
+            <div class="traj-control-label">Outcome</div>
+            <div class="traj-checks" data-control="outcome">
+                ${Object.keys(TRAJ_OUTCOME_LABEL).map((k) =>
+                    `<label class="${trajState.outcomes.has(k) ? "is-on" : ""}"><input type="checkbox" data-value="${k}" ${trajState.outcomes.has(k) ? "checked" : ""}><i style="background:${TRAJ_OUTCOME_COLOR[k]}"></i>${TRAJ_OUTCOME_LABEL[k]}</label>`).join("")}
+            </div>
+        </div>
+
+        <div class="traj-control-block">
+            <div class="traj-control-label">Projection</div>
+            <div class="traj-segmented" data-control="projection">
+                <button type="button" data-value="semantic" class="${trajState.projection === "semantic" ? "is-active" : ""}">Semantic</button>
+                <button type="button" data-value="umap" class="${trajState.projection === "umap" ? "is-active" : ""}">UMAP</button>
+            </div>
+        </div>
+
+        <div class="traj-control-block">
+            <div class="traj-control-label">Path style</div>
+            <div class="traj-segmented traj-segmented--small" data-control="pathStyle">
+                ${["outcome","agent","all","none"].map((s) =>
+                    `<button type="button" data-value="${s}" class="${trajState.pathStyle === s ? "is-active" : ""}">${s === "outcome" ? "By outcome" : s === "agent" ? "By agent" : s === "all" ? "All faint" : "Hide"}</button>`).join("")}
+            </div>
+        </div>
+
+        <div class="traj-control-block">
+            <div class="traj-control-label">Overlays</div>
+            <label class="traj-toggle"><input type="checkbox" data-toggle="showFinal" ${trajState.showFinal ? "checked" : ""}> Show final state ★</label>
+            <label class="traj-toggle"><input type="checkbox" data-toggle="showBestSeen" ${trajState.showBestSeen ? "checked" : ""}> Show best-seen ○</label>
+        </div>
+
+        <div class="traj-control-block">
+            <div class="traj-control-label">Agent (${allAgents.filter(isActiveAgent).length}/${allAgents.length})</div>
+            <div class="traj-agent-list" data-control="agent">
+                <button type="button" class="traj-agent-all" data-value="__all">${agentsActive ? "Select all" : "Clear"}</button>
+                ${allAgents.map((a) =>
+                    `<label class="traj-agent ${isActiveAgent(a) ? "is-on" : ""}"><input type="checkbox" data-value="${a}" ${isActiveAgent(a) ? "checked" : ""}>${a}</label>`).join("")}
+            </div>
+        </div>
+    `;
+
+    target.querySelectorAll("[data-control='scenario'] button").forEach((b) =>
+        b.addEventListener("click", () => { trajState.scenario = b.dataset.value; renderTrajectoryExplorer(); }));
+    target.querySelectorAll("[data-control='projection'] button").forEach((b) =>
+        b.addEventListener("click", () => { trajState.projection = b.dataset.value; renderTrajectoryExplorer(); }));
+    target.querySelectorAll("[data-control='pathStyle'] button").forEach((b) =>
+        b.addEventListener("click", () => { trajState.pathStyle = b.dataset.value; renderTrajectoryExplorer(); }));
+    target.querySelectorAll("[data-control='outcome'] input").forEach((i) =>
+        i.addEventListener("change", () => {
+            if (i.checked) trajState.outcomes.add(i.dataset.value);
+            else trajState.outcomes.delete(i.dataset.value);
+            renderTrajectoryExplorer();
+        }));
+    target.querySelectorAll("[data-toggle]").forEach((i) =>
+        i.addEventListener("change", () => { trajState[i.dataset.toggle] = i.checked; renderTrajectoryExplorer(); }));
+    target.querySelectorAll("[data-control='agent'] input").forEach((i) =>
+        i.addEventListener("change", () => {
+            if (!trajState.agents) trajState.agents = new Set(allAgents);
+            if (i.checked) trajState.agents.add(i.dataset.value);
+            else trajState.agents.delete(i.dataset.value);
+            // If all selected, normalize to null = all.
+            if (trajState.agents.size === allAgents.length) trajState.agents = null;
+            renderTrajectoryExplorer();
+        }));
+    const allBtn = target.querySelector(".traj-agent-all");
+    if (allBtn) allBtn.addEventListener("click", () => {
+        trajState.agents = trajState.agents ? null : new Set();
+        renderTrajectoryExplorer();
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Inspector
+// ---------------------------------------------------------------------------
+
+function renderTrajectoryInspector() {
+    const target = document.getElementById("trajectory-inspector");
+    if (!target) return;
+
+    const runs = getFilteredRuns();
+    const stats = computeStats(runs);
+    const sel = trajState.selectedRunId ? trajData.runs.find((r) => r.id === trajState.selectedRunId) : null;
+
+    const glance = `
+        <div class="traj-inspector-block">
+            <div class="traj-inspector-title">At a glance</div>
+            <dl class="traj-stat-grid">
+                <div><dt>Filtered runs</dt><dd>${runs.length} <span class="traj-stat-sub">of ${trajData.runs.length}</span></dd></div>
+                <div><dt>Top fingerprint share</dt><dd>${(stats.topShare * 100).toFixed(0)}% <span class="traj-stat-sub">${stats.topCount}/${runs.length}</span></dd></div>
+                <div><dt>Median path length</dt><dd>${stats.medPath}</dd></div>
+                <div><dt>Best-seen ≠ final</dt><dd>${(stats.bestNeqFinal * 100).toFixed(0)}%</dd></div>
+                <div><dt>Distinct fingerprints</dt><dd>${stats.distinctFps}</dd></div>
+            </dl>
+        </div>
+    `;
+
+    const selBlock = sel ? renderSelectedRun(sel) : `
+        <div class="traj-inspector-block">
+            <div class="traj-inspector-title">Selected run</div>
+            <p class="traj-inspector-empty">Hover or click any trajectory to inspect a single run.</p>
+        </div>
+    `;
+
+    target.innerHTML = glance + selBlock;
+}
+
+function renderSelectedRun(r) {
+    const finalCfg = trajConfigsById[r.final_config_id];
+    const bestCfg = trajConfigsById[r.best_seen_config_id];
+    const fp = finalCfg ? finalCfg.fingerprint : null;
+    const fpRow = (label, val) => `<div><dt>${label}</dt><dd>${val ?? "-"}</dd></div>`;
+    const fpBlock = fp ? `
+        <dl class="traj-stat-grid traj-stat-grid--two">
+            ${fpRow("Engine", fp[0])}
+            ${fpRow("Quant", fp[1])}
+            ${fpRow("TP", fp[2])}
+            ${fpRow("Batch", fp[3])}
+            ${fpRow("Max-model-len", fp[4])}
+            ${fpRow("KV dtype", fp[5])}
+            ${fpRow("Spec decode", fp[6])}
+            ${fpRow("Attn backend", fp[7])}
+        </dl>
+        ${fp[8] && fp[8].length ? `<div class="traj-flags">${fp[8].map((f) => `<span>${f}</span>`).join("")}</div>` : ""}
+    ` : `<p class="traj-inspector-empty">No final config recorded.</p>`;
+
+    const lastScores = r.path.slice(-6).map((a) => {
+        const score = a.score == null ? "-" : a.score.toFixed(1);
+        return `<span class="traj-attempt ${a.launched_ok ? "traj-attempt--ok" : "traj-attempt--noop"}">${a.label || "·"} <strong>${score}</strong></span>`;
+    }).join("");
+
+    return `
+        <div class="traj-inspector-block">
+            <div class="traj-inspector-title">Selected run</div>
+            <div class="traj-run-header">
+                <span class="traj-run-outcome" style="background:${TRAJ_OUTCOME_COLOR[r.outcome]}"></span>
+                <div>
+                    <strong>${r.agent}</strong>
+                    <span class="traj-stat-sub">Scenario ${r.scenario} · seed ${r.seed}</span>
+                </div>
+            </div>
+            <dl class="traj-stat-grid">
+                <div><dt>Outcome</dt><dd>${TRAJ_OUTCOME_LABEL[r.outcome]}</dd></div>
+                <div><dt>Path length</dt><dd>${r.path.length}</dd></div>
+                <div><dt>Distinct configs</dt><dd>${new Set(r.path.map((a) => a.config_id)).size}</dd></div>
+                <div><dt>Edits total</dt><dd>${r.n_edits_total}</dd></div>
+            </dl>
+            <div class="traj-inspector-subtitle">Final fingerprint</div>
+            ${fpBlock}
+            ${bestCfg && r.best_seen_config_id !== r.final_config_id ? `<div class="traj-inspector-subtitle">Best-seen ≠ final</div><p class="traj-inspector-note">The agent's best-scoring attempt was at <code>${r.best_seen_config_id}</code> but the final submitted server was at <code>${r.final_config_id}</code>.</p>` : ""}
+            <div class="traj-inspector-subtitle">Last attempts</div>
+            <div class="traj-attempts">${lastScores}</div>
+        </div>
+    `;
+}
+
+function computeStats(runs) {
+    const fpCounts = {};
+    runs.forEach((r) => { fpCounts[r.final_config_id] = (fpCounts[r.final_config_id] || 0) + 1; });
+    const sortedCounts = Object.values(fpCounts).sort((a, b) => b - a);
+    const topCount = sortedCounts[0] || 0;
+    const topShare = runs.length ? topCount / runs.length : 0;
+    const pathLens = runs.map((r) => r.path.length).sort((a, b) => a - b);
+    const medPath = pathLens.length ? pathLens[Math.floor(pathLens.length / 2)] : 0;
+    const bestNeq = runs.filter((r) => r.best_seen_config_id && r.best_seen_config_id !== r.final_config_id).length;
+    return {
+        topCount,
+        topShare,
+        medPath,
+        bestNeqFinal: runs.length ? bestNeq / runs.length : 0,
+        distinctFps: Object.keys(fpCounts).length,
+    };
+}
+
+// ---------------------------------------------------------------------------
+// Hover + click handlers
+// ---------------------------------------------------------------------------
+
+function onTrajHover(ev) {
+    const id = ev.currentTarget.dataset.runId;
+    trajState.hoveredRunId = id;
+    rerenderEdgesOnly();
+    showRunTooltip(ev, id);
+}
+
+function onTrajNodeHover(ev) {
+    const id = ev.currentTarget.dataset.configId;
+    const cfg = trajConfigsById[id];
+    if (!cfg) return;
+    showConfigTooltip(ev, cfg);
+}
+
+function onTrajLeave() {
+    trajState.hoveredRunId = null;
+    hideTrajTooltip();
+    rerenderEdgesOnly();
+}
+
+function onTrajClick(ev) {
+    const id = ev.currentTarget.dataset.runId;
+    trajState.selectedRunId = (trajState.selectedRunId === id) ? null : id;
+    renderTrajectoryExplorer();
+}
+
+function rerenderEdgesOnly() {
+    // Cheap hover update - re-stroke all edges according to current state.
+    const runs = getFilteredRuns();
+    document.querySelectorAll(".traj-edges .traj-edge").forEach((el, i) => {
+        const r = runs[i];
+        if (!r) return;
+        const isSel = trajState.selectedRunId === r.id;
+        const isHov = trajState.hoveredRunId === r.id;
+        const baseOp = trajState.pathStyle === "all" ? 0.06 : 0.12;
+        const dim = trajState.hoveredRunId && !isHov && !isSel ? 0.04 : null;
+        el.setAttribute("stroke-opacity", isSel || isHov ? 1 : (dim != null ? dim : baseOp));
+        el.setAttribute("stroke-width", isSel || isHov ? 2 : 1);
+    });
+}
+
+function showRunTooltip(ev, runId) {
+    const r = trajData.runs.find((x) => x.id === runId);
+    if (!r) return;
+    const tt = ensureTrajTooltip();
+    tt.innerHTML = `<strong>${r.agent}</strong><br>Scenario ${r.scenario} · ${TRAJ_OUTCOME_LABEL[r.outcome]}<br>${r.path.length} attempts`;
+    positionTooltip(tt, ev);
+}
+
+function showConfigTooltip(ev, cfg) {
+    const tt = ensureTrajTooltip();
+    const fp = cfg.fingerprint;
+    tt.innerHTML = `<strong>${cfg.id}</strong> · ${fp[0]} ${fp[1] !== "none" ? "/" + fp[1] : ""}<br>tp=${fp[2]} bs=${fp[3]} mml=${fp[4]}<br>${cfg.n_final} final · ${cfg.n_attempts} visits`;
+    positionTooltip(tt, ev);
+}
+
+function ensureTrajTooltip() {
+    let tt = document.getElementById("traj-tooltip");
+    if (!tt) {
+        tt = document.createElement("div");
+        tt.id = "traj-tooltip";
+        tt.className = "traj-tooltip";
+        document.body.appendChild(tt);
+    }
+    tt.style.display = "block";
+    return tt;
+}
+
+function positionTooltip(tt, ev) {
+    const offset = 14;
+    tt.style.left = (ev.clientX + offset) + "px";
+    tt.style.top = (ev.clientY + offset) + "px";
+}
+
+function hideTrajTooltip() {
+    const tt = document.getElementById("traj-tooltip");
+    if (tt) tt.style.display = "none";
+}
+
+function setupChangelog() {
+    const w = document.getElementById("changelog-widget");
+    const pill = document.getElementById("changelog-pill");
+    const min = document.getElementById("changelog-min");
+    if (!w || !pill || !min) return;
+    pill.addEventListener("click", () => w.dataset.open = "true");
+    min.addEventListener("click", () => w.dataset.open = "false");
+}
+setupChangelog();
