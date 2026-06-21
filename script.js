@@ -9,7 +9,7 @@ const aggregateData = [
     },
     {
         label: "Claude Fable 5 (Low)",
-        shortLabel: "Fable 5 (Low) *†",
+        shortLabel: 'Fable 5 <span class="agg-nowrap">(Low) *†</span>',
         value: 8.74,
         sem: 1.91,
         bar: "#2c365a",
@@ -32,8 +32,16 @@ const aggregateData = [
         dot: "#2c365a"
     },
     {
+        label: "GLM-5.2 (Max)",
+        shortLabel: 'GLM-5.2 <span class="agg-nowrap">(Max) *†</span>',
+        value: 7.0,
+        sem: 0.24,
+        bar: "#2c365a",
+        dot: "#2c365a"
+    },
+    {
         label: "GPT-5.5 (xHigh)",
-        shortLabel: "GPT-5.5 (xHigh)",
+        shortLabel: '<span class="agg-nowrap">GPT-5.5 (xHigh)</span>',
         value: 5.45,
         sem: 1.25,
         bar: "#2c365a",
@@ -46,14 +54,6 @@ const aggregateData = [
         sem: 0.07,
         bar: "#d6cec2",
         dot: "#8e887d"
-    },
-    {
-        label: "GLM-5",
-        shortLabel: "GLM-5",
-        value: 3.22,
-        sem: 0.85,
-        bar: "#2c365a",
-        dot: "#2c365a"
     },
     {
         label: "PyTorch Default",
@@ -132,26 +132,27 @@ const leaderboardRows = [
     { rank: 3, model: "Claude Opus 4.8", scaffold: "Claude Code · v2.1.175", value: 7.60, sem: 2.16, type: "agent", a: 4.53, b: 12.16, c: 18.62, d: 3.25, mark: "*" },
     { rank: 4, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 7.52, sem: 1.58, type: "agent", a: 4.27, b: 15.64, c: 11.90, d: 4.03, mark: "*†", key: "fable-5-strict", variant: true },
     { rank: 5, model: "Claude Opus 4.8 (xHigh)", scaffold: "Claude Code", value: 7.34, sem: 2.37, type: "agent", a: 4.30, b: 7.72, c: 18.77, d: 4.65 },
-    { rank: 6, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25 },
-    { rank: 7, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01 },
-    { rank: 8, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60 },
-    { rank: 9, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14 },
-    { rank: 10, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97 },
-    { rank: 11, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51 },
-    { rank: 12, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21 },
-    { rank: 13, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57 },
-    { rank: 14, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
-    { rank: 15, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50 },
-    { rank: 16, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95 },
-    { rank: 17, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82 },
-    { rank: 18, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87 },
-    { rank: 19, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32 },
-    { rank: 20, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
-    { rank: 21, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24 },
-    { rank: 22, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82 },
-    { rank: 23, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
-    { rank: 24, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low", variant: true },
-    { rank: 25, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87 }
+    { rank: 6, model: "GLM-5.2 (Max)", scaffold: "Claude Code · strict prompt", value: 7.00, sem: 0.24, type: "agent", a: 3.86, b: 5.77, c: 32.47, d: 3.32, mark: "*†", key: "glm-5-2-max" },
+    { rank: 7, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25 },
+    { rank: 8, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01 },
+    { rank: 9, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60 },
+    { rank: 10, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14 },
+    { rank: 11, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97 },
+    { rank: 12, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51 },
+    { rank: 13, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21 },
+    { rank: 14, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57 },
+    { rank: 15, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
+    { rank: 16, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50 },
+    { rank: 17, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95 },
+    { rank: 18, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82 },
+    { rank: 19, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87 },
+    { rank: 20, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32 },
+    { rank: 21, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
+    { rank: 22, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24 },
+    { rank: 23, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82 },
+    { rank: 24, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
+    { rank: 25, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low", variant: true },
+    { rank: 26, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87 }
 ];
 
 const scenarioColumns = [
@@ -788,568 +789,934 @@ renderFoundChart();
 renderTimeAblation();
 setupNavigation();
 setupScrollExperience();
-initTrajectoryExplorer();
+initBehaviorAtlas();
 
 // ============================================================================
-// Trajectory Explorer
+// Behavior Atlas
 // ============================================================================
 //
-// Fetches inferencebench-site/data/trajectories.json (built offline by
-// scripts/build_trajectory_data.py) and renders a 2D projection of every
-// run's search trajectory. State lives in `trajState`; rendering is a pure
-// function of (trajData, trajState).
+// Fetches data/trajectories.json (built offline by
+// scripts/build_behavior_atlas.py) and renders a behavioral map of every run:
+// tool-calls segmented into labeled episodes, positioned in a behavior space,
+// with traceable per-run trajectories from Start, plus coverage / heatmap
+// views. Rendering is a pure function of (atlasData, atlasState);
+// hot paths (zoom/pan/hover/scrub) mutate attributes, never re-serialize.
 // ============================================================================
 
-const TRAJ_VIEWBOX = 1000;
-const TRAJ_CENTER = TRAJ_VIEWBOX / 2;
+const ATLAS_VB = 1000;                 // SVG viewBox size (world units)
+const ATLAS_CENTER = ATLAS_VB / 2;
+const ATLAS_DEFAULT_K = 0.5;           // start zoomed out so the spread layout fits
+function atlasDefaultView() {
+    const k = ATLAS_DEFAULT_K;
+    return { x: ATLAS_CENTER * (1 - k), y: ATLAS_CENTER * (1 - k), k };
+}
 
-const TRAJ_OUTCOME_COLOR = {
-    vllm:     "#2c365a",   // navy (matches site ink)
-    lmdeploy: "#b66f3a",   // warm copper
-    sglang:   "#4f6b4a",   // sage green
-    failed:   "#a8a397",   // muted grey
+const ATLAS_OUTCOME_COLOR = {
+    improved:               "#4f6b4a",
+    regressed:              "#b66f3a",
+    reverted:               "#c98a3a",
+    launch_failed:          "#9a958a",
+    neutral:                "#c4bdaf",
+    invalid_or_reward_hack: "#9e4444",
+    unknown:                "#d9d2c6",
 };
-const TRAJ_OUTCOME_LABEL = {
-    vllm:     "vLLM",
-    lmdeploy: "LMDeploy",
-    sglang:   "SGLang",
-    failed:   "Failed / no engine",
+const ATLAS_OUTCOME_LABEL = {
+    improved: "Improved", regressed: "Regressed", reverted: "Reverted",
+    launch_failed: "Launch failed", neutral: "Neutral",
+    invalid_or_reward_hack: "Invalid / hack", unknown: "Unknown",
 };
 
-let trajData = null;
-let trajConfigsById = null;
-const trajState = {
-    scenario:     "all",                 // "all" | "A" | "B" | "C" | "D"
-    agents:       null,                  // null = all (Set of strings otherwise)
-    outcomes:     new Set(["vllm", "lmdeploy", "sglang", "failed"]),
-    projection:   "semantic",            // "semantic" | "umap"
-    pathStyle:    "outcome",             // "all" | "outcome" | "agent" | "none"
-    showFinal:    true,
-    showBestSeen: false,
+let atlasData = null;
+let atlasIndex = null;
+const atlasState = {
+    scenario:   "all",
+    agents:     null,                  // null = all, else Set
+    ablation:   "main",
+    families:   null,                  // null = all, else Set
+    engines:    null,                  // null = all engine_selection engines, else Set
+    projection: "semantic",            // "semantic" | "umap"
+    pathStyle:  "agent",               // "agent" | "family" | "none"
+    view:       atlasDefaultView(),
     selectedRunId: null,
     hoveredRunId:  null,
+    scrub:      { playing: false, step: null, rafId: null },
+    famOpen:    { hp: false, engsel: false, eng: false },   // collapsible family-filter groups
+    nodePos:    {},                    // epId -> [x,y] user-dragged overrides (viewbox units)
 };
 
-async function initTrajectoryExplorer() {
-    const panel = document.getElementById("trajectory-panel");
-    if (!panel) return;
+async function initBehaviorAtlas() {
+    const shell = document.getElementById("atlas-shell");
+    if (!shell) return;
     try {
         const res = await fetch("./data/trajectories.json", { cache: "no-store" });
         if (!res.ok) throw new Error("HTTP " + res.status);
-        trajData = await res.json();
-        trajConfigsById = Object.fromEntries(trajData.configs.map((c) => [c.id, c]));
+        atlasData = await res.json();
     } catch (e) {
-        const canvas = document.getElementById("trajectory-canvas");
-        if (canvas) {
-            canvas.innerHTML = `<div class="trajectory-canvas-error">Could not load trajectory data (${e.message}). The page expects <code>./data/trajectories.json</code> alongside <code>index.html</code>; if running locally, serve via <code>python3 -m http.server</code> rather than opening the file directly.</div>`;
-        }
+        const c = document.getElementById("atlas-canvas");
+        if (c) c.innerHTML = `<div class="atlas-error">Could not load trajectory data (${e.message}). The page expects <code>./data/trajectories.json</code>; serve locally via <code>python3 -m http.server</code> rather than opening the file directly.</div>`;
         return;
     }
-    renderTrajectoryExplorer();
+    buildAtlasIndex();
+    renderBehaviorAtlas();
 }
 
-function renderTrajectoryExplorer() {
-    if (!trajData) return;
-    renderTrajectoryControls();
-    renderTrajectoryCanvas();
-    renderTrajectoryInspector();
+function buildAtlasIndex() {
+    const episodesById = {};
+    atlasData.episodes.forEach((e) => { episodesById[e.id] = e; });
+    const runsById = {};
+    const runEpisodes = {};
+    const runEvents = {};               // run -> total tool-calls across its episodes
+    atlasData.runs.forEach((r) => {
+        runsById[r.id] = r;
+        runEpisodes[r.id] = r.episode_ids.map((id) => episodesById[id]).filter(Boolean);
+        runEvents[r.id] = runEpisodes[r.id].reduce((s, e) => s + (e.n_events || 0), 0) || 1;
+    });
+    const familiesByKey = {};
+    atlasData.families.forEach((f) => { familiesByKey[f.key] = f; });
+    const agents = Array.from(new Set(atlasData.runs.map((r) => r.agent))).sort();
+    // family centroids per projection (mean of member episode coords)
+    const cent = { semantic: {}, umap: {} };
+    ["semantic", "umap"].forEach((proj) => {
+        const acc = {};
+        atlasData.episodes.forEach((e) => {
+            const k = e.strategy_family;
+            const xy = e.xy[proj];
+            (acc[k] = acc[k] || []).push(xy);
+        });
+        Object.entries(acc).forEach(([k, pts]) => {
+            const sx = pts.reduce((s, p) => s + p[0], 0) / pts.length;
+            const sy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+            cent[proj][k] = [sx, sy];
+        });
+    });
+    atlasIndex = { episodesById, runsById, runEpisodes, runEvents, familiesByKey, agents, centroids: cent };
 }
 
-function getFilteredRuns() {
-    if (!trajData) return [];
-    return trajData.runs.filter((r) => {
-        if (trajState.scenario !== "all" && r.scenario !== trajState.scenario) return false;
-        if (trajState.agents && !trajState.agents.has(r.agent)) return false;
-        if (!trajState.outcomes.has(r.outcome)) return false;
+function familyColor(key) {
+    const f = atlasIndex.familiesByKey[key];
+    return f ? f.color : "#999";
+}
+function outcomeColor(o) { return ATLAS_OUTCOME_COLOR[o] || "#999"; }
+
+function atlasAgentColor(agent) {
+    let h = 0;
+    for (let i = 0; i < agent.length; i++) h = ((h * 31) + agent.charCodeAt(i)) | 0;
+    return `hsl(${Math.abs(h) % 360}, 36%, 42%)`;
+}
+
+function renderBehaviorAtlas() {
+    if (!atlasData) return;
+    renderAtlasControls();
+    renderAtlasToolbar();
+    renderAtlasCanvas();
+    renderAtlasLegend();
+    syncScrubber();
+    renderAtlasInspector();
+}
+
+// ---------------------------------------------------------------------------
+// Filtering (shared by all views)
+// ---------------------------------------------------------------------------
+function atlasFilteredRuns() {
+    if (!atlasData) return [];
+    return atlasData.runs.filter((r) => {
+        if (atlasState.scenario !== "all" && r.scenario !== atlasState.scenario) return false;
+        const ab = r.ablation_kind || "main";
+        if (atlasState.ablation !== "all" && ab !== atlasState.ablation) return false;
+        if (atlasState.agents && !atlasState.agents.has(r.agent)) return false;
+        if (atlasState.families) {
+            if (!r.family_seq.some((f) => atlasState.families.has(f))) return false;
+        }
         return true;
     });
 }
 
-function projectXY(cfg) {
-    // Returns canvas-space coordinates (0..TRAJ_VIEWBOX) for a config.
-    const xy = trajState.projection === "umap" ? cfg.umap_xy : cfg.semantic_xy;
-    return [xy[0] * TRAJ_VIEWBOX, xy[1] * TRAJ_VIEWBOX];
+function projXY(ep) {
+    const o = atlasState.nodePos[ep.id];
+    if (o) return [o[0], o[1]];
+    const xy = ep.xy[atlasState.projection] || ep.xy.semantic;
+    return [xy[0] * ATLAS_VB, xy[1] * ATLAS_VB];
 }
 
 // ---------------------------------------------------------------------------
-// Canvas / SVG
+// Canvas
 // ---------------------------------------------------------------------------
-
-function renderTrajectoryCanvas() {
-    const target = document.getElementById("trajectory-canvas");
+function renderAtlasCanvas() {
+    const target = document.getElementById("atlas-canvas");
     if (!target) return;
+    const runs = atlasFilteredRuns();
+    const showEp = (e) => {
+        if (e.strategy_family === "engine_selection")
+            return !atlasState.engines || atlasState.engines.has(e.engine || "other");
+        return !atlasState.families || atlasState.families.has(e.strategy_family);
+    };
 
-    const runs = getFilteredRuns();
-    const involvedConfigIds = new Set();
-    runs.forEach((r) => r.path.forEach((a) => involvedConfigIds.add(a.config_id)));
-    const configs = trajData.configs.filter((c) => involvedConfigIds.has(c.id));
+    // episodes in view = those of filtered runs
+    const eps = [];
+    runs.forEach((r) => atlasIndex.runEpisodes[r.id].forEach((e) => { if (showEp(e)) eps.push(e); }));
 
-    // Ring guide (1×, 2×, 3× speedup rings - geometric only, evocative).
-    const rings = [0.20, 0.30, 0.40, 0.48].map((r, i) => {
-        const px = r * TRAJ_VIEWBOX;
-        const label = `${i + 1}×`;
-        return `
-            <circle class="traj-ring" cx="${TRAJ_CENTER}" cy="${TRAJ_CENTER}" r="${px.toFixed(1)}" />
-            <text class="traj-ring-label" x="${TRAJ_CENTER + 4}" y="${TRAJ_CENTER - px + 14}">${label}</text>
-        `;
+    // family regions (hulls)
+    const regions = renderFamilyRegions(eps);
+    // depth guide rings
+    const rings = [0.30, 0.56, 0.80].map((rr, i) => {
+        const px = rr * ATLAS_VB;
+        return `<circle class="atlas-ring" cx="${ATLAS_CENTER}" cy="${ATLAS_CENTER}" r="${px.toFixed(1)}"/>`;
+    }).join("") +
+    `<text class="atlas-ring-label" x="${ATLAS_CENTER}" y="${ATLAS_CENTER - 0.30 * ATLAS_VB - 6}" text-anchor="middle">shallow loop</text>` +
+    `<text class="atlas-ring-label" x="${ATLAS_CENTER}" y="${ATLAS_CENTER - 0.80 * ATLAS_VB - 6}" text-anchor="middle">deep optimization</text>`;
+
+    // polylines from Start
+    const edges = atlasState.pathStyle === "none" ? "" : runs.map((r) => buildRunPath(r)).join("");
+    // nodes
+    const nodes = eps.map((e) => {
+        const [x, y] = projXY(e);
+        // node radius ~ episode length (tool-calls), so bigger = more time spent
+        const baseR = Math.max(2.6, Math.min(11, 2.6 + Math.sqrt(e.n_events || 1) * 1.25));
+        // engineered technique episodes are drawn solid with a dark ring so the
+        // rare "real engineering" stands out from flag-enabled technique use.
+        const eng = e.tier === "engineered";
+        return `<circle class="atlas-node ${eng ? "atlas-node--eng" : ""}" data-run-id="${e.run_id}" data-ep-id="${e.id}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${baseR.toFixed(2)}" data-base-r="${baseR.toFixed(2)}" fill="${familyColor(e.strategy_family)}"/>`;
     }).join("");
+    // family labels
+    const labels = renderFamilyLabels(eps);
+    // start node
+    const start = `<g class="atlas-start"><circle cx="${ATLAS_CENTER}" cy="${ATLAS_CENTER}" r="26"/><text x="${ATLAS_CENTER}" y="${ATLAS_CENTER - 2}" text-anchor="middle">Start</text><text x="${ATLAS_CENTER}" y="${ATLAS_CENTER + 11}" text-anchor="middle" class="atlas-start-sub">vanilla</text></g>`;
 
-    // Per-engine lasso blobs - soft hulls drawn from cluster centroid.
-    const lassos = renderEngineLassos(configs);
-
-    // Trajectory polylines.
-    const edges = runs.map((r) => buildRunEdge(r)).join("");
-
-    // Final-state markers (drawn before nodes so nodes layer on top).
-    const finalMarkers = trajState.showFinal ? renderFinalMarkers(runs) : "";
-    const bestMarkers = trajState.showBestSeen ? renderBestSeenMarkers(runs) : "";
-
-    // Nodes - radius scales with attempt count but capped so a single
-    // hot config (e.g. the failed cluster with hundreds of visits) doesn't
-    // dwarf the rest of the canvas.
-    const nodes = configs.map((c) => {
-        const [x, y] = projectXY(c);
-        const r = Math.min(11, Math.max(2.5, Math.sqrt(c.n_attempts) * 0.9));
-        const tone = c.engine_group;
-        return `<circle class="traj-node traj-node--${tone}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" data-config-id="${c.id}"><title>${c.id} · ${c.engine_group} · ${c.n_final} final · ${c.n_attempts} visits</title></circle>`;
-    }).join("");
-
-    // Engine cluster labels (positioned near each centroid).
-    const labels = renderEngineClusterLabels(configs);
-
-    // Central Start node.
-    const start = `
-        <g class="traj-start">
-            <circle cx="${TRAJ_CENTER}" cy="${TRAJ_CENTER}" r="34" />
-            <text x="${TRAJ_CENTER}" y="${TRAJ_CENTER - 4}" text-anchor="middle">Start</text>
-            <text x="${TRAJ_CENTER}" y="${TRAJ_CENTER + 12}" text-anchor="middle" class="traj-start-sub">vanilla server</text>
-        </g>
-    `;
-
+    const v = atlasState.view;
     target.innerHTML = `
-        <svg class="trajectory-svg" viewBox="0 0 ${TRAJ_VIEWBOX} ${TRAJ_VIEWBOX}" role="img" aria-label="Agent trajectory projection">
-            <g class="traj-rings">${rings}</g>
-            <g class="traj-lassos">${lassos}</g>
-            <g class="traj-edges">${edges}</g>
-            <g class="traj-markers">${finalMarkers}${bestMarkers}</g>
-            <g class="traj-nodes">${nodes}</g>
-            ${start}
-            <g class="traj-cluster-labels">${labels}</g>
+        <svg class="atlas-svg" id="atlas-svg" viewBox="0 0 ${ATLAS_VB} ${ATLAS_VB}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Agent trajectory viewer">
+            <g class="atlas-world" id="atlas-world" transform="translate(${v.x} ${v.y}) scale(${v.k})">
+                <g class="atlas-rings">${rings}</g>
+                <g class="atlas-regions">${regions}</g>
+                <g class="atlas-edges" id="atlas-edges">${edges}</g>
+                <g class="atlas-nodes" id="atlas-nodes">${nodes}</g>
+                ${start}
+                <g class="atlas-cluster-labels">${labels}</g>
+                <g class="atlas-active" id="atlas-active"></g>
+            </g>
         </svg>
-        <div class="trajectory-legend">
-            ${Object.entries(TRAJ_OUTCOME_LABEL).map(([k, label]) =>
-                `<span class="trajectory-legend-item"><i style="background:${TRAJ_OUTCOME_COLOR[k]}"></i>${label}</span>`).join("")}
-            <span class="trajectory-legend-item"><i class="traj-legend-star"></i>Final state</span>
-            <span class="trajectory-legend-item"><i class="traj-legend-line"></i>Trajectory</span>
-        </div>
-    `;
+        <div class="atlas-hint" id="atlas-hint">scroll to zoom · drag to pan</div>`;
 
-    // Bind interactivity.
-    target.querySelectorAll(".traj-edge").forEach((el) => {
-        el.addEventListener("mouseenter", onTrajHover);
-        el.addEventListener("mouseleave", onTrajLeave);
-        el.addEventListener("click", onTrajClick);
-    });
-    target.querySelectorAll(".traj-node").forEach((el) => {
-        el.addEventListener("mouseenter", onTrajNodeHover);
-        el.addEventListener("mouseleave", onTrajLeave);
-    });
+    bindCanvasEvents();
+    if (atlasState.selectedRunId) drawActiveRun(atlasState.selectedRunId);
+    applyTrajectoryEmphasis();
 }
 
-function buildRunEdge(r) {
-    // Build a polyline path from the Start node out through the run's attempts.
-    let d = `M ${TRAJ_CENTER},${TRAJ_CENTER}`;
-    for (const att of r.path) {
-        const cfg = trajConfigsById[att.config_id];
-        if (!cfg) continue;
-        const [x, y] = projectXY(cfg);
-        d += ` L ${x.toFixed(1)},${y.toFixed(1)}`;
-    }
-    const style = trajState.pathStyle;
-    let color = "#7c8291";
-    if (style === "outcome") color = TRAJ_OUTCOME_COLOR[r.outcome] || color;
-    else if (style === "agent") color = agentColor(r.agent);
-    else if (style === "none") return ""; // skip drawing edges
-    const isSelected = trajState.selectedRunId === r.id;
-    const isHovered = trajState.hoveredRunId === r.id;
-    const opacity = isSelected || isHovered ? 1 : (style === "all" ? 0.06 : 0.12);
-    const width = isSelected || isHovered ? 2 : 1;
-    return `<path class="traj-edge" d="${d}" stroke="${color}" stroke-opacity="${opacity}" stroke-width="${width}" fill="none" data-run-id="${r.id}" />`;
+function buildRunPath(r) {
+    const eps = atlasIndex.runEpisodes[r.id];
+    if (!eps.length) return "";
+    let d = `M ${ATLAS_CENTER},${ATLAS_CENTER}`;
+    eps.forEach((e) => { const [x, y] = projXY(e); d += ` L ${x.toFixed(1)},${y.toFixed(1)}`; });
+    const color = atlasState.pathStyle === "agent" ? atlasAgentColor(r.agent) : "#9aa0ad";
+    return `<path class="atlas-edge" data-run-id="${r.id}" d="${d}" stroke="${color}" fill="none" vector-effect="non-scaling-stroke"/>`;
 }
 
-function renderFinalMarkers(runs) {
-    return runs.map((r) => {
-        if (!r.final_config_id) return "";
-        const cfg = trajConfigsById[r.final_config_id];
-        if (!cfg) return "";
-        const [x, y] = projectXY(cfg);
-        const color = TRAJ_OUTCOME_COLOR[r.outcome] || "#7c8291";
-        return `<polygon class="traj-final-star" points="${starPoints(x, y, 5, 2.2)}" fill="${color}" data-run-id="${r.id}" />`;
-    }).join("");
-}
-
-function renderBestSeenMarkers(runs) {
-    return runs.map((r) => {
-        if (!r.best_seen_config_id || r.best_seen_config_id === r.final_config_id) return "";
-        const cfg = trajConfigsById[r.best_seen_config_id];
-        if (!cfg) return "";
-        const [x, y] = projectXY(cfg);
-        return `<circle class="traj-best-ring" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="none" data-run-id="${r.id}" />`;
-    }).join("");
-}
-
-function starPoints(cx, cy, outerR, innerR, n = 5) {
-    const pts = [];
-    for (let i = 0; i < 2 * n; i++) {
-        const r = i % 2 === 0 ? outerR : innerR;
-        const a = (i * Math.PI) / n - Math.PI / 2;
-        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
-    }
-    return pts.join(" ");
-}
-
-function renderEngineLassos(configs) {
-    // For each engine group, draw a soft convex blob around its config points.
-    const grouped = {};
-    configs.forEach((c) => {
-        (grouped[c.engine_group] = grouped[c.engine_group] || []).push(c);
-    });
-    return Object.entries(grouped).map(([group, items]) => {
-        if (items.length < 3) return ""; // not enough points to form a hull
-        const pts = items.map((c) => projectXY(c));
-        const hull = convexHull(pts);
+function renderFamilyRegions(eps) {
+    const byFam = {};
+    eps.forEach((e) => { (byFam[e.strategy_family] = byFam[e.strategy_family] || []).push(projXY(e)); });
+    return Object.entries(byFam).map(([fam, pts]) => {
+        if (pts.length < 3) return "";
+        const hull = atlasHull(pts);
         if (hull.length < 3) return "";
-        // Inflate the hull slightly to give the lasso some breathing room.
-        const centroid = hull.reduce(([sx, sy], [x, y]) => [sx + x, sy + y], [0, 0])
-            .map((v) => v / hull.length);
-        const inflate = 40;
-        const inflated = hull.map(([x, y]) => {
-            const dx = x - centroid[0], dy = y - centroid[1];
-            const d = Math.hypot(dx, dy) || 1;
-            return [x + (dx / d) * inflate, y + (dy / d) * inflate];
-        });
-        const d = inflated.map(([x, y], i) =>
-            (i === 0 ? "M" : "L") + ` ${x.toFixed(1)},${y.toFixed(1)}`).join(" ") + " Z";
-        return `<path class="traj-lasso traj-lasso--${group}" d="${d}" fill="${TRAJ_OUTCOME_COLOR[group]}" />`;
+        const cx = hull.reduce((s, p) => s + p[0], 0) / hull.length;
+        const cy = hull.reduce((s, p) => s + p[1], 0) / hull.length;
+        const inf = 26;
+        const d = hull.map(([x, y], i) => {
+            const dx = x - cx, dy = y - cy, n = Math.hypot(dx, dy) || 1;
+            return (i === 0 ? "M" : "L") + ` ${(x + dx / n * inf).toFixed(1)},${(y + dy / n * inf).toFixed(1)}`;
+        }).join(" ") + " Z";
+        return `<path class="atlas-region" d="${d}" fill="${familyColor(fam)}"/>`;
     }).join("");
 }
 
-function convexHull(points) {
-    // Andrew's monotone chain.
+function familyCanonicalXY(f) {
+    const th = f.angle_deg * Math.PI / 180;
+    return [(0.5 + f.base_radius * Math.cos(th)) * ATLAS_VB, (0.5 - f.base_radius * Math.sin(th)) * ATLAS_VB];
+}
+
+function renderFamilyLabels(eps) {
+    // Live centroid per present family — follows the actual cluster (and any
+    // nodes the user has dragged, since projXY honours overrides).
+    const sum = {};
+    eps.forEach((e) => {
+        const [x, y] = projXY(e);
+        const s = sum[e.strategy_family] || (sum[e.strategy_family] = [0, 0, 0]);
+        s[0] += x; s[1] += y; s[2] += 1;
+    });
+    const centroid = (k) => { const s = sum[k]; return s ? [s[0] / s[2], s[1] / s[2]] : null; };
+    // The whole hyperparameter-tuning cluster (tuning + every flag family) reads
+    // as ONE cluster, so its single label centres on the combined mass.
+    const hpCentroid = () => {
+        const t = [0, 0, 0];
+        atlasData.families.forEach((f) => {
+            if (f.ring !== "tuning" && f.ring !== "flag") return;
+            const s = sum[f.key];
+            if (s) { t[0] += s[0]; t[1] += s[1]; t[2] += s[2]; }
+        });
+        return t[2] ? [t[0] / t[2], t[1] / t[2]] : null;
+    };
+
+    // Anchor each label: present families sit on their cluster centroid; empty
+    // technique / engine / unused-space families fall back to their canonical
+    // spoke so every category stays visible even at zero nodes.
+    const items = [];
+    atlasData.families.forEach((f) => {
+        if (f.ring === "flag") return;                  // folded into the HP cluster
+        const c = f.ring === "tuning" ? hpCentroid() : centroid(f.key);
+        const present = !!c;
+        if (f.ring === "operational" && !present) return;
+        let mx, my;
+        if (present) { [mx, my] = c; }
+        else {
+            const th = f.angle_deg * Math.PI / 180;
+            mx = (0.5 + f.base_radius * Math.cos(th)) * ATLAS_VB;
+            my = (0.5 - f.base_radius * Math.sin(th)) * ATLAS_VB;
+        }
+        const label = f.ring === "tuning" ? "Hyperparameter tuning" : f.label;
+        const text = label + (f.n_episodes === 0 ? " (0)" : "");
+        // approximate the label's rendered half-extent (viewBox units) so wide
+        // labels are spread horizontally enough not to overlap.
+        const hw = text.length * 4.3 + 9;
+        items.push({ f, label, mx, my, x: mx, y: my - 24, empty: f.n_episodes === 0, hw, hh: 12 });
+    });
+
+    // Box-overlap separation: nudge any two labels whose text rectangles overlap
+    // apart along their axis of least penetration. Wide (empty) rim labels get
+    // pushed out horizontally so the whole ring reads as evenly spaced.
+    for (let it = 0; it < 200; it++) {
+        let moved = false;
+        for (let i = 0; i < items.length; i++) {
+            for (let j = i + 1; j < items.length; j++) {
+                const a = items[i], b = items[j];
+                const dx = b.x - a.x, dy = b.y - a.y;
+                const ox = (a.hw + b.hw + 6) - Math.abs(dx);   // horizontal overlap (+gap)
+                const oy = (a.hh + b.hh + 4) - Math.abs(dy);   // vertical overlap (+gap)
+                if (ox > 0 && oy > 0) {
+                    if (ox < oy) {                              // separate horizontally
+                        const s = (ox / 2) * (dx < 0 ? -1 : 1);
+                        a.x -= s; b.x += s;
+                    } else {                                    // separate vertically
+                        const s = (oy / 2) * (dy < 0 ? -1 : 1);
+                        a.y -= s; b.y += s;
+                    }
+                    moved = true;
+                }
+            }
+        }
+        if (!moved) break;
+    }
+    const lo = -360, hi = ATLAS_VB + 360;   // layout spreads beyond the viewBox
+    const out = [];
+    items.forEach((p) => {
+        p.x = Math.max(lo, Math.min(hi, p.x));
+        p.y = Math.max(lo, Math.min(hi, p.y));
+        const f = p.f;
+        const cls = "atlas-cluster-label"
+            + (f.ring === "deep" ? " atlas-cluster-label--deep" : "")
+            + (p.empty ? " atlas-cluster-label--empty" : "");
+        if (p.empty) out.push(`<circle class="atlas-empty-marker" cx="${p.mx.toFixed(0)}" cy="${p.my.toFixed(0)}" r="3.2"/>`);
+        if (Math.hypot(p.x - p.mx, p.y - p.my) > 32)
+            out.push(`<line class="atlas-label-leader" x1="${p.mx.toFixed(0)}" y1="${p.my.toFixed(0)}" x2="${p.x.toFixed(0)}" y2="${(p.y - 4).toFixed(0)}"/>`);
+        out.push(`<text class="${cls}" x="${p.x.toFixed(0)}" y="${p.y.toFixed(0)}" text-anchor="middle">${p.label}${p.empty ? " (0)" : ""}</text>`);
+    });
+    return out.join("");
+}
+
+// Andrew's monotone chain convex hull
+function atlasHull(points) {
     const pts = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
     const cross = (O, A, B) => (A[0] - O[0]) * (B[1] - O[1]) - (A[1] - O[1]) * (B[0] - O[0]);
     const lower = [];
-    for (const p of pts) {
-        while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
-        lower.push(p);
-    }
+    for (const p of pts) { while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop(); lower.push(p); }
     const upper = [];
-    for (let i = pts.length - 1; i >= 0; i--) {
-        const p = pts[i];
-        while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
-        upper.push(p);
-    }
+    for (let i = pts.length - 1; i >= 0; i--) { const p = pts[i]; while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop(); upper.push(p); }
     lower.pop(); upper.pop();
     return lower.concat(upper);
 }
 
-function renderEngineClusterLabels(configs) {
-    const grouped = {};
-    configs.forEach((c) => {
-        (grouped[c.engine_group] = grouped[c.engine_group] || []).push(c);
-    });
-    return Object.entries(grouped).map(([group, items]) => {
-        if (items.length === 0) return "";
-        const cx = items.reduce((s, c) => s + projectXY(c)[0], 0) / items.length;
-        const cy = items.reduce((s, c) => s + projectXY(c)[1], 0) / items.length;
-        const nFinal = items.reduce((s, c) => s + c.n_final, 0);
-        const label = TRAJ_OUTCOME_LABEL[group];
-        return `<text class="traj-cluster-label traj-cluster-label--${group}" x="${cx.toFixed(0)}" y="${(cy - 70).toFixed(0)}" text-anchor="middle"><tspan x="${cx.toFixed(0)}">${label}</tspan><tspan x="${cx.toFixed(0)}" dy="18" class="traj-cluster-sub">${nFinal} final · ${items.length} configs</tspan></text>`;
-    }).join("");
-}
-
-function agentColor(agent) {
-    // Stable colour per agent string via simple hash.
-    let h = 0;
-    for (let i = 0; i < agent.length; i++) h = ((h * 31) + agent.charCodeAt(i)) | 0;
-    const hue = Math.abs(h) % 360;
-    return `hsl(${hue}, 38%, 38%)`;
-}
-
 // ---------------------------------------------------------------------------
-// Controls
+// Zoom / pan
 // ---------------------------------------------------------------------------
-
-function renderTrajectoryControls() {
-    const target = document.getElementById("trajectory-controls");
-    if (!target) return;
-    const allAgents = Array.from(new Set(trajData.runs.map((r) => r.agent))).sort();
-    const agentsActive = trajState.agents;
-    const isActiveAgent = (a) => !agentsActive || agentsActive.has(a);
-
-    target.innerHTML = `
-        <div class="traj-control-block">
-            <div class="traj-control-label">Scenario</div>
-            <div class="traj-segmented" data-control="scenario">
-                ${["all","A","B","C","D"].map((s) =>
-                    `<button type="button" data-value="${s}" class="${trajState.scenario === s ? "is-active" : ""}">${s === "all" ? "All" : s}</button>`).join("")}
-            </div>
-        </div>
-
-        <div class="traj-control-block">
-            <div class="traj-control-label">Outcome</div>
-            <div class="traj-checks" data-control="outcome">
-                ${Object.keys(TRAJ_OUTCOME_LABEL).map((k) =>
-                    `<label class="${trajState.outcomes.has(k) ? "is-on" : ""}"><input type="checkbox" data-value="${k}" ${trajState.outcomes.has(k) ? "checked" : ""}><i style="background:${TRAJ_OUTCOME_COLOR[k]}"></i>${TRAJ_OUTCOME_LABEL[k]}</label>`).join("")}
-            </div>
-        </div>
-
-        <div class="traj-control-block">
-            <div class="traj-control-label">Projection</div>
-            <div class="traj-segmented" data-control="projection">
-                <button type="button" data-value="semantic" class="${trajState.projection === "semantic" ? "is-active" : ""}">Semantic</button>
-                <button type="button" data-value="umap" class="${trajState.projection === "umap" ? "is-active" : ""}">UMAP</button>
-            </div>
-        </div>
-
-        <div class="traj-control-block">
-            <div class="traj-control-label">Path style</div>
-            <div class="traj-segmented traj-segmented--small" data-control="pathStyle">
-                ${["outcome","agent","all","none"].map((s) =>
-                    `<button type="button" data-value="${s}" class="${trajState.pathStyle === s ? "is-active" : ""}">${s === "outcome" ? "By outcome" : s === "agent" ? "By agent" : s === "all" ? "All faint" : "Hide"}</button>`).join("")}
-            </div>
-        </div>
-
-        <div class="traj-control-block">
-            <div class="traj-control-label">Overlays</div>
-            <label class="traj-toggle"><input type="checkbox" data-toggle="showFinal" ${trajState.showFinal ? "checked" : ""}> Show final state ★</label>
-            <label class="traj-toggle"><input type="checkbox" data-toggle="showBestSeen" ${trajState.showBestSeen ? "checked" : ""}> Show best-seen ○</label>
-        </div>
-
-        <div class="traj-control-block">
-            <div class="traj-control-label">Agent (${allAgents.filter(isActiveAgent).length}/${allAgents.length})</div>
-            <div class="traj-agent-list" data-control="agent">
-                <button type="button" class="traj-agent-all" data-value="__all">${agentsActive ? "Select all" : "Clear"}</button>
-                ${allAgents.map((a) =>
-                    `<label class="traj-agent ${isActiveAgent(a) ? "is-on" : ""}"><input type="checkbox" data-value="${a}" ${isActiveAgent(a) ? "checked" : ""}>${a}</label>`).join("")}
-            </div>
-        </div>
-    `;
-
-    target.querySelectorAll("[data-control='scenario'] button").forEach((b) =>
-        b.addEventListener("click", () => { trajState.scenario = b.dataset.value; renderTrajectoryExplorer(); }));
-    target.querySelectorAll("[data-control='projection'] button").forEach((b) =>
-        b.addEventListener("click", () => { trajState.projection = b.dataset.value; renderTrajectoryExplorer(); }));
-    target.querySelectorAll("[data-control='pathStyle'] button").forEach((b) =>
-        b.addEventListener("click", () => { trajState.pathStyle = b.dataset.value; renderTrajectoryExplorer(); }));
-    target.querySelectorAll("[data-control='outcome'] input").forEach((i) =>
-        i.addEventListener("change", () => {
-            if (i.checked) trajState.outcomes.add(i.dataset.value);
-            else trajState.outcomes.delete(i.dataset.value);
-            renderTrajectoryExplorer();
-        }));
-    target.querySelectorAll("[data-toggle]").forEach((i) =>
-        i.addEventListener("change", () => { trajState[i.dataset.toggle] = i.checked; renderTrajectoryExplorer(); }));
-    target.querySelectorAll("[data-control='agent'] input").forEach((i) =>
-        i.addEventListener("change", () => {
-            if (!trajState.agents) trajState.agents = new Set(allAgents);
-            if (i.checked) trajState.agents.add(i.dataset.value);
-            else trajState.agents.delete(i.dataset.value);
-            // If all selected, normalize to null = all.
-            if (trajState.agents.size === allAgents.length) trajState.agents = null;
-            renderTrajectoryExplorer();
-        }));
-    const allBtn = target.querySelector(".traj-agent-all");
-    if (allBtn) allBtn.addEventListener("click", () => {
-        trajState.agents = trajState.agents ? null : new Set();
-        renderTrajectoryExplorer();
+function applyViewTransform() {
+    const g = document.getElementById("atlas-world");
+    const v = atlasState.view;
+    if (g) g.setAttribute("transform", `translate(${v.x} ${v.y}) scale(${v.k})`);
+    rescaleNodeVisuals();
+}
+let _rescaleRaf = null;
+function rescaleNodeVisuals() {
+    if (_rescaleRaf) return;
+    _rescaleRaf = requestAnimationFrame(() => {
+        _rescaleRaf = null;
+        const k = atlasState.view.k;
+        document.querySelectorAll("#atlas-nodes .atlas-node").forEach((el) => {
+            const b = parseFloat(el.getAttribute("data-base-r"));
+            el.setAttribute("r", (b / Math.sqrt(k)).toFixed(2));
+        });
     });
 }
-
-// ---------------------------------------------------------------------------
-// Inspector
-// ---------------------------------------------------------------------------
-
-function renderTrajectoryInspector() {
-    const target = document.getElementById("trajectory-inspector");
-    if (!target) return;
-
-    const runs = getFilteredRuns();
-    const stats = computeStats(runs);
-    const sel = trajState.selectedRunId ? trajData.runs.find((r) => r.id === trajState.selectedRunId) : null;
-
-    const glance = `
-        <div class="traj-inspector-block">
-            <div class="traj-inspector-title">At a glance</div>
-            <dl class="traj-stat-grid">
-                <div><dt>Filtered runs</dt><dd>${runs.length} <span class="traj-stat-sub">of ${trajData.runs.length}</span></dd></div>
-                <div><dt>Top fingerprint share</dt><dd>${(stats.topShare * 100).toFixed(0)}% <span class="traj-stat-sub">${stats.topCount}/${runs.length}</span></dd></div>
-                <div><dt>Median path length</dt><dd>${stats.medPath}</dd></div>
-                <div><dt>Best-seen ≠ final</dt><dd>${(stats.bestNeqFinal * 100).toFixed(0)}%</dd></div>
-                <div><dt>Distinct fingerprints</dt><dd>${stats.distinctFps}</dd></div>
-            </dl>
-        </div>
-    `;
-
-    const selBlock = sel ? renderSelectedRun(sel) : `
-        <div class="traj-inspector-block">
-            <div class="traj-inspector-title">Selected run</div>
-            <p class="traj-inspector-empty">Hover or click any trajectory to inspect a single run.</p>
-        </div>
-    `;
-
-    target.innerHTML = glance + selBlock;
+function clientToWorld(svg, clientX, clientY) {
+    const rect = svg.getBoundingClientRect();
+    // viewBox is square, preserveAspectRatio meet → letterboxed
+    const side = Math.min(rect.width, rect.height);
+    const offX = rect.left + (rect.width - side) / 2;
+    const offY = rect.top + (rect.height - side) / 2;
+    const sx = (clientX - offX) / side * ATLAS_VB;
+    const sy = (clientY - offY) / side * ATLAS_VB;
+    const v = atlasState.view;
+    return [(sx - v.x) / v.k, (sy - v.y) / v.k];
 }
-
-function renderSelectedRun(r) {
-    const finalCfg = trajConfigsById[r.final_config_id];
-    const bestCfg = trajConfigsById[r.best_seen_config_id];
-    const fp = finalCfg ? finalCfg.fingerprint : null;
-    const fpRow = (label, val) => `<div><dt>${label}</dt><dd>${val ?? "-"}</dd></div>`;
-    const fpBlock = fp ? `
-        <dl class="traj-stat-grid traj-stat-grid--two">
-            ${fpRow("Engine", fp[0])}
-            ${fpRow("Quant", fp[1])}
-            ${fpRow("TP", fp[2])}
-            ${fpRow("Batch", fp[3])}
-            ${fpRow("Max-model-len", fp[4])}
-            ${fpRow("KV dtype", fp[5])}
-            ${fpRow("Spec decode", fp[6])}
-            ${fpRow("Attn backend", fp[7])}
-        </dl>
-        ${fp[8] && fp[8].length ? `<div class="traj-flags">${fp[8].map((f) => `<span>${f}</span>`).join("")}</div>` : ""}
-    ` : `<p class="traj-inspector-empty">No final config recorded.</p>`;
-
-    const lastScores = r.path.slice(-6).map((a) => {
-        const score = a.score == null ? "-" : a.score.toFixed(1);
-        return `<span class="traj-attempt ${a.launched_ok ? "traj-attempt--ok" : "traj-attempt--noop"}">${a.label || "·"} <strong>${score}</strong></span>`;
-    }).join("");
-
-    return `
-        <div class="traj-inspector-block">
-            <div class="traj-inspector-title">Selected run</div>
-            <div class="traj-run-header">
-                <span class="traj-run-outcome" style="background:${TRAJ_OUTCOME_COLOR[r.outcome]}"></span>
-                <div>
-                    <strong>${r.agent}</strong>
-                    <span class="traj-stat-sub">Scenario ${r.scenario} · seed ${r.seed}</span>
-                </div>
-            </div>
-            <dl class="traj-stat-grid">
-                <div><dt>Outcome</dt><dd>${TRAJ_OUTCOME_LABEL[r.outcome]}</dd></div>
-                <div><dt>Path length</dt><dd>${r.path.length}</dd></div>
-                <div><dt>Distinct configs</dt><dd>${new Set(r.path.map((a) => a.config_id)).size}</dd></div>
-                <div><dt>Edits total</dt><dd>${r.n_edits_total}</dd></div>
-            </dl>
-            <div class="traj-inspector-subtitle">Final fingerprint</div>
-            ${fpBlock}
-            ${bestCfg && r.best_seen_config_id !== r.final_config_id ? `<div class="traj-inspector-subtitle">Best-seen ≠ final</div><p class="traj-inspector-note">The agent's best-scoring attempt was at <code>${r.best_seen_config_id}</code> but the final submitted server was at <code>${r.final_config_id}</code>.</p>` : ""}
-            <div class="traj-inspector-subtitle">Last attempts</div>
-            <div class="traj-attempts">${lastScores}</div>
-        </div>
-    `;
-}
-
-function computeStats(runs) {
-    const fpCounts = {};
-    runs.forEach((r) => { fpCounts[r.final_config_id] = (fpCounts[r.final_config_id] || 0) + 1; });
-    const sortedCounts = Object.values(fpCounts).sort((a, b) => b - a);
-    const topCount = sortedCounts[0] || 0;
-    const topShare = runs.length ? topCount / runs.length : 0;
-    const pathLens = runs.map((r) => r.path.length).sort((a, b) => a - b);
-    const medPath = pathLens.length ? pathLens[Math.floor(pathLens.length / 2)] : 0;
-    const bestNeq = runs.filter((r) => r.best_seen_config_id && r.best_seen_config_id !== r.final_config_id).length;
-    return {
-        topCount,
-        topShare,
-        medPath,
-        bestNeqFinal: runs.length ? bestNeq / runs.length : 0,
-        distinctFps: Object.keys(fpCounts).length,
+function bindCanvasEvents() {
+    const svg = document.getElementById("atlas-svg");
+    if (!svg) return;
+    svg.addEventListener("wheel", (ev) => {
+        ev.preventDefault();
+        const v = atlasState.view;
+        const [wx, wy] = clientToWorld(svg, ev.clientX, ev.clientY);
+        const k2 = Math.max(0.3, Math.min(7, v.k * Math.exp(-ev.deltaY * 0.0015)));
+        // keep (wx,wy) under cursor: screen = world*k + offset
+        const rect = svg.getBoundingClientRect();
+        const side = Math.min(rect.width, rect.height);
+        const offX = rect.left + (rect.width - side) / 2, offY = rect.top + (rect.height - side) / 2;
+        const sx = (ev.clientX - offX) / side * ATLAS_VB, sy = (ev.clientY - offY) / side * ATLAS_VB;
+        v.x = sx - wx * k2; v.y = sy - wy * k2; v.k = k2;
+        applyViewTransform();
+    }, { passive: false });
+    let drag = null;
+    svg.addEventListener("pointerdown", (ev) => {
+        if (ev.target.closest(".atlas-node, .atlas-edge")) return;
+        drag = { x: ev.clientX, y: ev.clientY, vx: atlasState.view.x, vy: atlasState.view.y };
+        svg.setPointerCapture(ev.pointerId);
+        svg.classList.add("is-dragging");
+    });
+    svg.addEventListener("pointermove", (ev) => {
+        if (_nodeDrag) {
+            if (!_nodeDrag.moved && Math.hypot(ev.clientX - _nodeDrag.startX, ev.clientY - _nodeDrag.startY) > 3) _nodeDrag.moved = true;
+            if (_nodeDrag.moved) {
+                const [wx, wy] = clientToWorld(svg, ev.clientX, ev.clientY);
+                _nodeDrag.cur = [wx, wy];
+                _nodeDrag.el.setAttribute("cx", wx.toFixed(1));
+                _nodeDrag.el.setAttribute("cy", wy.toFixed(1));
+                updateEdgeForNode(_nodeDrag.epId, wx, wy);
+            }
+            return;
+        }
+        if (!drag) return;
+        const rect = svg.getBoundingClientRect();
+        const side = Math.min(rect.width, rect.height);
+        atlasState.view.x = drag.vx + (ev.clientX - drag.x) / side * ATLAS_VB;
+        atlasState.view.y = drag.vy + (ev.clientY - drag.y) / side * ATLAS_VB;
+        applyViewTransform();
+    });
+    const endDrag = (ev) => {
+        if (_nodeDrag) {
+            const nd = _nodeDrag;
+            _nodeDrag = null;
+            if (nd.moved && nd.cur) {
+                atlasState.nodePos[nd.epId] = nd.cur;
+                _suppressNodeClick = true;
+                renderBehaviorAtlas();   // rebuild so edges/labels follow the new spot
+            } else {
+                // a click, not a drag → select the run (pointer capture can
+                // swallow the native click event, so do it here)
+                const ep = atlasIndex.episodesById[nd.epId];
+                if (ep) selectRun(ep.run_id);
+            }
+            return;
+        }
+        if (drag) { drag = null; svg.classList.remove("is-dragging"); }
     };
-}
-
-// ---------------------------------------------------------------------------
-// Hover + click handlers
-// ---------------------------------------------------------------------------
-
-function onTrajHover(ev) {
-    const id = ev.currentTarget.dataset.runId;
-    trajState.hoveredRunId = id;
-    rerenderEdgesOnly();
-    showRunTooltip(ev, id);
-}
-
-function onTrajNodeHover(ev) {
-    const id = ev.currentTarget.dataset.configId;
-    const cfg = trajConfigsById[id];
-    if (!cfg) return;
-    showConfigTooltip(ev, cfg);
-}
-
-function onTrajLeave() {
-    trajState.hoveredRunId = null;
-    hideTrajTooltip();
-    rerenderEdgesOnly();
-}
-
-function onTrajClick(ev) {
-    const id = ev.currentTarget.dataset.runId;
-    trajState.selectedRunId = (trajState.selectedRunId === id) ? null : id;
-    renderTrajectoryExplorer();
-}
-
-function rerenderEdgesOnly() {
-    // Cheap hover update - re-stroke all edges according to current state.
-    const runs = getFilteredRuns();
-    document.querySelectorAll(".traj-edges .traj-edge").forEach((el, i) => {
-        const r = runs[i];
-        if (!r) return;
-        const isSel = trajState.selectedRunId === r.id;
-        const isHov = trajState.hoveredRunId === r.id;
-        const baseOp = trajState.pathStyle === "all" ? 0.06 : 0.12;
-        const dim = trajState.hoveredRunId && !isHov && !isSel ? 0.04 : null;
-        el.setAttribute("stroke-opacity", isSel || isHov ? 1 : (dim != null ? dim : baseOp));
-        el.setAttribute("stroke-width", isSel || isHov ? 2 : 1);
+    svg.addEventListener("pointerup", endDrag);
+    svg.addEventListener("pointercancel", endDrag);
+    svg.addEventListener("click", (ev) => {
+        if (ev.target.closest(".atlas-node, .atlas-edge")) return;
+        if (atlasState.selectedRunId) { atlasState.selectedRunId = null; stopScrub(); atlasState.view = atlasDefaultView(); renderBehaviorAtlas(); }
+    });
+    // node + edge interactivity
+    svg.querySelectorAll(".atlas-edge").forEach((el) => {
+        el.addEventListener("mouseenter", () => onRunHover(el.dataset.runId));
+        el.addEventListener("mouseleave", onAtlasLeave);
+        el.addEventListener("click", () => selectRun(el.dataset.runId));
+    });
+    svg.querySelectorAll(".atlas-node").forEach((el) => {
+        el.addEventListener("mouseenter", (ev) => { if (!_nodeDrag) { onRunHover(el.dataset.runId); showEpisodeTooltip(ev, el.dataset.epId); } });
+        el.addEventListener("mousemove", (ev) => { if (!_nodeDrag) positionAtlasTooltip(ev); });
+        el.addEventListener("mouseleave", onAtlasLeave);
+        el.addEventListener("pointerdown", (ev) => {
+            ev.stopPropagation();
+            _nodeDrag = { el, epId: el.dataset.epId, startX: ev.clientX, startY: ev.clientY, moved: false };
+            svg.setPointerCapture(ev.pointerId);
+            hideAtlasTooltip();
+        });
     });
 }
 
-function showRunTooltip(ev, runId) {
-    const r = trajData.runs.find((x) => x.id === runId);
-    if (!r) return;
-    const tt = ensureTrajTooltip();
-    tt.innerHTML = `<strong>${r.agent}</strong><br>Scenario ${r.scenario} · ${TRAJ_OUTCOME_LABEL[r.outcome]}<br>${r.path.length} attempts`;
-    positionTooltip(tt, ev);
+let _nodeDrag = null;
+let _suppressNodeClick = false;
+
+// Live-update the polyline(s) touching a dragged episode so the trajectory
+// follows the node before the full re-render on drop.
+function updateEdgeForNode(epId, wx, wy) {
+    const ep = atlasIndex.episodesById[epId];
+    if (!ep) return;
+    const eps = atlasIndex.runEpisodes[ep.run_id];
+    const i = eps.findIndex((e) => e.id === epId);
+    if (i < 0) return;
+    let d = `M ${ATLAS_CENTER},${ATLAS_CENTER}`;
+    eps.forEach((e, j) => {
+        const [x, y] = (j === i) ? [wx, wy] : projXY(e);
+        d += ` L ${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    document.querySelectorAll(`#atlas-edges .atlas-edge[data-run-id="${ep.run_id}"]`).forEach((p) => p.setAttribute("d", d));
 }
 
-function showConfigTooltip(ev, cfg) {
-    const tt = ensureTrajTooltip();
-    const fp = cfg.fingerprint;
-    tt.innerHTML = `<strong>${cfg.id}</strong> · ${fp[0]} ${fp[1] !== "none" ? "/" + fp[1] : ""}<br>tp=${fp[2]} bs=${fp[3]} mml=${fp[4]}<br>${cfg.n_final} final · ${cfg.n_attempts} visits`;
-    positionTooltip(tt, ev);
+function fitToRun(r) {
+    const eps = atlasIndex.runEpisodes[r.id];
+    const pts = [[ATLAS_CENTER, ATLAS_CENTER]].concat(eps.map((e) => projXY(e)));
+    let minx = Infinity, miny = Infinity, maxx = -Infinity, maxy = -Infinity;
+    pts.forEach(([x, y]) => { minx = Math.min(minx, x); miny = Math.min(miny, y); maxx = Math.max(maxx, x); maxy = Math.max(maxy, y); });
+    const pad = 80;
+    const w = (maxx - minx) + pad * 2, h = (maxy - miny) + pad * 2;
+    const k = Math.max(0.6, Math.min(5, ATLAS_VB / Math.max(w, h)));
+    atlasState.view.k = k;
+    atlasState.view.x = ATLAS_CENTER - ((minx + maxx) / 2) * k;
+    atlasState.view.y = ATLAS_CENTER - ((miny + maxy) / 2) * k;
 }
 
-function ensureTrajTooltip() {
-    let tt = document.getElementById("traj-tooltip");
-    if (!tt) {
-        tt = document.createElement("div");
-        tt.id = "traj-tooltip";
-        tt.className = "traj-tooltip";
-        document.body.appendChild(tt);
-    }
+// ---------------------------------------------------------------------------
+// Hover / select / emphasis (hot path: attributes only)
+// ---------------------------------------------------------------------------
+function onRunHover(id) { atlasState.hoveredRunId = id; applyTrajectoryEmphasis(); }
+function onAtlasLeave() { atlasState.hoveredRunId = null; hideAtlasTooltip(); applyTrajectoryEmphasis(); }
+
+function applyTrajectoryEmphasis() {
+    const sel = atlasState.selectedRunId, hov = atlasState.hoveredRunId;
+    const focus = sel || hov;
+    document.querySelectorAll("#atlas-edges .atlas-edge").forEach((el) => {
+        const id = el.dataset.runId;
+        const on = id === sel || id === hov;
+        el.style.strokeOpacity = on ? "0.95" : (focus ? "0.03" : (atlasState.pathStyle === "agent" ? 0.14 : 0.1));
+        el.style.strokeWidth = on ? "2.4" : "1";
+    });
+    if (sel) return; // selected run's nodes handled by drawActiveRun
+    document.querySelectorAll("#atlas-nodes .atlas-node").forEach((el) => {
+        const on = el.dataset.runId === hov;
+        el.style.opacity = (!focus || on) ? "1" : "0.12";
+    });
+}
+
+function selectRun(id) {
+    if (atlasState.selectedRunId === id) { atlasState.selectedRunId = null; stopScrub(); atlasState.view = atlasDefaultView(); }
+    else { atlasState.selectedRunId = id; fitToRun(atlasIndex.runsById[id]); atlasState.scrub.step = null; }
+    renderBehaviorAtlas();
+}
+
+function drawActiveRun(id) {
+    const r = atlasIndex.runsById[id];
+    const g = document.getElementById("atlas-active");
+    if (!r || !g) return;
+    const eps = atlasIndex.runEpisodes[id];
+    let d = `M ${ATLAS_CENTER},${ATLAS_CENTER}`;
+    const markers = [];
+    eps.forEach((e, i) => {
+        const [x, y] = projXY(e);
+        d += ` L ${x.toFixed(1)},${y.toFixed(1)}`;
+        markers.push(`<g class="atlas-step" data-step="${i}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="${familyColor(e.strategy_family)}"/><text x="${x.toFixed(1)}" y="${(y + 3.4).toFixed(1)}" text-anchor="middle">${i + 1}</text></g>`);
+    });
+    g.innerHTML = `<path class="atlas-active-edge" id="atlas-active-edge" d="${d}" fill="none" vector-effect="non-scaling-stroke"/>${markers.join("")}`;
+    // dim all base nodes when a run is selected
+    document.querySelectorAll("#atlas-nodes .atlas-node").forEach((el) => { el.style.opacity = "0.08"; });
+    g.querySelectorAll(".atlas-step").forEach((el) => {
+        el.addEventListener("click", () => setScrubStep(parseInt(el.dataset.step, 10)));
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Tooltips
+// ---------------------------------------------------------------------------
+function ensureAtlasTooltip() {
+    let tt = document.getElementById("atlas-tooltip");
+    if (!tt) { tt = document.createElement("div"); tt.id = "atlas-tooltip"; tt.className = "atlas-tooltip"; document.body.appendChild(tt); }
     tt.style.display = "block";
     return tt;
 }
+function showEpisodeTooltip(ev, epId) {
+    const e = atlasIndex.episodesById[epId];
+    if (!e) return;
+    const tt = ensureAtlasTooltip();
+    const fam = atlasIndex.familiesByKey[e.strategy_family];
+    const run = atlasIndex.runsById[e.run_id];
+    const summary = e.summary ? `<span class="atlas-tt-sum">${escapeHtml(e.summary)}</span>` : "";
+    const share = Math.round((e.n_events || 0) / atlasIndex.runEvents[e.run_id] * 100);
+    const tier = e.tier === "flag" ? ` · <span class="atlas-tt-tier">flag-enabled</span>`
+        : e.tier === "engineered" ? ` · <span class="atlas-tt-tier is-eng">engineered</span>` : "";
+    tt.innerHTML = `<span style="color:${fam ? fam.color : '#999'}">● ${fam ? fam.label : e.strategy_family}</span>${tier}${e.score != null ? ` · ${e.score} tok/s` : ""}<br>${summary}<br><span class="atlas-tt-run">${run ? run.agent : e.run_id} · step ${e.idx + 1} · ${e.n_events} tool-calls (${share}% of run)</span>`;
+    positionAtlasTooltip(ev);
+}
+function positionAtlasTooltip(ev) {
+    const tt = document.getElementById("atlas-tooltip");
+    if (!tt) return;
+    tt.style.left = (ev.clientX + 14) + "px";
+    tt.style.top = (ev.clientY + 14) + "px";
+}
+function hideAtlasTooltip() { const tt = document.getElementById("atlas-tooltip"); if (tt) tt.style.display = "none"; }
 
-function positionTooltip(tt, ev) {
-    const offset = 14;
-    tt.style.left = (ev.clientX + offset) + "px";
-    tt.style.top = (ev.clientY + offset) + "px";
+// ---------------------------------------------------------------------------
+// Headline + Toolbar + Legend
+// ---------------------------------------------------------------------------
+function renderAtlasHeadline() {
+    const el = document.getElementById("atlas-headline");
+    if (!el) return;
+    const s = atlasData.stats;
+    const chips = [
+        ["85.3%", "ship vLLM", "of runs submit a vLLM-based server"],
+        [`${Math.round(s.pct_le1_distinct_config * 100)}%`, "explore ≤1 config", "barely iterate over the 2h budget"],
+    ];
+    el.innerHTML = chips.map(([n, l, sub]) => `<div class="atlas-chip"><span class="atlas-chip-n">${n}</span><span class="atlas-chip-l">${l}</span><span class="atlas-chip-sub">${sub}</span></div>`).join("");
 }
 
-function hideTrajTooltip() {
-    const tt = document.getElementById("traj-tooltip");
-    if (tt) tt.style.display = "none";
+function renderAtlasToolbar() {
+    const el = document.getElementById("atlas-toolbar");
+    if (!el) return;
+    const sel = atlasState.selectedRunId ? atlasIndex.runsById[atlasState.selectedRunId] : null;
+    el.innerHTML = `
+        <div class="atlas-seg" data-control="projection">
+            <button data-value="semantic" class="${atlasState.projection === "semantic" ? "is-active" : ""}">Semantic</button>
+            <button data-value="umap" class="${atlasState.projection === "umap" ? "is-active" : ""}">UMAP</button>
+        </div>
+        <div class="atlas-zoom">
+            <button data-zoom="in" title="Zoom in">+</button>
+            <button data-zoom="out" title="Zoom out">−</button>
+            <button data-zoom="reset" title="Reset view">Reset</button>
+        </div>
+        ${sel ? `<button class="atlas-clear" data-zoom="clear">✕ clear “${sel.agent}”</button>` : `<span class="atlas-toolbar-hint">click any run to trace it from Start</span>`}`;
+    el.querySelectorAll("[data-control='projection'] button").forEach((b) => b.addEventListener("click", () => { atlasState.projection = b.dataset.value; renderBehaviorAtlas(); }));
+    el.querySelectorAll("[data-zoom]").forEach((b) => b.addEventListener("click", () => {
+        const z = b.dataset.zoom;
+        if (z === "in") atlasState.view.k = Math.min(7, atlasState.view.k * 1.4);
+        else if (z === "out") atlasState.view.k = Math.max(0.3, atlasState.view.k / 1.4);
+        else if (z === "reset") atlasState.view = atlasDefaultView();
+        else if (z === "clear") { atlasState.selectedRunId = null; stopScrub(); renderBehaviorAtlas(); return; }
+        applyViewTransform();
+    }));
 }
+
+function shortFam(f) {
+    if (f.ring !== "flag") return f.label;
+    const s = f.label.replace(/^Hyperparameter tuning \(/, "").replace(/\)$/, "");
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+const ENGINE_META = {
+    vllm:     { label: "vLLM",          color: "#2c365a" },
+    sglang:   { label: "SGLang",        color: "#4a6b8a" },
+    tgi:      { label: "TGI",           color: "#5a7a8c" },
+    tensorrt: { label: "TensorRT-LLM",  color: "#6a5a8c" },
+    lmdeploy: { label: "LMDeploy",      color: "#8a6b9c" },
+    custom:   { label: "Custom server", color: "#1a1f33" },
+    other:    { label: "Other engine",  color: "#9aa0b0" },
+};
+// engine breakdown of the engine_selection family (computed once from the data)
+function atlasEngines() {
+    if (atlasIndex._engines) return atlasIndex._engines;
+    const c = {};
+    atlasData.episodes.forEach((e) => {
+        if (e.strategy_family !== "engine_selection") return;
+        const g = e.engine || "other";
+        c[g] = (c[g] || 0) + 1;
+    });
+    const order = Object.keys(ENGINE_META);
+    atlasIndex._engines = Object.keys(c).sort((a, b) => order.indexOf(a) - order.indexOf(b))
+        .map((k) => ({ key: k, n: c[k], ...(ENGINE_META[k] || { label: k, color: "#9aa0b0" }) }));
+    return atlasIndex._engines;
+}
+
+function renderFamilyFilter() {
+    const cbox = (f) => {
+        const on = !atlasState.families || atlasState.families.has(f.key);
+        const empty = f.n_episodes === 0;
+        return `<label class="${on ? "is-on" : ""} ${f.ring === "deep" ? "is-deep" : ""} ${empty ? "is-empty" : ""}" title="${f.label}"><input type="checkbox" data-value="${f.key}" ${on ? "checked" : ""}><i style="background:${f.color}"></i>${shortFam(f)}${empty ? " (0)" : ""}</label>`;
+    };
+    const ebox = (e) => {
+        const on = !atlasState.engines || atlasState.engines.has(e.key);
+        return `<label class="${on ? "is-on" : ""}" title="${e.label} (${e.n})"><input type="checkbox" data-eng="${e.key}" ${on ? "checked" : ""}><i style="background:${e.color}"></i>${e.label} <span class="atlas-sub">(${e.n})</span></label>`;
+    };
+    const inRings = (rs) => atlasData.families.filter((f) => rs.includes(f.ring)).sort((a, b) => a.order_index - b.order_index);
+    const engines = atlasEngines();
+
+    const blocks = [];
+    // Operational (flat)
+    const ops = inRings(["operational"]);
+    blocks.push(`<div class="atlas-fam-group"><div class="atlas-fam-ghdr-static">Operational</div>${ops.map(cbox).join("")}</div>`);
+    // Hyperparameter tuning (collapsible)
+    const hp = inRings(["tuning", "flag"]);
+    blocks.push(collGroup("hp", "Hyperparameter tuning", hp.length, hp.map(cbox).join("")));
+    // Engine selection (collapsible, split by engine)
+    blocks.push(collGroup("engsel", "Engine selection", engines.length, engines.map(ebox).join("")));
+    // Unused action space (collapsible)
+    const deep = inRings(["deep"]);
+    blocks.push(collGroup("eng", "Unused action space", deep.length, deep.map(cbox).join("")));
+    return blocks.join("");
+
+    function collGroup(key, name, count, inner) {
+        const open = atlasState.famOpen[key];
+        return `<div class="atlas-fam-group"><button class="atlas-fam-grouphdr" data-fam-group="${key}">${open ? "▾" : "▸"} ${name} <span class="atlas-sub">(${count})</span></button>${open ? `<div class="atlas-fam-groupitems">${inner}</div>` : ""}</div>`;
+    }
+}
+
+function renderAtlasLegend() {
+    const el = document.getElementById("atlas-legend");
+    if (!el) return;
+    // Grouped legend over the FULL action space (empty categories shown dimmed).
+    const groups = [
+        ["Operational", "operational"],
+        ["Hyperparameter tuning", "tuning,flag"],
+        ["Engine selection", "engine"],
+        ["Unused action space", "deep"],
+    ];
+    const chip = (f) => `<span class="atlas-legend-item ${f.ring === "deep" ? "is-deep" : ""} ${f.n_episodes === 0 ? "is-empty" : ""}"><i style="background:${f.color}"></i>${shortFam(f)}${f.n_episodes === 0 ? " (0)" : ""}</span>`;
+    el.innerHTML = groups.map(([name, rings]) => {
+        const rs = rings.split(",");
+        const items = atlasData.families.filter((f) => rs.includes(f.ring)).sort((a, b) => a.order_index - b.order_index);
+        if (!items.length) return "";
+        return `<span class="atlas-legend-group"><span class="atlas-legend-gname">${name}</span>${items.map(chip).join("")}</span>`;
+    }).join("")
+        + `<span class="atlas-legend-sep">node size = tool-calls</span>`;
+}
+
+// ---------------------------------------------------------------------------
+// Scrubber
+// ---------------------------------------------------------------------------
+function syncScrubber() {
+    const el = document.getElementById("atlas-scrubber");
+    if (!el) return;
+    const sel = atlasState.selectedRunId ? atlasIndex.runsById[atlasState.selectedRunId] : null;
+    if (!sel) { el.hidden = true; el.innerHTML = ""; return; }
+    el.hidden = false;
+    const n = atlasIndex.runEpisodes[sel.id].length;
+    const step = atlasState.scrub.step == null ? n - 1 : atlasState.scrub.step;
+    el.innerHTML = `
+        <button class="atlas-play" id="atlas-play">${atlasState.scrub.playing ? "❚❚" : "▶"}</button>
+        <input type="range" id="atlas-range" min="0" max="${n - 1}" value="${step}">
+        <span class="atlas-step-label">step ${step + 1}/${n}</span>`;
+    document.getElementById("atlas-range").addEventListener("input", (e) => setScrubStep(parseInt(e.target.value, 10)));
+    document.getElementById("atlas-play").addEventListener("click", toggleScrub);
+    applyScrubFrame(step);
+}
+function setScrubStep(s) { atlasState.scrub.step = s; applyScrubFrame(s); const r = document.getElementById("atlas-range"); if (r) r.value = s; const lbl = document.querySelector(".atlas-step-label"); const n = atlasIndex.runEpisodes[atlasState.selectedRunId].length; if (lbl) lbl.textContent = `step ${s + 1}/${n}`; }
+function applyScrubFrame(step) {
+    const edge = document.getElementById("atlas-active-edge");
+    if (edge) {
+        const eps = atlasIndex.runEpisodes[atlasState.selectedRunId];
+        const total = edge.getTotalLength();
+        const frac = (step + 1) / eps.length;
+        edge.style.strokeDasharray = total;
+        edge.style.strokeDashoffset = (total * (1 - frac)).toFixed(1);
+    }
+    document.querySelectorAll("#atlas-active .atlas-step").forEach((el) => {
+        const i = parseInt(el.dataset.step, 10);
+        el.classList.toggle("is-active", i === step);
+        el.style.opacity = i <= step ? "1" : "0.25";
+    });
+    document.querySelectorAll("#atlas-inspector .atlas-tl-row").forEach((el) => {
+        el.classList.toggle("is-active", parseInt(el.dataset.step, 10) === step);
+    });
+}
+function toggleScrub() {
+    if (atlasState.scrub.playing) { stopScrub(); }
+    else {
+        atlasState.scrub.playing = true;
+        const n = atlasIndex.runEpisodes[atlasState.selectedRunId].length;
+        if (atlasState.scrub.step == null || atlasState.scrub.step >= n - 1) atlasState.scrub.step = -1;
+        const tick = () => {
+            if (!atlasState.scrub.playing) return;
+            atlasState.scrub.step = (atlasState.scrub.step || 0) + 1;
+            setScrubStep(atlasState.scrub.step);
+            if (atlasState.scrub.step >= n - 1) { stopScrub(); return; }
+            atlasState.scrub.rafId = setTimeout(tick, 650);
+        };
+        tick();
+    }
+    const btn = document.getElementById("atlas-play"); if (btn) btn.textContent = atlasState.scrub.playing ? "❚❚" : "▶";
+}
+function stopScrub() { atlasState.scrub.playing = false; if (atlasState.scrub.rafId) { clearTimeout(atlasState.scrub.rafId); atlasState.scrub.rafId = null; } const btn = document.getElementById("atlas-play"); if (btn) btn.textContent = "▶"; }
+
+// ---------------------------------------------------------------------------
+// Controls (left rail)
+// ---------------------------------------------------------------------------
+function renderAtlasControls() {
+    const el = document.getElementById("atlas-controls");
+    if (!el) return;
+    const agents = atlasIndex.agents;
+    const isOn = (a) => !atlasState.agents || atlasState.agents.has(a);
+    const ablations = Array.from(new Set(atlasData.runs.map((r) => r.ablation_kind || "main")));
+    const abLabel = { main: "Main", no_action_space: "No action space", structured_iteration: "Structured iter" };
+
+    el.innerHTML = `
+        <div class="atlas-cblock">
+            <div class="atlas-clabel">Scenario</div>
+            <div class="atlas-seg atlas-seg--wrap" data-control="scenario">
+                ${["all", "A", "B", "C", "D"].map((s) => `<button data-value="${s}" class="${atlasState.scenario === s ? "is-active" : ""}">${s === "all" ? "All" : s}</button>`).join("")}
+            </div>
+        </div>
+        ${ablations.length > 1 ? `<div class="atlas-cblock">
+            <div class="atlas-clabel">Condition</div>
+            <div class="atlas-seg atlas-seg--wrap" data-control="ablation">
+                <button data-value="all" class="${atlasState.ablation === "all" ? "is-active" : ""}">All</button>
+                ${ablations.map((a) => `<button data-value="${a}" class="${atlasState.ablation === a ? "is-active" : ""}">${abLabel[a] || a}</button>`).join("")}
+            </div>
+        </div>` : ""}
+        <div class="atlas-cblock">
+            <div class="atlas-clabel">Trajectory lines</div>
+            <div class="atlas-seg atlas-seg--wrap" data-control="pathStyle">
+                ${[["agent", "By agent"], ["family", "Plain"], ["none", "Hide"]].map(([v, l]) => `<button data-value="${v}" class="${atlasState.pathStyle === v ? "is-active" : ""}">${l}</button>`).join("")}
+            </div>
+        </div>
+        <div class="atlas-cblock">
+            <div class="atlas-clabel">Strategy family</div>
+            <div class="atlas-checks atlas-checks--fam" data-control="family">
+                <button class="atlas-fam-all" data-value="__all">${atlasState.families ? "All" : "Clear"}</button>
+                ${renderFamilyFilter()}
+            </div>
+        </div>
+        <div class="atlas-cblock">
+            <div class="atlas-clabel">Agent (${agents.filter(isOn).length}/${agents.length})</div>
+            <div class="atlas-agents" data-control="agent">
+                <button class="atlas-fam-all" data-value="__all">${atlasState.agents ? "All" : "Clear"}</button>
+                ${agents.map((a) => `<label class="${isOn(a) ? "is-on" : ""}"><input type="checkbox" data-value="${a}" ${isOn(a) ? "checked" : ""}>${a}</label>`).join("")}
+            </div>
+        </div>`;
+
+    el.querySelectorAll("[data-control='scenario'] button").forEach((b) => b.addEventListener("click", () => { atlasState.scenario = b.dataset.value; clearSelectionAndRender(); }));
+    el.querySelectorAll("[data-control='ablation'] button").forEach((b) => b.addEventListener("click", () => { atlasState.ablation = b.dataset.value; clearSelectionAndRender(); }));
+    el.querySelectorAll("[data-control='pathStyle'] button").forEach((b) => b.addEventListener("click", () => { atlasState.pathStyle = b.dataset.value; renderBehaviorAtlas(); }));
+    const famKeys = atlasData.families.filter((f) => f.ring !== "engine").map((f) => f.key);
+    el.querySelectorAll("[data-control='family'] input[data-value]").forEach((i) => i.addEventListener("change", () => {
+        if (!atlasState.families) atlasState.families = new Set(famKeys);
+        i.checked ? atlasState.families.add(i.dataset.value) : atlasState.families.delete(i.dataset.value);
+        if (atlasState.families.size === famKeys.length) atlasState.families = null;
+        clearSelectionAndRender();
+    }));
+    el.querySelectorAll("[data-control='family'] input[data-eng]").forEach((i) => i.addEventListener("change", () => {
+        const engKeys = atlasEngines().map((e) => e.key);
+        if (!atlasState.engines) atlasState.engines = new Set(engKeys);
+        i.checked ? atlasState.engines.add(i.dataset.eng) : atlasState.engines.delete(i.dataset.eng);
+        if (atlasState.engines.size === engKeys.length) atlasState.engines = null;
+        clearSelectionAndRender();
+    }));
+    el.querySelector("[data-control='family'] .atlas-fam-all").addEventListener("click", () => {
+        const off = atlasState.families || atlasState.engines;
+        atlasState.families = off ? null : new Set();
+        atlasState.engines = off ? null : new Set();
+        clearSelectionAndRender();
+    });
+    el.querySelectorAll("[data-fam-group]").forEach((b) => b.addEventListener("click", () => { atlasState.famOpen[b.dataset.famGroup] = !atlasState.famOpen[b.dataset.famGroup]; renderAtlasControls(); }));
+    el.querySelectorAll("[data-control='agent'] input").forEach((i) => i.addEventListener("change", () => {
+        if (!atlasState.agents) atlasState.agents = new Set(atlasIndex.agents);
+        i.checked ? atlasState.agents.add(i.dataset.value) : atlasState.agents.delete(i.dataset.value);
+        if (atlasState.agents.size === atlasIndex.agents.length) atlasState.agents = null;
+        clearSelectionAndRender();
+    }));
+    el.querySelector("[data-control='agent'] .atlas-fam-all").addEventListener("click", () => { atlasState.agents = atlasState.agents ? null : new Set(); clearSelectionAndRender(); });
+}
+function clearSelectionAndRender() { atlasState.selectedRunId = null; stopScrub(); renderBehaviorAtlas(); }
+
+// ---------------------------------------------------------------------------
+// Inspector (right rail): at-a-glance + run replay timeline
+// ---------------------------------------------------------------------------
+function renderAtlasInspector() {
+    const el = document.getElementById("atlas-inspector");
+    if (!el) return;
+    const allRuns = atlasFilteredRuns();
+    const sel = atlasState.selectedRunId ? atlasIndex.runsById[atlasState.selectedRunId] : null;
+    const med = (xs) => { if (!xs.length) return 0; const s = [...xs].sort((a, b) => a - b); return s[Math.floor(s.length / 2)]; };
+    // when a run is picked, At-a-glance reflects that single run; else the filter
+    const gRuns = sel ? [sel] : allRuns;
+    const runSet = new Set(gRuns.map((r) => r.id));
+    let flag = 0, eng = 0;
+    atlasData.episodes.forEach((e) => { if (runSet.has(e.run_id)) { if (e.tier === "flag") flag++; else if (e.tier === "engineered") eng++; } });
+    const ent = gRuns.map((r) => r.metrics.strategy_entropy);
+    const glance = `
+        <div class="atlas-iblock">
+            <div class="atlas-ititle">At a glance${sel ? ` <span class="atlas-sub">· ${sel.agent}</span>` : ""}</div>
+            <dl class="atlas-stat-grid">
+                <div><dt>${sel ? "Run" : "Runs in view"}</dt><dd>${sel ? sel.scenario : allRuns.length + " "}<span class="atlas-sub">${sel ? "scenario" : "/ " + atlasData.runs.length}</span></dd></div>
+                <div><dt>${sel ? "Episodes" : "Median episodes"}</dt><dd>${sel ? sel.n_episodes : med(gRuns.map((r) => r.n_episodes))}</dd></div>
+                <div><dt>Technique use</dt><dd>${flag}<span class="atlas-sub"> flag</span> · ${eng}<span class="atlas-sub"> eng</span></dd></div>
+                <div><dt>${sel ? "Strategy entropy" : "Median strategy entropy"}</dt><dd>${(sel ? sel.metrics.strategy_entropy : med(ent)).toFixed(2)}</dd></div>
+            </dl>
+        </div>`;
+    const runs = allRuns;
+    el.innerHTML = glance + renderRunList(runs, sel) + (sel ? renderRunReplay(sel) : "");
+
+    // run picker
+    const search = document.getElementById("atlas-runsearch");
+    if (search) search.addEventListener("input", () => {
+        const q = search.value.toLowerCase();
+        el.querySelectorAll(".atlas-runrow").forEach((row) => {
+            row.style.display = row.dataset.label.includes(q) ? "" : "none";
+        });
+    });
+    el.querySelectorAll(".atlas-runrow").forEach((row) => row.addEventListener("click", () => selectRun(row.dataset.runId)));
+    // replay row scrubbing
+    if (sel) el.querySelectorAll(".atlas-tl-row").forEach((row) => row.addEventListener("click", () => setScrubStep(parseInt(row.dataset.step, 10))));
+    // keep the selected run visible in the list
+    const selRow = el.querySelector(".atlas-runrow.is-sel");
+    if (selRow) selRow.scrollIntoView({ block: "nearest" });
+}
+
+function renderRunList(runs, sel) {
+    const sorted = [...runs].sort((a, b) => a.agent.localeCompare(b.agent) || a.scenario.localeCompare(b.scenario) || String(a.seed).localeCompare(String(b.seed)));
+    const rows = sorted.map((r) => {
+        const label = `${r.agent} ${r.scenario} ${r.ablation_kind || ""}`.toLowerCase();
+        const isSel = sel && r.id === sel.id;
+        return `<button class="atlas-runrow ${isSel ? "is-sel" : ""}" data-run-id="${r.id}" data-label="${label}">
+            <span class="atlas-runrow-dot" style="background:${atlasAgentColor(r.agent)}"></span>
+            <span class="atlas-runrow-name">${r.agent}</span>
+            <span class="atlas-runrow-meta">${r.scenario}${r.ablation_kind ? "·" + r.ablation_kind.replace("no_action_space", "no-AS").replace("structured_iteration", "struct") : ""} · ${r.n_episodes}ep</span>
+        </button>`;
+    }).join("");
+    return `<div class="atlas-iblock">
+        <div class="atlas-ititle">Pick a run <span class="atlas-sub">(${runs.length})</span></div>
+        <input class="atlas-runsearch" id="atlas-runsearch" type="text" placeholder="filter by agent / scenario…" autocomplete="off">
+        <div class="atlas-runlist">${rows}</div>
+    </div>`;
+}
+
+function renderRunReplay(r) {
+    const eps = atlasIndex.runEpisodes[r.id];
+    const rows = eps.map((e, i) => {
+        const fam = atlasIndex.familiesByKey[e.strategy_family];
+        const tmpl = (e.cmd_templates || []).slice(0, 2).map((t) => `<code>${escapeHtml(t)}</code>`).join("");
+        const summary = e.summary ? `<span class="atlas-tl-summary">${escapeHtml(e.summary)}</span>` : "";
+        const score = e.score != null ? `<span class="atlas-tl-score">${e.score} tok/s</span>` : "";
+        const share = (e.n_events || 0) / atlasIndex.runEvents[r.id];
+        const len = `<span class="atlas-tl-len" title="${e.n_events} tool-calls, ${Math.round(share * 100)}% of the run"><span class="atlas-tl-lenbar" style="width:${Math.max(8, Math.round(share * 100))}%"></span></span><span class="atlas-tl-lentxt">${e.n_events} calls</span>`;
+        return `<div class="atlas-tl-row ${fam && fam.ring === "deep" ? "is-deep" : ""}" data-step="${i}">
+            <span class="atlas-tl-idx">${i + 1}</span>
+            <span class="atlas-tl-fam" style="background:${fam ? fam.color : '#999'}"></span>
+            <span class="atlas-tl-body"><span class="atlas-tl-meta"><span class="atlas-tl-sub">${fam ? fam.label : e.strategy_family}</span>${e.tier === "flag" ? `<span class="atlas-tl-tier">flag</span>` : e.tier === "engineered" ? `<span class="atlas-tl-tier is-eng">engineered</span>` : ""}${score}</span>${summary}${len}${tmpl ? `<span class="atlas-tl-cmd">${tmpl}</span>` : ""}</span>
+        </div>`;
+    }).join("");
+    return `
+        <div class="atlas-iblock">
+            <div class="atlas-ititle">Run replay</div>
+            <div class="atlas-run-head">
+                <span class="atlas-run-dot" style="background:${atlasAgentColor(r.agent)}"></span>
+                <div><strong>${r.agent}</strong><span class="atlas-sub"> · scenario ${r.scenario}${r.ablation_kind ? " · " + r.ablation_kind : ""}</span></div>
+            </div>
+            <dl class="atlas-stat-grid atlas-stat-grid--2">
+                <div><dt>Episodes</dt><dd>${r.n_episodes}</dd></div>
+                <div><dt>Distinct families</dt><dd>${r.distinct_families}</dd></div>
+                <div><dt>Launches</dt><dd>${r.n_launches}</dd></div>
+                <div><dt>Distinct configs</dt><dd>${r.metrics.n_distinct_configs}</dd></div>
+            </dl>
+            <div class="atlas-isub">Episode timeline <span class="atlas-sub">(click to scrub)</span></div>
+            <div class="atlas-timeline">${rows}</div>
+        </div>`;
+}
+
+function escapeHtml(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
 function setupChangelog() {
     const w = document.getElementById("changelog-widget");

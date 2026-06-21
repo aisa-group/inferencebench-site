@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260612b">
+    <link rel="stylesheet" href="styles.css?v=20260613">
 </head>
 <body>
     <header class="site-header">
@@ -24,6 +24,7 @@
             <a href="#scenarios">Scenarios</a>
             <a href="#leaderboard">Leaderboard</a>
             <a href="#deep-dive">Deep Dive</a>
+            <a href="#trajectories">Trajectory viewer</a>
             <a href="#analysis">Analysis</a>
         </nav>
         <a class="paper-link" href="assets/paper.pdf" target="_blank" rel="noopener">
@@ -38,7 +39,7 @@
         <section class="hero section" id="overview">
             <div class="hero-copy">
                 <h1><span>Benchmarking Open-Ended</span><span>Inference Optimization </span><span>by AI Agents</span></h1>
-                <p class="hero-kicker">InferenceBench evaluates whether frontier coding agents can optimize LLM serving workloads under a fixed compute budget. The main bottleneck is not knowing relevant techniques, but consistently running, comparing, and preserving the right experiments.</p>
+                <p class="hero-kicker">InferenceBench tests whether frontier coding agents can optimize LLM serving under a fixed compute budget. The agents know the techniques; the hard part is running, comparing, and keeping the ones that work.</p>
                 <div class="hero-actions">
                     <a class="primary-action" href="assets/paper.pdf" target="_blank" rel="noopener">
                         Read Paper
@@ -218,7 +219,7 @@
                         <p>I’m using the remaining time on lower-risk V0 variants; the next one is eager execution, which might trim per-request overhead without changing the serving surface.</p>
                         <p>--enforce-eager is promising: TTFT improved modestly and, more importantly, the tail got tighter than the current default.</p>
                     </blockquote>
-                    <em>This run exemplifies the propose-measure-compare-rollback cycle that the benchmark rewards.</em>
+                    <em>This run shows the propose-measure-compare-rollback cycle that the benchmark rewards.</em>
                 </article>
                 <article class="agent-quote-card">
                     <span>Controlled candidate</span>
@@ -334,29 +335,30 @@
             </article>
         </section>
 
-        <section class="section trajectory-section" id="trajectories" style="display:none;">
+        <section class="section behavior-atlas-section" id="trajectories">
             <div class="section-intro">
                 <div>
-                    <p class="eyebrow">Trajectory explorer</p>
-                    <h2>Search Space Convergence</h2>
+                    <p class="eyebrow">Trajectory viewer</p>
+                    <h2>Where the agents actually go</h2>
                 </div>
-                <p>How agents navigate the serving-configuration space. The action space (engine × quant × TP × BS × KV-dtype × spec-decode × …) is conservatively 10⁵ distinct configs, yet runs cluster into a small number of high-throughput settings. Each trajectory is one run; each node is a configuration the agent tested.</p>
+                <p>The viewer reconstructs what each agent actually did, step by step. A run's tool-calls are grouped into labeled <strong>episodes</strong> by activity (inspecting, installing, launching, evaluating, debugging, or an actual optimization), and the run is drawn as a path from <strong>Start</strong> that you can click and follow. Most runs circle through inspecting, editing, evaluating, and debugging, and seldom reach the harder optimizations.</p>
             </div>
 
-            <div class="trajectory-panel" id="trajectory-panel">
-                <aside class="trajectory-controls" id="trajectory-controls">
-                    <div class="trajectory-controls-loading">Loading…</div>
+            <div class="atlas-shell" id="atlas-shell">
+                <aside class="atlas-controls" id="atlas-controls">
+                    <div class="atlas-loading">Loading…</div>
                 </aside>
-                <div class="trajectory-canvas" id="trajectory-canvas" aria-label="Trajectory projection">
-                    <div class="trajectory-canvas-loading">Loading agent trajectories…</div>
+                <div class="atlas-stage">
+                    <div class="atlas-toolbar" id="atlas-toolbar"></div>
+                    <div class="atlas-canvas" id="atlas-canvas" aria-label="Agent trajectory viewer">
+                        <div class="atlas-loading">Loading trajectories…</div>
+                    </div>
+                    <div class="atlas-scrubber" id="atlas-scrubber" hidden></div>
+                    <div class="atlas-legend" id="atlas-legend"></div>
                 </div>
-                <aside class="trajectory-inspector" id="trajectory-inspector"></aside>
+                <aside class="atlas-inspector" id="atlas-inspector"></aside>
             </div>
 
-            <p class="trajectory-privacy">
-                <span aria-hidden="true">🔒</span>
-                Raw agent transcripts remain private. This explorer renders abstracted state only: parsed parameters, action verbs, and numeric metrics derived from the canonical <code>start_server.sh</code> at each launch.
-            </p>
         </section>
 
         <section class="analysis section" id="analysis">
@@ -364,10 +366,10 @@
                 <div>
                     <p class="eyebrow">Insights</p>
                     <h2>Failure modes.</h2>
-                    <p>Across 252 runs, agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
+                    <p>Across 257 runs, agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
                 </div>
                 <div class="outcome-card">
-                    <h3>Run outcomes across 252 runs</h3>
+                    <h3>Run outcomes across 257 runs</h3>
                     <div class="stacked-bar" id="outcome-bar" aria-label="Run outcome distribution"></div>
                     <div class="outcome-grid" id="outcome-grid"></div>
                 </div>
@@ -431,7 +433,7 @@
 
     <div class="changelog-widget" id="changelog-widget" data-open="true">
         <button class="changelog-pill" id="changelog-pill" type="button" aria-label="Open changelog">
-            <span class="changelog-pulse"></span> What's new · v1.0.1
+            <span class="changelog-pulse"></span> What's new · v1.0.2
         </button>
         <div class="changelog-card" id="changelog-card" role="dialog" aria-label="Changelog">
             <div class="changelog-head">
@@ -439,6 +441,13 @@
                 <button class="changelog-min" id="changelog-min" type="button" aria-label="Minimize">&minus;</button>
             </div>
             <div class="changelog-scroll">
+                <div class="changelog-entry">
+                    <div class="changelog-ver">v1.0.2 <span class="changelog-date">· Jun 2026</span></div>
+                    <ul>
+                        <li>Added GLM-5.2 (Max) to the leaderboard, run on Claude Code scaffold.</li>
+                        <li>Added the Trajectory viewer: click any run to trace what it did, step by step, with a short summary per episode.</li>
+                    </ul>
+                </div>
                 <div class="changelog-entry">
                     <div class="changelog-ver">v1.0.1 <span class="changelog-date">· Jun 2026</span></div>
                     <ul>
@@ -457,6 +466,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20260612b"></script>
+    <script src="script.js?v=20260613"></script>
 </body>
 </html>
