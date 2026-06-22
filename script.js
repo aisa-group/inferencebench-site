@@ -1631,10 +1631,9 @@ function toggleScrub() {
     const eps = atlasIndex.runEpisodes[atlasState.selectedRunId];
     const n = eps.length;
     if (atlasState.scrub.step == null || atlasState.scrub.step >= n - 1) atlasState.scrub.step = -1;
-    // On the behavior map the camera flies along the path, zoomed into each node;
-    // elsewhere (trace view) it is the plain timeline step-through.
-    const tour = atlasState.mainView === "map";
-    const SEG = tour ? 850 : 650;
+    // The camera always flies along the path, zoomed into each node — whether the
+    // map is the big main view or the small companion under the trace.
+    const SEG = 850;
     const step = () => {
         if (!atlasState.scrub.playing) return;
         const from = atlasState.scrub.step;
@@ -1642,23 +1641,19 @@ function toggleScrub() {
         atlasState.scrub.step = to;
         updateScrubSlider(to);
         applyStepHighlights(to);
-        const after = () => {
+        animateMapSegment(from, to, SEG, () => {
             if (to >= n - 1) {
                 stopScrub();
-                if (tour) animateViewTo(computeFitView(atlasIndex.runsById[atlasState.selectedRunId]), 700);
+                animateViewTo(computeFitView(atlasIndex.runsById[atlasState.selectedRunId]), 700);
                 return;
             }
-            atlasState.scrub.rafId = setTimeout(step, tour ? 70 : SEG);
-        };
-        if (tour) animateMapSegment(from, to, SEG, after);
-        else { applyScrubFrame(to); after(); }
+            atlasState.scrub.rafId = setTimeout(step, 70);
+        });
     };
-    if (tour) {
-        applyScrubFrame(atlasState.scrub.step);   // sync the line's reveal to the start before flying in
-        // ease from the current framing into a zoomed-in shot of the starting node first
-        const nd = atlasState.scrub.step < 0 ? [ATLAS_CENTER, ATLAS_CENTER] : projXY(eps[atlasState.scrub.step]);
-        animateViewTo(centerView(nd[0], nd[1], ATLAS_PLAY_ZOOM), 500, () => { if (atlasState.scrub.playing) step(); });
-    } else step();
+    applyScrubFrame(atlasState.scrub.step);   // sync the line's reveal to the start before flying in
+    // ease from the current framing into a zoomed-in shot of the starting node first
+    const nd = atlasState.scrub.step < 0 ? [ATLAS_CENTER, ATLAS_CENTER] : projXY(eps[atlasState.scrub.step]);
+    animateViewTo(centerView(nd[0], nd[1], ATLAS_PLAY_ZOOM), 500, () => { if (atlasState.scrub.playing) step(); });
 }
 function stopScrub() {
     atlasState.scrub.playing = false;
