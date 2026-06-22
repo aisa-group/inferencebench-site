@@ -836,6 +836,7 @@ const atlasState = {
     engines:    null,                  // null = all engine_selection engines, else Set
     projection: "semantic",            // "semantic" | "umap"
     pathStyle:  "agent",               // "agent" | "family" | "none"
+    mainView:   "trace",               // "trace" | "map" — which view fills the centre stage
     view:       atlasDefaultView(),
     selectedRunId: null,
     hoveredRunId:  null,
@@ -906,12 +907,15 @@ function atlasAgentColor(agent) {
 
 function renderBehaviorAtlas() {
     if (!atlasData) return;
+    const stage = document.getElementById("atlas-stage");
+    if (stage) stage.dataset.view = atlasState.mainView;
+    placeAtlasViews();
     renderAtlasControls();
     renderAtlasToolbar();
     renderAtlasCanvas();
     renderAtlasLegend();
+    renderAtlasTrace();
     syncScrubber();
-    renderAtlasInspector();
 }
 
 // ---------------------------------------------------------------------------
@@ -1270,7 +1274,7 @@ function updateEdgeForNode(epId, wx, wy) {
     document.querySelectorAll(`#atlas-edges .atlas-edge[data-run-id="${ep.run_id}"]`).forEach((p) => p.setAttribute("d", d));
 }
 
-function fitToRun(r) {
+function computeFitView(r) {
     const eps = atlasIndex.runEpisodes[r.id];
     const pts = [[ATLAS_CENTER, ATLAS_CENTER]].concat(eps.map((e) => projXY(e)));
     let minx = Infinity, miny = Infinity, maxx = -Infinity, maxy = -Infinity;
@@ -1278,9 +1282,53 @@ function fitToRun(r) {
     const pad = 80;
     const w = (maxx - minx) + pad * 2, h = (maxy - miny) + pad * 2;
     const k = Math.max(0.6, Math.min(5, ATLAS_VB / Math.max(w, h)));
-    atlasState.view.k = k;
-    atlasState.view.x = ATLAS_CENTER - ((minx + maxx) / 2) * k;
-    atlasState.view.y = ATLAS_CENTER - ((miny + maxy) / 2) * k;
+    return { k, x: ATLAS_CENTER - ((minx + maxx) / 2) * k, y: ATLAS_CENTER - ((miny + maxy) / 2) * k };
+}
+function fitToRun(r) { atlasState.view = computeFitView(r); }
+
+// Camera helpers used by the play "tour" of the behavior map.
+const ATLAS_PLAY_ZOOM = 2.4;
+let _camRaf = null;
+function easeInOut(p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
+function centerView(wx, wy, k) { return { k, x: ATLAS_CENTER - wx * k, y: ATLAS_CENTER - wy * k }; }
+function cancelCamAnim() { if (_camRaf) { cancelAnimationFrame(_camRaf); _camRaf = null; } }
+// Tween the viewport to a target {x,y,k}; calls done() when it arrives (if still playing).
+function animateViewTo(target, dur, done) {
+    cancelCamAnim();
+    const from = { ...atlasState.view };
+    const t0 = performance.now();
+    const frame = (t) => {
+        const p = Math.min(1, (t - t0) / dur);
+        const e = easeInOut(p);
+        atlasState.view = { x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, k: from.k + (target.k - from.k) * e };
+        applyViewTransform();
+        if (p < 1) _camRaf = requestAnimationFrame(frame);
+        else { _camRaf = null; if (done) done(); }
+    };
+    _camRaf = requestAnimationFrame(frame);
+}
+// Pan/zoom along one path segment (node[fromStep] → node[toStep]) while the
+// trajectory line draws itself toward the next node, then call done().
+function animateMapSegment(fromStep, toStep, dur, done) {
+    cancelCamAnim();
+    const eps = atlasIndex.runEpisodes[atlasState.selectedRunId];
+    const node = (s) => (s < 0 ? [ATLAS_CENTER, ATLAS_CENTER] : projXY(eps[s]));
+    const a = node(fromStep), b = node(toStep);
+    const edge = document.getElementById("atlas-active-edge");
+    const total = edge ? edge.getTotalLength() : 0;
+    const fA = (fromStep + 1) / eps.length, fB = (toStep + 1) / eps.length;
+    const t0 = performance.now();
+    const frame = (t) => {
+        if (!atlasState.scrub.playing) { _camRaf = null; return; }
+        const p = Math.min(1, (t - t0) / dur);
+        const e = easeInOut(p);
+        atlasState.view = centerView(a[0] + (b[0] - a[0]) * e, a[1] + (b[1] - a[1]) * e, ATLAS_PLAY_ZOOM);
+        applyViewTransform();
+        if (edge) { edge.style.strokeDasharray = total; edge.style.strokeDashoffset = (total * (1 - (fA + (fB - fA) * e))).toFixed(1); }
+        if (p < 1) _camRaf = requestAnimationFrame(frame);
+        else { _camRaf = null; if (done) done(); }
+    };
+    _camRaf = requestAnimationFrame(frame);
 }
 
 // ---------------------------------------------------------------------------
@@ -1303,6 +1351,38 @@ function applyTrajectoryEmphasis() {
         const on = el.dataset.runId === hov;
         el.style.opacity = (!focus || on) ? "1" : "0.12";
     });
+}
+
+function setMainView(v) {
+    if (atlasState.mainView === v) return;
+    atlasState.mainView = v;
+    renderBehaviorAtlas();
+}
+
+// The trace panel and the behavior map swap between the big centre slot and the
+// small companion slot (under "At a glance") whenever the view is toggled.
+function placeAtlasViews() {
+    const main = document.getElementById("atlas-main");
+    const comp = document.getElementById("atlas-companion");
+    const head = document.getElementById("atlas-companion-head");
+    const trace = document.getElementById("atlas-trace");
+    const canvas = document.getElementById("atlas-canvas");
+    if (!main || !comp || !trace || !canvas) return;
+    const mapMain = atlasState.mainView === "map";
+    main.appendChild(mapMain ? canvas : trace);
+    comp.appendChild(mapMain ? trace : canvas);
+    // the legend belongs to the map, so it follows it between the two slots
+    const legend = document.getElementById("atlas-legend");
+    const scrubber = document.getElementById("atlas-scrubber");
+    if (legend) {
+        if (mapMain && scrubber) scrubber.after(legend);   // under the big map in the centre
+        else comp.after(legend);                            // beside the small map in the side
+    }
+    if (head) {
+        head.innerHTML = `<span>${mapMain ? "Run trace" : "Behavior map"}</span><button class="atlas-companion-enlarge" type="button" title="Show in main view">⤢ enlarge</button>`;
+        const btn = head.querySelector(".atlas-companion-enlarge");
+        if (btn) btn.addEventListener("click", () => setMainView(mapMain ? "trace" : "map"));
+    }
 }
 
 function selectRun(id) {
@@ -1379,7 +1459,8 @@ function renderAtlasToolbar() {
     const el = document.getElementById("atlas-toolbar");
     if (!el) return;
     const sel = atlasState.selectedRunId ? atlasIndex.runsById[atlasState.selectedRunId] : null;
-    el.innerHTML = `
+    const isMap = atlasState.mainView === "map";
+    const mapControls = `
         <div class="atlas-seg" data-control="projection">
             <button data-value="semantic" class="${atlasState.projection === "semantic" ? "is-active" : ""}">Semantic</button>
             <button data-value="umap" class="${atlasState.projection === "umap" ? "is-active" : ""}">UMAP</button>
@@ -1388,8 +1469,11 @@ function renderAtlasToolbar() {
             <button data-zoom="in" title="Zoom in">+</button>
             <button data-zoom="out" title="Zoom out">−</button>
             <button data-zoom="reset" title="Reset view">Reset</button>
-        </div>
-        ${sel ? `<button class="atlas-clear" data-zoom="clear">✕ clear “${sel.agent}”</button>` : `<span class="atlas-toolbar-hint">click any run to trace it from Start</span>`}`;
+        </div>`;
+    const hint = isMap ? "click any run to trace it from Start" : "pick a run to replay its trace step by step";
+    // the trace view has its own "pick another run" control, so only the map needs a clear button
+    const tail = sel ? (isMap ? `<button class="atlas-clear" data-zoom="clear">✕ clear “${sel.agent}”</button>` : "") : `<span class="atlas-toolbar-hint">${hint}</span>`;
+    el.innerHTML = `${isMap ? mapControls : ""}${tail}`;
     el.querySelectorAll("[data-control='projection'] button").forEach((b) => b.addEventListener("click", () => { atlasState.projection = b.dataset.value; renderBehaviorAtlas(); }));
     el.querySelectorAll("[data-zoom]").forEach((b) => b.addEventListener("click", () => {
         const z = b.dataset.zoom;
@@ -1475,7 +1559,14 @@ function renderAtlasLegend() {
         ["Unused action space", "deep"],
     ];
     const chip = (f) => `<span class="atlas-legend-item ${f.ring === "deep" ? "is-deep" : ""} ${f.n_episodes === 0 ? "is-empty" : ""}"><i style="background:${f.color}"></i>${shortFam(f)}${f.n_episodes === 0 ? " (0)" : ""}</span>`;
+    const echip = (e) => `<span class="atlas-legend-item"><i style="background:${e.color}"></i>${e.label} <span class="atlas-sub">(${e.n})</span></span>`;
     el.innerHTML = groups.map(([name, rings]) => {
+        // engine_selection is broken out by the actual engine (vLLM, SGLang, …)
+        if (rings === "engine") {
+            const engines = atlasEngines();
+            if (!engines.length) return "";
+            return `<span class="atlas-legend-group"><span class="atlas-legend-gname">${name}</span>${engines.map(echip).join("")}</span>`;
+        }
         const rs = rings.split(",");
         const items = atlasData.families.filter((f) => rs.includes(f.ring)).sort((a, b) => a.order_index - b.order_index);
         if (!items.length) return "";
@@ -1503,7 +1594,25 @@ function syncScrubber() {
     document.getElementById("atlas-play").addEventListener("click", toggleScrub);
     applyScrubFrame(step);
 }
-function setScrubStep(s) { atlasState.scrub.step = s; applyScrubFrame(s); const r = document.getElementById("atlas-range"); if (r) r.value = s; const lbl = document.querySelector(".atlas-step-label"); const n = atlasIndex.runEpisodes[atlasState.selectedRunId].length; if (lbl) lbl.textContent = `step ${s + 1}/${n}`; }
+function setScrubStep(s) { stopScrub(); atlasState.scrub.step = s; applyScrubFrame(s); updateScrubSlider(s); }
+function updateScrubSlider(s) {
+    const r = document.getElementById("atlas-range"); if (r) r.value = s;
+    const lbl = document.querySelector(".atlas-step-label");
+    const n = atlasIndex.runEpisodes[atlasState.selectedRunId].length;
+    if (lbl) lbl.textContent = `step ${s + 1}/${n}`;
+}
+function setPlayBtn(on) { const b = document.getElementById("atlas-play"); if (b) b.textContent = on ? "❚❚" : "▶"; }
+function applyStepHighlights(step) {
+    document.querySelectorAll("#atlas-active .atlas-step").forEach((el) => {
+        const i = parseInt(el.dataset.step, 10);
+        el.classList.toggle("is-active", i === step);
+        el.style.opacity = i <= step ? "1" : "0.25";
+    });
+    document.querySelectorAll("#atlas-trace .atlas-tl-row").forEach((el) => {
+        el.classList.toggle("is-active", parseInt(el.dataset.step, 10) === step);
+        if (el.classList.contains("is-active")) el.scrollIntoView({ block: "nearest" });
+    });
+}
 function applyScrubFrame(step) {
     const edge = document.getElementById("atlas-active-edge");
     if (edge) {
@@ -1513,33 +1622,50 @@ function applyScrubFrame(step) {
         edge.style.strokeDasharray = total;
         edge.style.strokeDashoffset = (total * (1 - frac)).toFixed(1);
     }
-    document.querySelectorAll("#atlas-active .atlas-step").forEach((el) => {
-        const i = parseInt(el.dataset.step, 10);
-        el.classList.toggle("is-active", i === step);
-        el.style.opacity = i <= step ? "1" : "0.25";
-    });
-    document.querySelectorAll("#atlas-inspector .atlas-tl-row").forEach((el) => {
-        el.classList.toggle("is-active", parseInt(el.dataset.step, 10) === step);
-    });
+    applyStepHighlights(step);
 }
 function toggleScrub() {
-    if (atlasState.scrub.playing) { stopScrub(); }
-    else {
-        atlasState.scrub.playing = true;
-        const n = atlasIndex.runEpisodes[atlasState.selectedRunId].length;
-        if (atlasState.scrub.step == null || atlasState.scrub.step >= n - 1) atlasState.scrub.step = -1;
-        const tick = () => {
-            if (!atlasState.scrub.playing) return;
-            atlasState.scrub.step = (atlasState.scrub.step || 0) + 1;
-            setScrubStep(atlasState.scrub.step);
-            if (atlasState.scrub.step >= n - 1) { stopScrub(); return; }
-            atlasState.scrub.rafId = setTimeout(tick, 650);
+    if (atlasState.scrub.playing) { stopScrub(); return; }
+    atlasState.scrub.playing = true;
+    setPlayBtn(true);
+    const eps = atlasIndex.runEpisodes[atlasState.selectedRunId];
+    const n = eps.length;
+    if (atlasState.scrub.step == null || atlasState.scrub.step >= n - 1) atlasState.scrub.step = -1;
+    // On the behavior map the camera flies along the path, zoomed into each node;
+    // elsewhere (trace view) it is the plain timeline step-through.
+    const tour = atlasState.mainView === "map";
+    const SEG = tour ? 850 : 650;
+    const step = () => {
+        if (!atlasState.scrub.playing) return;
+        const from = atlasState.scrub.step;
+        const to = from + 1;
+        atlasState.scrub.step = to;
+        updateScrubSlider(to);
+        applyStepHighlights(to);
+        const after = () => {
+            if (to >= n - 1) {
+                stopScrub();
+                if (tour) animateViewTo(computeFitView(atlasIndex.runsById[atlasState.selectedRunId]), 700);
+                return;
+            }
+            atlasState.scrub.rafId = setTimeout(step, tour ? 70 : SEG);
         };
-        tick();
-    }
-    const btn = document.getElementById("atlas-play"); if (btn) btn.textContent = atlasState.scrub.playing ? "❚❚" : "▶";
+        if (tour) animateMapSegment(from, to, SEG, after);
+        else { applyScrubFrame(to); after(); }
+    };
+    if (tour) {
+        applyScrubFrame(atlasState.scrub.step);   // sync the line's reveal to the start before flying in
+        // ease from the current framing into a zoomed-in shot of the starting node first
+        const nd = atlasState.scrub.step < 0 ? [ATLAS_CENTER, ATLAS_CENTER] : projXY(eps[atlasState.scrub.step]);
+        animateViewTo(centerView(nd[0], nd[1], ATLAS_PLAY_ZOOM), 500, () => { if (atlasState.scrub.playing) step(); });
+    } else step();
 }
-function stopScrub() { atlasState.scrub.playing = false; if (atlasState.scrub.rafId) { clearTimeout(atlasState.scrub.rafId); atlasState.scrub.rafId = null; } const btn = document.getElementById("atlas-play"); if (btn) btn.textContent = "▶"; }
+function stopScrub() {
+    atlasState.scrub.playing = false;
+    if (atlasState.scrub.rafId) { clearTimeout(atlasState.scrub.rafId); atlasState.scrub.rafId = null; }
+    cancelCamAnim();
+    setPlayBtn(false);
+}
 
 // ---------------------------------------------------------------------------
 // Controls (left rail)
@@ -1587,82 +1713,66 @@ function renderAtlasControls() {
             </div>
         </div>`;
 
-    el.querySelectorAll("[data-control='scenario'] button").forEach((b) => b.addEventListener("click", () => { atlasState.scenario = b.dataset.value; clearSelectionAndRender(); }));
-    el.querySelectorAll("[data-control='ablation'] button").forEach((b) => b.addEventListener("click", () => { atlasState.ablation = b.dataset.value; clearSelectionAndRender(); }));
+    el.querySelectorAll("[data-control='scenario'] button").forEach((b) => b.addEventListener("click", () => { atlasState.scenario = b.dataset.value; applyFilterChange(); }));
+    el.querySelectorAll("[data-control='ablation'] button").forEach((b) => b.addEventListener("click", () => { atlasState.ablation = b.dataset.value; applyFilterChange(); }));
     el.querySelectorAll("[data-control='pathStyle'] button").forEach((b) => b.addEventListener("click", () => { atlasState.pathStyle = b.dataset.value; renderBehaviorAtlas(); }));
     const famKeys = atlasData.families.filter((f) => f.ring !== "engine").map((f) => f.key);
     el.querySelectorAll("[data-control='family'] input[data-value]").forEach((i) => i.addEventListener("change", () => {
         if (!atlasState.families) atlasState.families = new Set(famKeys);
         i.checked ? atlasState.families.add(i.dataset.value) : atlasState.families.delete(i.dataset.value);
         if (atlasState.families.size === famKeys.length) atlasState.families = null;
-        clearSelectionAndRender();
+        applyFilterChange();
     }));
     el.querySelectorAll("[data-control='family'] input[data-eng]").forEach((i) => i.addEventListener("change", () => {
         const engKeys = atlasEngines().map((e) => e.key);
         if (!atlasState.engines) atlasState.engines = new Set(engKeys);
         i.checked ? atlasState.engines.add(i.dataset.eng) : atlasState.engines.delete(i.dataset.eng);
         if (atlasState.engines.size === engKeys.length) atlasState.engines = null;
-        clearSelectionAndRender();
+        applyFilterChange();
     }));
     el.querySelector("[data-control='family'] .atlas-fam-all").addEventListener("click", () => {
         const off = atlasState.families || atlasState.engines;
         atlasState.families = off ? null : new Set();
         atlasState.engines = off ? null : new Set();
-        clearSelectionAndRender();
+        applyFilterChange();
     });
     el.querySelectorAll("[data-fam-group]").forEach((b) => b.addEventListener("click", () => { atlasState.famOpen[b.dataset.famGroup] = !atlasState.famOpen[b.dataset.famGroup]; renderAtlasControls(); }));
     el.querySelectorAll("[data-control='agent'] input").forEach((i) => i.addEventListener("change", () => {
         if (!atlasState.agents) atlasState.agents = new Set(atlasIndex.agents);
         i.checked ? atlasState.agents.add(i.dataset.value) : atlasState.agents.delete(i.dataset.value);
         if (atlasState.agents.size === atlasIndex.agents.length) atlasState.agents = null;
-        clearSelectionAndRender();
+        applyFilterChange();
     }));
-    el.querySelector("[data-control='agent'] .atlas-fam-all").addEventListener("click", () => { atlasState.agents = atlasState.agents ? null : new Set(); clearSelectionAndRender(); });
+    el.querySelector("[data-control='agent'] .atlas-fam-all").addEventListener("click", () => { atlasState.agents = atlasState.agents ? null : new Set(); applyFilterChange(); });
 }
-function clearSelectionAndRender() { atlasState.selectedRunId = null; stopScrub(); renderBehaviorAtlas(); }
+// Filter edits keep the current run selected — they only re-render the views.
+function applyFilterChange() { renderBehaviorAtlas(); }
 
-// ---------------------------------------------------------------------------
-// Inspector (right rail): at-a-glance + run replay timeline
-// ---------------------------------------------------------------------------
-function renderAtlasInspector() {
-    const el = document.getElementById("atlas-inspector");
+// The trace panel is one combined box: with no run picked it is the run picker
+// ("Pick a run"); once a run is chosen it swaps to that run's replay timeline.
+// Its outer size is fixed — the inner list / timeline scrolls.
+function renderAtlasTrace() {
+    const el = document.getElementById("atlas-trace");
     if (!el) return;
-    const allRuns = atlasFilteredRuns();
     const sel = atlasState.selectedRunId ? atlasIndex.runsById[atlasState.selectedRunId] : null;
-    const med = (xs) => { if (!xs.length) return 0; const s = [...xs].sort((a, b) => a - b); return s[Math.floor(s.length / 2)]; };
-    // when a run is picked, At-a-glance reflects that single run; else the filter
-    const gRuns = sel ? [sel] : allRuns;
-    const runSet = new Set(gRuns.map((r) => r.id));
-    let flag = 0, eng = 0;
-    atlasData.episodes.forEach((e) => { if (runSet.has(e.run_id)) { if (e.tier === "flag") flag++; else if (e.tier === "engineered") eng++; } });
-    const ent = gRuns.map((r) => r.metrics.strategy_entropy);
-    const glance = `
-        <div class="atlas-iblock">
-            <div class="atlas-ititle">At a glance${sel ? ` <span class="atlas-sub">· ${sel.agent}</span>` : ""}</div>
-            <dl class="atlas-stat-grid">
-                <div><dt>${sel ? "Run" : "Runs in view"}</dt><dd>${sel ? sel.scenario : allRuns.length + " "}<span class="atlas-sub">${sel ? "scenario" : "/ " + atlasData.runs.length}</span></dd></div>
-                <div><dt>${sel ? "Episodes" : "Median episodes"}</dt><dd>${sel ? sel.n_episodes : med(gRuns.map((r) => r.n_episodes))}</dd></div>
-                <div><dt>Technique use</dt><dd>${flag}<span class="atlas-sub"> flag</span> · ${eng}<span class="atlas-sub"> eng</span></dd></div>
-                <div><dt>${sel ? "Strategy entropy" : "Median strategy entropy"}</dt><dd>${(sel ? sel.metrics.strategy_entropy : med(ent)).toFixed(2)}</dd></div>
-            </dl>
-        </div>`;
-    const runs = allRuns;
-    el.innerHTML = glance + renderRunList(runs, sel) + (sel ? renderRunReplay(sel) : "");
-
-    // run picker
-    const search = document.getElementById("atlas-runsearch");
-    if (search) search.addEventListener("input", () => {
-        const q = search.value.toLowerCase();
-        el.querySelectorAll(".atlas-runrow").forEach((row) => {
-            row.style.display = row.dataset.label.includes(q) ? "" : "none";
+    if (!sel) {
+        el.innerHTML = renderRunList(atlasFilteredRuns(), null);
+        const search = document.getElementById("atlas-runsearch");
+        if (search) search.addEventListener("input", () => {
+            const q = search.value.toLowerCase();
+            el.querySelectorAll(".atlas-runrow").forEach((row) => {
+                row.style.display = row.dataset.label.includes(q) ? "" : "none";
+            });
         });
-    });
-    el.querySelectorAll(".atlas-runrow").forEach((row) => row.addEventListener("click", () => selectRun(row.dataset.runId)));
-    // replay row scrubbing
-    if (sel) el.querySelectorAll(".atlas-tl-row").forEach((row) => row.addEventListener("click", () => setScrubStep(parseInt(row.dataset.step, 10))));
-    // keep the selected run visible in the list
-    const selRow = el.querySelector(".atlas-runrow.is-sel");
-    if (selRow) selRow.scrollIntoView({ block: "nearest" });
+        el.querySelectorAll(".atlas-runrow").forEach((row) => row.addEventListener("click", () => selectRun(row.dataset.runId)));
+        return;
+    }
+    el.innerHTML = renderRunReplay(sel);
+    // back to the picker
+    const back = el.querySelector(".atlas-tl-back");
+    if (back) back.addEventListener("click", () => selectRun(sel.id));
+    // step scrubbing by clicking an episode row
+    el.querySelectorAll(".atlas-tl-row").forEach((row) => row.addEventListener("click", () => setScrubStep(parseInt(row.dataset.step, 10))));
 }
 
 function renderRunList(runs, sel) {
@@ -1700,7 +1810,7 @@ function renderRunReplay(r) {
     }).join("");
     return `
         <div class="atlas-iblock">
-            <div class="atlas-ititle">Run replay</div>
+            <div class="atlas-ititle atlas-ititle--row"><span>Run replay</span><button class="atlas-tl-back" type="button">‹ pick another run</button></div>
             <div class="atlas-run-head">
                 <span class="atlas-run-dot" style="background:${atlasAgentColor(r.agent)}"></span>
                 <div><strong>${r.agent}</strong><span class="atlas-sub"> · scenario ${r.scenario}${r.ablation_kind ? " · " + r.ablation_kind : ""}</span></div>
@@ -1710,6 +1820,7 @@ function renderRunReplay(r) {
                 <div><dt>Distinct families</dt><dd>${r.distinct_families}</dd></div>
                 <div><dt>Launches</dt><dd>${r.n_launches}</dd></div>
                 <div><dt>Distinct configs</dt><dd>${r.metrics.n_distinct_configs}</dd></div>
+                <div style="grid-column:1 / -1"><dt>Strategy entropy</dt><dd>${r.metrics.strategy_entropy.toFixed(2)}</dd></div>
             </dl>
             <div class="atlas-isub">Episode timeline <span class="atlas-sub">(click to scrub)</span></div>
             <div class="atlas-timeline">${rows}</div>

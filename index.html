@@ -341,22 +341,31 @@
                     <p class="eyebrow">Trajectory viewer</p>
                     <h2>Where the agents actually go</h2>
                 </div>
-                <p>The viewer reconstructs what each agent actually did, step by step. A run's tool-calls are grouped into labeled <strong>episodes</strong> by activity (inspecting, installing, launching, evaluating, debugging, or an actual optimization), and the run is drawn as a path from <strong>Start</strong> that you can click and follow. Most runs circle through inspecting, editing, evaluating, and debugging, and seldom reach the harder optimizations.</p>
+                <p>The viewer reconstructs what each agent actually did, step by step. A run's tool-calls are grouped into labeled <strong>episodes</strong> by activity (inspecting, installing, launching, evaluating, debugging, or an actual optimization). Pick a run to <strong>replay its trace</strong> episode by episode from <strong>Start</strong>, or toggle to the <strong>behavior map</strong> to see every run placed in the same space. Most runs circle through inspecting, editing, evaluating, and debugging, and seldom reach the harder optimizations.</p>
             </div>
 
             <div class="atlas-shell" id="atlas-shell">
                 <aside class="atlas-controls" id="atlas-controls">
                     <div class="atlas-loading">Loading…</div>
                 </aside>
-                <div class="atlas-stage">
+                <div class="atlas-stage" id="atlas-stage" data-view="trace">
                     <div class="atlas-toolbar" id="atlas-toolbar"></div>
-                    <div class="atlas-canvas" id="atlas-canvas" aria-label="Agent trajectory viewer">
-                        <div class="atlas-loading">Loading trajectories…</div>
+                    <div class="atlas-main" id="atlas-main">
+                        <div class="atlas-trace" id="atlas-trace" aria-label="Agent trace event viewer">
+                            <div class="atlas-loading">Loading trajectories…</div>
+                        </div>
                     </div>
                     <div class="atlas-scrubber" id="atlas-scrubber" hidden></div>
-                    <div class="atlas-legend" id="atlas-legend"></div>
                 </div>
-                <aside class="atlas-inspector" id="atlas-inspector"></aside>
+                <aside class="atlas-side">
+                    <div class="atlas-companion" id="atlas-companion">
+                        <div class="atlas-companion-head" id="atlas-companion-head"></div>
+                        <div class="atlas-canvas" id="atlas-canvas" aria-label="Agent trajectory map">
+                            <div class="atlas-loading">Loading…</div>
+                        </div>
+                    </div>
+                    <div class="atlas-legend" id="atlas-legend"></div>
+                </aside>
             </div>
 
         </section>
