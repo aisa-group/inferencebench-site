@@ -27,7 +27,7 @@
             <a href="#trajectories">Trajectory viewer</a>
             <a href="#analysis">Analysis</a>
         </nav>
-        <a class="paper-link" href="assets/paper.pdf" target="_blank" rel="noopener">
+        <a class="paper-link" href="https://arxiv.org/abs/2607.20468" target="_blank" rel="noopener">
             View Paper
             <svg viewBox="0 0 20 20" aria-hidden="true">
                 <path d="M7 4h9v9h-2V7.42l-8.3 8.3-1.42-1.42 8.3-8.3H7V4Z"></path>
@@ -41,7 +41,7 @@
                 <h1><span>Benchmarking Open-Ended</span><span>Inference Optimization </span><span>by AI Agents</span></h1>
                 <p class="hero-kicker">InferenceBench tests whether frontier coding agents can optimize LLM serving under a fixed compute budget. The agents know the techniques; the hard part is running, comparing, and keeping the ones that work.</p>
                 <div class="hero-actions">
-                    <a class="primary-action" href="assets/paper.pdf" target="_blank" rel="noopener">
+                    <a class="primary-action" href="https://arxiv.org/abs/2607.20468" target="_blank" rel="noopener">
                         Read Paper
                         <svg viewBox="0 0 20 20" aria-hidden="true">
                             <path d="M7 4h9v9h-2V7.42l-8.3 8.3-1.42-1.42 8.3-8.3H7V4Z"></path>
@@ -128,8 +128,8 @@
                 </div>
                 <div class="leaderboard-type-note" aria-label="Leaderboard summary">
                     <span id="leaderboard-top-label">Top agent</span>
-                    <strong id="leaderboard-top-name">Claude Opus 4.7</strong>
-                    <p id="leaderboard-top-copy">Opus 4.7 ranks first by combining competitive per-scenario speedups with reliably valid final submissions. Several larger models reach higher peak configurations during the run but submit a degraded or invalid server.</p>
+                    <strong id="leaderboard-top-name">Claude Opus 5<sup class="rank-mark">†</sup></strong>
+                    <p id="leaderboard-top-copy">Claude Opus 5 ranks first by combining strong per-scenario speedups with valid final submissions. Failed or gated runs score at the PyTorch baseline, so repeatability remains part of the result.</p>
                 </div>
             </div>
 
@@ -178,8 +178,8 @@
 
             <div class="leaderboard-notes" style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid var(--paper-line,#e3ddd2);border-radius:10px;font-size:0.86rem;line-height:1.5;color:#5a554c;">
                 <p style="margin:0 0 .5rem;font-weight:600;">Notes</p>
-                <p style="margin:0 0 .6rem;"><strong>Scaffold versions.</strong> Results were originally collected with Claude Code v2.1.114. Models marked with an asterisk (*) were re-run with the newer Claude Code v2.1.175 (Claude Opus 4.7, Claude Opus 4.8, and Claude Fable 5). Claude Opus 4.7’s original v2.1.114 result is shown as a separate row and improves substantially on the newer scaffold.</p>
-                <p style="margin:0;"><strong>Strict prompt.</strong> Models marked with a cross (†) were run under a more explicit prompt that spells out the disallowed behaviors: no third-party pre-quantized checkpoints, and no modifying the evaluation harness. Under it, Claude Fable 5 stops substituting pre-quantized checkpoints and its aggregate speedup more than doubles.</p>
+                <p style="margin:0 0 .6rem;"><strong>Scaffold versions.</strong> Results were originally collected with Claude Code v2.1.114. Models marked with an asterisk (*) were re-run with Claude Code v2.1.175 (Claude Opus 4.7, Claude Opus 4.8, and Claude Fable 5). GLM-5.2 Max, Claude Opus 5, and Claude Sonnet 5 use Claude Code v2.1.119; the other new runs use the Codex CLI or OpenCode scaffold shown in the table.</p>
+                <p style="margin:0;"><strong>Strict prompt.</strong> Models marked with a cross (†) were run under a more explicit prompt that spells out the disallowed behaviors: no third-party pre-quantized checkpoints, and no modifying the evaluation harness. This includes the latest Opus 5, Sonnet 5, GPT-5.6 Sol Ultra, Kimi K2.7 Code, and Grok 4.5 runs.</p>
             </div>
 
             <div class="scenario-breakdown">
@@ -375,10 +375,10 @@
                 <div>
                     <p class="eyebrow">Insights</p>
                     <h2>Failure modes.</h2>
-                    <p>Across 257 runs, agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
+                    <p>In the original failure-mode analysis cohort, agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
                 </div>
                 <div class="outcome-card">
-                    <h3>Run outcomes across 257 runs</h3>
+                    <h3>Run outcomes in the original analysis</h3>
                     <div class="stacked-bar" id="outcome-bar" aria-label="Run outcome distribution"></div>
                     <div class="outcome-grid" id="outcome-grid"></div>
                 </div>
@@ -436,13 +436,13 @@
 
     <footer class="site-footer">
         <span>InferenceBench</span>
-        <a href="assets/paper.pdf" target="_blank" rel="noopener">Paper PDF</a>
+        <a href="https://arxiv.org/abs/2607.20468" target="_blank" rel="noopener">Paper PDF</a>
         <a href="https://github.com/aisa-group/InferenceBench" target="_blank" rel="noopener">Repository</a>
     </footer>
 
     <div class="changelog-widget" id="changelog-widget" data-open="true">
         <button class="changelog-pill" id="changelog-pill" type="button" aria-label="Open changelog">
-            <span class="changelog-pulse"></span> What's new · v1.0.2
+            <span class="changelog-pulse"></span> What's new · v1.0.3
         </button>
         <div class="changelog-card" id="changelog-card" role="dialog" aria-label="Changelog">
             <div class="changelog-head">
@@ -450,6 +450,12 @@
                 <button class="changelog-min" id="changelog-min" type="button" aria-label="Minimize">&minus;</button>
             </div>
             <div class="changelog-scroll">
+                <div class="changelog-entry">
+                    <div class="changelog-ver">v1.0.3 <span class="changelog-date">· Jul 2026</span></div>
+                    <ul>
+                        <li>Added Claude Opus 5, Claude Sonnet 5, GPT-5.6 Sol Ultra, Kimi K2.7 Code, and Grok 4.5 to the leaderboard.</li>
+                    </ul>
+                </div>
                 <div class="changelog-entry">
                     <div class="changelog-ver">v1.0.2 <span class="changelog-date">· Jun 2026</span></div>
                     <ul>
@@ -475,6 +481,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20260613"></script>
+    <script src="script.js?v=20260728"></script>
 </body>
 </html>
