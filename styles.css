@@ -633,6 +633,7 @@ h3 {
 .scenario-matrix,
 .behavior-panel,
 .found-panel,
+.cost-perf-panel,
 .ablation-card {
     border: 1px solid rgba(196, 188, 176, 0.78);
     border-radius: 8px;
@@ -713,7 +714,7 @@ h3 {
     position: absolute;
     left: 24px;
     bottom: 64px;
-    width: max(calc(100% - 48px), calc((8 * 88px) + (7 * 1.1rem) - 48px));
+    width: calc(100% - 48px);
     border-top: 1px solid var(--ink-soft);
     pointer-events: none;
     z-index: 1;
@@ -1121,6 +1122,11 @@ h3 {
     color: var(--white);
 }
 
+.scenario-focus button:disabled {
+    cursor: wait;
+    opacity: 0.48;
+}
+
 .leaderboard-head,
 .leaderboard-row {
     display: grid;
@@ -1128,6 +1134,31 @@ h3 {
     gap: 0.82rem;
     align-items: center;
     min-width: 940px;
+}
+
+/* The cost column only exists in the cost view. */
+.cost-heading,
+.leaderboard-cost-cell {
+    display: none;
+}
+
+.leaderboard-table-wrap[data-focus="cost"] .leaderboard-head,
+.leaderboard-table-wrap[data-focus="cost"] .leaderboard-row {
+    grid-template-columns: 68px minmax(220px, 1fr) 118px 104px repeat(4, 86px);
+    min-width: 1050px;
+}
+
+.leaderboard-table-wrap[data-focus="cost"] .cost-heading {
+    display: block;
+}
+
+.leaderboard-table-wrap[data-focus="cost"] .leaderboard-cost-cell {
+    display: block;
+}
+
+.leaderboard-head [data-sort] {
+    cursor: pointer;
+    user-select: none;
 }
 
 .leaderboard-head {
@@ -1146,8 +1177,18 @@ h3 {
 .leaderboard-head .scenario-heading-cell,
 .leaderboard-head .numeric-heading,
 .row-speed,
+.leaderboard-cost-cell,
 .leaderboard-scenario-cell {
     transition: opacity 300ms ease, filter 300ms ease;
+}
+
+.leaderboard-cost-cell {
+    color: var(--ink);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 0.95;
+    text-align: right;
 }
 
 .leaderboard-list {
@@ -1277,7 +1318,20 @@ h3 {
 }
 
 .leaderboard-table-wrap:not([data-focus="all"]) .numeric-heading,
-.leaderboard-table-wrap:not([data-focus="all"]) .row-speed {
+.leaderboard-table-wrap:not([data-focus="all"]) .row-speed,
+.leaderboard-table-wrap:not([data-focus="all"]) .leaderboard-cost-cell {
+    opacity: 0.28;
+    filter: blur(0.6px);
+}
+
+.leaderboard-table-wrap[data-focus="cost"] .cost-heading,
+.leaderboard-table-wrap[data-focus="cost"] .leaderboard-cost-cell {
+    opacity: 1;
+    filter: none;
+}
+
+.leaderboard-table-wrap[data-focus="cost"] .scenario-heading-cell,
+.leaderboard-table-wrap[data-focus="cost"] .leaderboard-scenario-cell {
     opacity: 0.28;
     filter: blur(0.6px);
 }
@@ -1626,6 +1680,134 @@ h3 {
     align-items: end;
     margin-top: 2.6rem;
     padding: 34px;
+}
+
+.cost-perf-panel {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.42fr) minmax(480px, 1fr);
+    gap: 3rem;
+    align-items: center;
+    margin-top: 2.6rem;
+    padding: 34px;
+}
+
+.cost-perf-copy h3 {
+    font-size: 1.8rem;
+    line-height: 1.18;
+}
+
+.cost-perf-copy p {
+    margin: 1rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+}
+
+.cost-perf-fit {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.cost-perf-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.6rem;
+}
+
+.scatter-legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 5px 11px;
+    border: 1px solid rgba(196, 188, 176, 0.9);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: 700 0.8rem Inter, system-ui, sans-serif;
+    cursor: pointer;
+    transition: opacity 200ms ease, border-color 200ms ease;
+}
+
+.scatter-legend-chip svg {
+    width: 14px;
+    height: 14px;
+}
+
+.scatter-legend-chip.is-off {
+    opacity: 0.38;
+}
+
+.cost-perf-chart {
+    position: relative;
+}
+
+.cost-perf-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.scatter-axis {
+    fill: var(--ink-muted);
+    font: 600 11px Inter, system-ui, sans-serif;
+}
+
+.scatter-axis-title {
+    fill: var(--ink-muted);
+    font: 700 11px Inter, system-ui, sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.scatter-mark {
+    transition: opacity 200ms ease;
+    cursor: pointer;
+}
+
+.scatter-mark.is-hidden {
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.scatter-mark:hover {
+    opacity: 0.85;
+}
+
+.scatter-tooltip {
+    position: absolute;
+    z-index: 5;
+    display: grid;
+    gap: 2px;
+    max-width: 200px;
+    padding: 9px 12px;
+    border: 1px solid rgba(196, 188, 176, 0.75);
+    border-radius: 10px;
+    background: rgba(238, 232, 223, 0.72);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    box-shadow: 0 8px 22px rgba(44, 54, 90, 0.14);
+    color: var(--ink);
+    font: 600 0.78rem Inter, system-ui, sans-serif;
+    pointer-events: none;
+}
+
+.scatter-tooltip span {
+    color: var(--ink-muted);
+    font-weight: 600;
+}
+
+.scatter-tooltip[hidden] {
+    display: none;
+}
+
+.scatter-tooltip.is-pinned {
+    z-index: 4;
+    transform: translate(16px, -50%);
+}
+
+.scatter-tooltip.is-pinned.flip {
+    transform: translate(calc(-100% - 16px), -50%);
 }
 
 .found-copy h3 {
@@ -2162,6 +2344,7 @@ h3 {
     .section-intro,
     .behavior-panel,
     .found-panel,
+    .cost-perf-panel,
     .scenario-figure,
     .agent-quotes {
         grid-template-columns: 1fr;
@@ -2283,6 +2466,7 @@ h3 {
     .leaderboard-table-wrap,
     .behavior-panel,
     .found-panel,
+    .cost-perf-panel,
     .ablation-card,
     .outcome-card {
         padding: 22px;
@@ -2301,7 +2485,7 @@ h3 {
     }
 
     .aggregate-baseline {
-        width: calc((8 * 104px) + (7 * 0.85rem) - 48px);
+        width: calc(832px + 5.95rem - 48px);
     }
 
     .breakdown-heading {
@@ -2331,6 +2515,16 @@ h3 {
         min-width: 760px;
         min-height: auto;
         padding: 16px 0;
+    }
+
+    .leaderboard-table-wrap[data-focus="cost"] .leaderboard-head,
+    .leaderboard-table-wrap[data-focus="cost"] .leaderboard-row {
+        grid-template-columns: 52px minmax(180px, 1fr) 100px 90px repeat(4, 74px);
+        min-width: 870px;
+    }
+
+    .leaderboard-cost-cell {
+        font-size: 1.55rem;
     }
 
     .row-speed {

@@ -1,4 +1,4 @@
-const aggregateData = [
+const aggregateReferenceData = [
     {
         label: "Hyperparameter Search",
         shortLabel: "Hyperparameter Search",
@@ -6,46 +6,6 @@ const aggregateData = [
         sem: 0.68,
         bar: "#d6cec2",
         dot: "#8e887d"
-    },
-    {
-        label: "Claude Opus 5",
-        shortLabel: "Opus 5 †",
-        value: 8.90,
-        sem: 1.32,
-        bar: "#2c365a",
-        dot: "#2c365a"
-    },
-    {
-        label: "Claude Fable 5 (Low)",
-        shortLabel: 'Fable 5 <span class="agg-nowrap">(Low) *†</span>',
-        value: 8.74,
-        sem: 1.91,
-        bar: "#2c365a",
-        dot: "#2c365a"
-    },
-    {
-        label: "Claude Opus 4.7",
-        shortLabel: "Opus 4.7 *",
-        value: 8.53,
-        sem: 0.80,
-        bar: "#2c365a",
-        dot: "#2c365a"
-    },
-    {
-        label: "Claude Opus 4.8",
-        shortLabel: "Opus 4.8 *",
-        value: 7.60,
-        sem: 2.16,
-        bar: "#2c365a",
-        dot: "#2c365a"
-    },
-    {
-        label: "Claude Fable 5",
-        shortLabel: "Fable 5 *†",
-        value: 7.52,
-        sem: 1.58,
-        bar: "#2c365a",
-        dot: "#2c365a"
     },
     {
         label: "vLLM Default",
@@ -64,8 +24,6 @@ const aggregateData = [
         dot: "#8e887d"
     }
 ];
-
-const aggregateExpandedData = aggregateData;
 
 const scenarioData = [
     {
@@ -129,36 +87,71 @@ const scenarioData = [
 const leaderboardRows = [
     { rank: 1, model: "Claude Opus 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 8.90, sem: 1.32, type: "agent", a: 4.65, b: 15.01, c: 32.42, d: 2.77, mark: "†", key: "opus-5" },
     { rank: 2, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 8.74, sem: 1.91, type: "agent", a: 4.17, b: 13.38, c: 21.37, d: 4.89, mark: "*†", key: "fable-5-low-strict", variant: true },
-    { rank: 3, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.175", value: 8.53, sem: 0.80, type: "agent", a: 2.83, b: 11.63, c: 38.52, d: 4.18, mark: "*" },
-    { rank: 4, model: "Claude Opus 4.8", scaffold: "Claude Code · v2.1.175", value: 7.60, sem: 2.16, type: "agent", a: 4.53, b: 12.16, c: 18.62, d: 3.25, mark: "*" },
+    { rank: 3, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.175", value: 8.53, sem: 0.80, type: "agent", a: 2.83, b: 11.63, c: 38.52, d: 4.18, mark: "*", key: "opus-4-7" },
+    { rank: 4, model: "Claude Opus 4.8", scaffold: "Claude Code · v2.1.175", value: 7.60, sem: 2.16, type: "agent", a: 4.53, b: 12.16, c: 18.62, d: 3.25, mark: "*", key: "opus-4-8" },
     { rank: 5, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 7.52, sem: 1.58, type: "agent", a: 4.27, b: 15.64, c: 11.90, d: 4.03, mark: "*†", key: "fable-5-strict", variant: true },
     { rank: 6, model: "GPT-5.6 Sol (Ultra)", scaffold: "Codex CLI · strict prompt", value: 7.34, sem: 0.21, type: "agent", a: 4.24, b: 8.61, c: 33.92, d: 2.35, mark: "†", key: "gpt-5-6-sol-ultra" },
-    { rank: 7, model: "Claude Opus 4.8 (xHigh)", scaffold: "Claude Code", value: 7.34, sem: 2.37, type: "agent", a: 4.30, b: 7.72, c: 18.77, d: 4.65 },
+    { rank: 7, model: "Claude Opus 4.8 (xHigh)", scaffold: "Claude Code", value: 7.34, sem: 2.37, type: "agent", a: 4.30, b: 7.72, c: 18.77, d: 4.65, key: "opus-4-8-xhigh" },
     { rank: 8, model: "GLM-5.2 (Max)", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 7.00, sem: 0.24, type: "agent", a: 3.86, b: 5.77, c: 32.47, d: 3.32, mark: "†", key: "glm-5-2-max" },
-    { rank: 9, model: "Claude Sonnet 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 6.43, sem: 1.46, type: "agent", a: 3.30, b: 4.48, c: 36.09, d: 3.20, mark: "†", key: "sonnet-5" },
-    { rank: 10, model: "Kimi K2.7 Code", scaffold: "OpenCode · strict prompt", value: 6.27, sem: 0.22, type: "agent", a: 3.97, b: 5.33, c: 22.99, d: 3.17, mark: "†", key: "kimi-k2-7-code" },
-    { rank: 11, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25 },
-    { rank: 12, model: "Kimi K3", scaffold: "OpenCode · strict prompt", value: 5.70, sem: 1.69, type: "agent", a: 3.50, b: 4.25, c: 19.59, d: 3.64, mark: "†", key: "kimi-k3" },
-    { rank: 13, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01 },
-    { rank: 14, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60 },
-    { rank: 15, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14 },
-    { rank: 16, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97 },
-    { rank: 17, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51 },
-    { rank: 18, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21 },
-    { rank: 19, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57 },
-    { rank: 20, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08 },
-    { rank: 21, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50 },
-    { rank: 22, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95 },
-    { rank: 23, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82 },
-    { rank: 24, model: "Grok 4.5", scaffold: "OpenCode · strict prompt", value: 3.42, sem: 1.23, type: "agent", a: 2.07, b: 2.75, c: 10.11, d: 2.37, mark: "†", key: "grok-4-5" },
-    { rank: 25, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87 },
-    { rank: 26, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32 },
-    { rank: 27, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
-    { rank: 28, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24 },
-    { rank: 29, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82 },
-    { rank: 30, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
-    { rank: 31, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low", variant: true },
-    { rank: 32, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87 }
+    { rank: 9, model: "Grok 4.6", scaffold: "Grok Build · strict prompt", value: 6.65, sem: 1.14, type: "agent", a: 2.99, b: 6.24, c: 30.17, d: 3.47, mark: "†", key: "grok-4-6-build" },
+    { rank: 10, model: "Claude Sonnet 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 6.43, sem: 1.46, type: "agent", a: 3.30, b: 4.48, c: 36.09, d: 3.20, mark: "†", key: "sonnet-5" },
+    { rank: 11, model: "Kimi K2.7 Code", scaffold: "OpenCode · strict prompt", value: 6.27, sem: 0.22, type: "agent", a: 3.97, b: 5.33, c: 22.99, d: 3.17, mark: "†", key: "kimi-k2-7-code" },
+    { rank: 12, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25, key: "gpt-5-4-high" },
+    { rank: 13, model: "Kimi K3", scaffold: "OpenCode · strict prompt", value: 5.70, sem: 1.69, type: "agent", a: 3.50, b: 4.25, c: 19.59, d: 3.64, mark: "†", key: "kimi-k3" },
+    { rank: 14, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01, key: "sonnet-4-6" },
+    { rank: 15, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60, key: "gpt-5-3-codex-high" },
+    { rank: 16, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14, key: "gpt-5-5-xhigh" },
+    { rank: 17, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97, key: "gemini-3-1-pro" },
+    { rank: 18, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51, key: "kimi-k2-6" },
+    { rank: 19, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21, key: "opus-4-6" },
+    { rank: 20, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57, key: "gpt-5-2" },
+    { rank: 21, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08, key: "gpt-5-5-high" },
+    { rank: 22, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50, key: "gemini-3-5-flash" },
+    { rank: 23, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95, key: "opus-4-5" },
+    { rank: 24, model: "Grok 4.5", scaffold: "Grok Build · strict prompt", value: 3.70, sem: 0.79, type: "agent", a: 2.95, b: 2.73, c: 15.59, d: 1.49, mark: "†", key: "grok-4-5-build" },
+    { rank: 25, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82, key: "gpt-5-1-codex-max" },
+    { rank: 26, model: "Grok 4.5", scaffold: "OpenCode · strict prompt", value: 3.42, sem: 1.23, type: "agent", a: 2.07, b: 2.75, c: 10.11, d: 2.37, mark: "†", key: "grok-4-5-opencode", variant: true },
+    { rank: 27, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87, key: "glm-5" },
+    { rank: 28, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32, key: "sonnet-4-5" },
+    { rank: 29, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
+    { rank: 30, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24, key: "haiku-4-5" },
+    { rank: 31, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82, key: "gpt-5-3-codex-medium" },
+    { rank: 32, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
+    { rank: 33, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low-regular", variant: true },
+    { rank: 34, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87, key: "gpt-5-2-codex" }
+];
+
+// top three overall, plus the best GPT model and the best model from any
+// other (non-Claude, non-GPT) family
+const aggregateChartRows = (() => {
+    const picks = leaderboardRows.slice(0, 3);
+    const gpt = leaderboardRows.find((row) => /gpt/i.test(row.model) && !picks.includes(row));
+    if (gpt) picks.push(gpt);
+    const other = leaderboardRows.find((row) => !/claude|gpt/i.test(row.model) && !picks.includes(row));
+    if (other) picks.push(other);
+    return picks;
+})();
+const aggregateShortLabels = {
+    "gpt-5-6-sol-ultra": "GPT-5.6 Sol",
+    "grok-4-6-build": "Grok 4.6 Build",
+    "sonnet-5": "Sonnet 5",
+    "kimi-k2-7-code": "Kimi K2.7 Code",
+    "kimi-k3": "Kimi K3",
+    "grok-4-5-build": "Grok 4.5 Build",
+    "grok-4-5-opencode": "Grok 4.5 OpenCode"
+};
+const aggregateExpandedData = [
+    aggregateReferenceData[0],
+    ...aggregateChartRows
+        .map((row) => ({
+            label: `${row.model} — ${row.scaffold}`,
+            shortLabel: `${aggregateShortLabels[row.key] ?? row.model.replace("Claude ", "")}${row.mark ? ` ${row.mark}` : ""}`,
+            value: row.value,
+            sem: row.sem,
+            bar: "#2c365a",
+            dot: "#2c365a"
+        })),
+    ...aggregateReferenceData.slice(1)
 ];
 
 const scenarioColumns = [
@@ -179,12 +172,49 @@ const modelKey = (model) => model.toLowerCase().replace(/[^a-z0-9]+/g, "-").repl
 const rowKey = (row) => row.key || modelKey(row.model);
 const markHtml = (row) => row.mark ? `<sup class="rank-mark">${row.mark}</sup>` : "";
 
-function sortedLeaderboardRows(focus = "all") {
-    const key = focus === "all" ? "value" : focus;
-    return [...leaderboardRows].sort((a, b) => b[key] - a[key] || a.rank - b.rank);
+const sortState = { key: "value", dir: "desc" };
+let costDataLoaded = false;
+let refreshLeaderboardSort = null;
+const defaultSortDir = (key) => (key === "cost" ? "asc" : "desc");
+const focusForSortKey = { value: "all", a: "a", b: "b", c: "c", d: "d", cost: "cost" };
+const sortMetric = (row, key) => (key === "cost" ? row.fullCost : row[key]);
+
+function sortedLeaderboardRows() {
+    const { key, dir } = sortState;
+    const sign = dir === "asc" ? 1 : -1;
+    return [...leaderboardRows].sort((a, b) => {
+        const aValue = sortMetric(a, key);
+        const bValue = sortMetric(b, key);
+        const aKnown = Number.isFinite(aValue);
+        const bKnown = Number.isFinite(bValue);
+        if (aKnown !== bKnown) return aKnown ? -1 : 1;
+        if (!aKnown) return a.rank - b.rank;
+        return sign * (aValue - bValue) || a.rank - b.rank;
+    });
 }
 
-function updateLeaderboardSummary(focus = "all", topRow = sortedLeaderboardRows(focus)[0]) {
+function bestLeaderboardRow() {
+    const { key } = sortState;
+    const candidates = leaderboardRows.filter((row) => Number.isFinite(sortMetric(row, key)));
+    if (!candidates.length) return leaderboardRows[0];
+    const wantLowest = defaultSortDir(key) === "asc";
+    return candidates.reduce((best, row) => {
+        const bestValue = sortMetric(best, key);
+        const rowValue = sortMetric(row, key);
+        return (wantLowest ? rowValue < bestValue : rowValue > bestValue) ? row : best;
+    });
+}
+
+function updateSortArrows() {
+    document.querySelectorAll(".leaderboard-head [data-sort]").forEach((element) => {
+        const active = element.dataset.sort === sortState.key;
+        element.textContent = active
+            ? `${element.dataset.label} ${sortState.dir === "desc" ? "↓" : "↑"}`
+            : element.dataset.label;
+    });
+}
+
+function updateLeaderboardSummary(focus = "all", topRow = bestLeaderboardRow()) {
     const label = document.getElementById("leaderboard-top-label");
     const name = document.getElementById("leaderboard-top-name");
     const copy = document.getElementById("leaderboard-top-copy");
@@ -197,11 +227,49 @@ function updateLeaderboardSummary(focus = "all", topRow = sortedLeaderboardRows(
         return;
     }
 
+    if (focus === "cost") {
+        label.textContent = "Lowest cost";
+        name.innerHTML = topRow.model + markHtml(topRow);
+        copy.textContent = `${topRow.model} has the lowest cost for the full 12-run evaluation at ${formatUsd(topRow.fullCost)}.`;
+        return;
+    }
+
     const column = scenarioColumns.find((item) => item.key === focus);
     const scenarioName = column?.shortLabel ?? "scenario";
     label.textContent = `Top ${scenarioName}`;
     name.innerHTML = topRow.model + markHtml(topRow);
     copy.textContent = scenarioFocusNotes[focus] ?? "";
+}
+
+function formatUsd(value) {
+    if (!Number.isFinite(value)) return "N/A";
+    return `$${value.toFixed(value < 10 ? 2 : 1)}`;
+}
+
+async function loadCostEfficiency() {
+    const button = document.querySelector('[data-focus="cost"]');
+    try {
+        const response = await fetch("./data/cost-efficiency.json?v=20260814-4");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        const byKey = new Map(payload.configs.map((item) => [item.key, item]));
+        leaderboardRows.forEach((row) => {
+            const item = byKey.get(rowKey(row));
+            row.fullCost = item?.full_12_run_cost_usd ?? null;
+        });
+        const byModelKey = new Map(leaderboardRows.map((row) => [rowKey(row), row]));
+        document.querySelectorAll(".leaderboard-row").forEach((element) => {
+            const row = byModelKey.get(element.dataset.modelKey);
+            const cell = element.querySelector(".leaderboard-cost-cell");
+            if (row && cell) cell.textContent = formatUsd(row.fullCost);
+        });
+        costDataLoaded = true;
+        if (sortState.key === "cost") refreshLeaderboardSort?.();
+        if (button) button.disabled = false;
+        renderCostScatter();
+    } catch (error) {
+        if (button) button.title = `Cost data could not be loaded: ${error.message}`;
+    }
 }
 
 const outcomeData = [
@@ -351,12 +419,12 @@ function renderScenarioBreakdown() {
     }).join("");
 }
 
-function renderLeaderboard(focus = "all") {
+function renderLeaderboard() {
     const target = document.getElementById("leaderboard-list");
     if (!target) return;
 
     const max = Math.max(...leaderboardRows.map((row) => row.value));
-    const rows = sortedLeaderboardRows(focus);
+    const rows = sortedLeaderboardRows();
     target.innerHTML = rows.map((row, index) => {
         const width = (row.value / max) * 100;
         const rankClass = index < 3 ? "top" : "";
@@ -382,6 +450,7 @@ function renderLeaderboard(focus = "all") {
                 <div class="speed-track" aria-hidden="true">
                     <span class="speed-fill" style="--w:${width}%"></span>
                 </div>
+                <span class="leaderboard-cost-cell">${formatUsd(row.fullCost)}</span>
                 <span class="row-speed">
                     <span class="row-speed-value">${fmt(row.value)}</span>
                     <span class="row-speed-sem">±${row.sem.toFixed(2)}×</span>
@@ -390,19 +459,30 @@ function renderLeaderboard(focus = "all") {
             </div>
         `;
     }).join("");
-    updateLeaderboardSummary(focus, rows[0]);
+    updateSortArrows();
+    updateLeaderboardSummary(focusForSortKey[sortState.key]);
 }
 
 function setupScenarioFocus() {
     const wrap = document.querySelector(".leaderboard-table-wrap");
     const controls = document.getElementById("scenario-focus");
     const list = document.getElementById("leaderboard-list");
+    const head = document.querySelector(".leaderboard-head");
     if (!wrap || !controls || !list) return;
 
     const rowByKey = () => new Map([...list.children].map((row) => [row.dataset.modelKey, row]));
 
-    const applyFocus = (focus, animate = true) => {
-        const orderedRows = sortedLeaderboardRows(focus);
+    const applySort = (key, dir, animate = true) => {
+        sortState.key = key;
+        sortState.dir = dir;
+        const focus = focusForSortKey[key];
+        controls.querySelectorAll("button[data-focus]").forEach((control) => {
+            const isActive = control.dataset.focus === focus;
+            control.classList.toggle("is-active", isActive);
+            control.setAttribute("aria-pressed", String(isActive));
+        });
+
+        const orderedRows = sortedLeaderboardRows();
         const firstRects = new Map([...list.children].map((row) => [row.dataset.modelKey, row.getBoundingClientRect()]));
         const existingRows = rowByKey();
 
@@ -418,7 +498,8 @@ function setupScenarioFocus() {
         });
 
         wrap.dataset.focus = focus;
-        updateLeaderboardSummary(focus, orderedRows[0]);
+        updateSortArrows();
+        updateLeaderboardSummary(focus);
 
         if (!animate) return;
         [...list.children].forEach((row) => {
@@ -440,15 +521,22 @@ function setupScenarioFocus() {
     controls.addEventListener("click", (event) => {
         const button = event.target.closest("button[data-focus]");
         if (!button) return;
-
-        const focus = button.dataset.focus;
-        controls.querySelectorAll("button[data-focus]").forEach((control) => {
-            const isActive = control === button;
-            control.classList.toggle("is-active", isActive);
-            control.setAttribute("aria-pressed", String(isActive));
-        });
-        applyFocus(focus);
+        const key = button.dataset.focus === "all" ? "value" : button.dataset.focus;
+        applySort(key, defaultSortDir(key));
     });
+
+    head?.addEventListener("click", (event) => {
+        const target = event.target.closest("[data-sort]");
+        if (!target) return;
+        const key = target.dataset.sort;
+        if (key === "cost" && !costDataLoaded) return;
+        const dir = sortState.key === key
+            ? (sortState.dir === "desc" ? "asc" : "desc")
+            : defaultSortDir(key);
+        applySort(key, dir);
+    });
+
+    refreshLeaderboardSort = (animate = false) => applySort(sortState.key, sortState.dir, animate);
 }
 
 function renderScenarioMatrix() {
@@ -554,6 +642,204 @@ function renderFoundChart() {
             </div>
         `;
     }).join("");
+}
+
+const MODEL_FAMILIES = [
+    { name: "xAI", color: "#b34d46", shape: "triangle", match: /grok/i },
+    { name: "Anthropic", color: "#4a5a99", shape: "circle", match: /claude/i },
+    { name: "OpenAI", color: "#aa7422", shape: "square", match: /gpt/i },
+    { name: "Google", color: "#128a6c", shape: "diamond", match: /gemini/i },
+    { name: "Moonshot", color: "#8156ab", shape: "cross", match: /kimi/i },
+    { name: "Z.AI", color: "#8d7a12", shape: "tridown", match: /glm/i }
+];
+const modelFamily = (row) => MODEL_FAMILIES.find((f) => f.match.test(row.model)) ?? MODEL_FAMILIES[0];
+const costScatterHidden = new Set();
+const costScatterPinned = new Set();
+
+function shapePath(shape, x, y, r) {
+    switch (shape) {
+        case "square": return `<rect x="${x - r}" y="${y - r}" width="${2 * r}" height="${2 * r}" rx="1.5"/>`;
+        case "diamond": return `<path d="M${x} ${y - r * 1.2} L${x + r * 1.2} ${y} L${x} ${y + r * 1.2} L${x - r * 1.2} ${y} Z"/>`;
+        case "triangle": return `<path d="M${x} ${y - r * 1.2} L${x + r * 1.15} ${y + r} L${x - r * 1.15} ${y + r} Z"/>`;
+        case "tridown": return `<path d="M${x} ${y + r * 1.2} L${x + r * 1.15} ${y - r} L${x - r * 1.15} ${y - r} Z"/>`;
+        case "cross": return `<path d="M${x - r} ${y - r} L${x + r} ${y + r} M${x - r} ${y + r} L${x + r} ${y - r}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+        default: return `<circle cx="${x}" cy="${y}" r="${r}"/>`;
+    }
+}
+
+function renderCostScatter() {
+    const target = document.getElementById("cost-perf-chart");
+    const legend = document.getElementById("cost-perf-legend");
+    const fitNote = document.getElementById("cost-perf-fit");
+    if (!target || !legend) return;
+
+    const points = leaderboardRows
+        .filter((row) => Number.isFinite(row.fullCost) && row.fullCost > 0)
+        .map((row) => ({ row, family: modelFamily(row) }));
+    if (!points.length) return;
+
+    const width = 640;
+    const height = 430;
+    const pad = { left: 46, right: 18, top: 16, bottom: 44 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const xMin = Math.log10(25);
+    const xMax = Math.log10(800);
+    const yMax = 10;
+    const xPos = (cost) => pad.left + ((Math.log10(cost) - xMin) / (xMax - xMin)) * plotW;
+    const yPos = (value) => pad.top + (1 - value / yMax) * plotH;
+
+    // least-squares fit of speedup on log10(cost), over visible families
+    const active = points.filter((p) => !costScatterHidden.has(p.family.name));
+    const fitSet = active.length >= 3 ? active : points;
+    const n = fitSet.length;
+    const mx = fitSet.reduce((s, p) => s + Math.log10(p.row.fullCost), 0) / n;
+    const my = fitSet.reduce((s, p) => s + p.row.value, 0) / n;
+    let sxx = 0, sxy = 0, syy = 0;
+    fitSet.forEach((p) => {
+        const dx = Math.log10(p.row.fullCost) - mx;
+        const dy = p.row.value - my;
+        sxx += dx * dx; sxy += dx * dy; syy += dy * dy;
+    });
+    const slope = sxy / sxx;
+    const intercept = my - slope * mx;
+    const r2 = sxx && syy ? (sxy * sxy) / (sxx * syy) : 0;
+    if (fitNote) {
+        const perDouble = slope * Math.log10(2);
+        fitNote.textContent = `Best fit: ${perDouble >= 0 ? "+" : ""}${perDouble.toFixed(2)}× aggregate per doubling of cost (R² = ${r2.toFixed(2)}).`;
+    }
+
+    const xTicks = [25, 50, 100, 200, 400, 800];
+    const yTicks = [0, 2, 4, 6, 8, 10];
+    const gridColor = "rgba(196, 188, 176, 0.55)";
+
+    const clampFit = (value) => Math.max(0, Math.min(yMax, value));
+    const fitY1 = clampFit(intercept + slope * xMin);
+    const fitY2 = clampFit(intercept + slope * xMax);
+
+    const tooltipHtml = (p) =>
+        `<strong>${p.row.model}</strong><span>${p.row.scaffold}</span>` +
+        `<span>${formatUsd(p.row.fullCost)} · ${fmt(p.row.value)} ±${p.row.sem.toFixed(2)}× · ${p.family.name}</span>`;
+
+    // pins on hidden families (or stale keys) are dropped
+    [...costScatterPinned].forEach((key) => {
+        const p = points.find((item) => item.row.key === key);
+        if (!p || costScatterHidden.has(p.family.name)) costScatterPinned.delete(key);
+    });
+
+    const marks = points.map((p) => {
+        const hidden = costScatterHidden.has(p.family.name);
+        const pinned = costScatterPinned.has(p.row.key);
+        const x = xPos(p.row.fullCost);
+        const y = yPos(Math.min(yMax, p.row.value));
+        const ring = pinned ? `<circle cx="${x}" cy="${y}" r="9.5" fill="none" stroke-width="2" opacity="0.65"/>` : "";
+        return `
+            <g class="scatter-mark${hidden ? " is-hidden" : ""}${pinned ? " is-pinned" : ""}" data-key="${p.row.key}"
+               fill="${p.family.color}" stroke="${p.family.color}">
+                <circle class="scatter-hit" cx="${x}" cy="${y}" r="13" fill="transparent" stroke="none"/>
+                ${ring}
+                ${shapePath(p.family.shape, x, y, 5.5)}
+            </g>`;
+    }).join("");
+
+    const pinnedTips = points
+        .filter((p) => costScatterPinned.has(p.row.key))
+        .map((p) => {
+            const x = xPos(p.row.fullCost) / width * 100;
+            const y = yPos(Math.min(yMax, p.row.value)) / height * 100;
+            const flip = x > 66 ? " flip" : "";
+            return `<div class="scatter-tooltip is-pinned${flip}" style="left:${x.toFixed(2)}%; top:${y.toFixed(2)}%;">${tooltipHtml(p)}</div>`;
+        }).join("");
+
+    target.innerHTML = `
+        <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Aggregate speedup versus 12-run API cost, colored by model family">
+            ${yTicks.map((t) => `
+                <line x1="${pad.left}" x2="${width - pad.right}" y1="${yPos(t)}" y2="${yPos(t)}" stroke="${gridColor}" stroke-width="1"/>
+                <text class="scatter-axis" x="${pad.left - 8}" y="${yPos(t) + 3.5}" text-anchor="end">${t}×</text>`).join("")}
+            ${xTicks.map((t) => `
+                <line y1="${pad.top}" y2="${height - pad.bottom}" x1="${xPos(t)}" x2="${xPos(t)}" stroke="${gridColor}" stroke-width="1" stroke-dasharray="1 3"/>
+                <text class="scatter-axis" x="${xPos(t)}" y="${height - pad.bottom + 16}" text-anchor="middle">$${t}</text>`).join("")}
+            <text class="scatter-axis-title" x="${pad.left + plotW / 2}" y="${height - 6}" text-anchor="middle">12-run API cost (log scale)</text>
+            <text class="scatter-axis-title" x="14" y="${pad.top + plotH / 2}" text-anchor="middle" transform="rotate(-90 14 ${pad.top + plotH / 2})">Aggregate speedup</text>
+            <line x1="${xPos(25)}" y1="${yPos(fitY1)}" x2="${xPos(800)}" y2="${yPos(fitY2)}"
+                  stroke="#8e887d" stroke-width="2" stroke-dasharray="6 5" opacity="0.85"/>
+            ${marks}
+        </svg>
+        ${pinnedTips}
+        <div class="scatter-tooltip" id="cost-perf-tooltip" hidden></div>`;
+
+    // greedy de-overlap: walk pinned tips top-to-bottom, push a tip below any
+    // earlier tip it collides with
+    const pinnedNodes = [...target.querySelectorAll(".scatter-tooltip.is-pinned")]
+        .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+    const placed = [];
+    pinnedNodes.forEach((tip) => {
+        let rect = tip.getBoundingClientRect();
+        placed.forEach((prior) => {
+            const overlapX = rect.left < prior.right + 8 && rect.right > prior.left - 8;
+            const overlapY = rect.top < prior.bottom + 8 && rect.bottom > prior.top - 8;
+            if (overlapX && overlapY) {
+                const nudge = parseFloat(tip.style.marginTop || "0") + (prior.bottom + 8 - rect.top);
+                tip.style.marginTop = `${nudge}px`;
+                rect = tip.getBoundingClientRect();
+            }
+        });
+        placed.push(rect);
+    });
+
+    legend.innerHTML = MODEL_FAMILIES.map((f) => `
+        <button type="button" class="scatter-legend-chip${costScatterHidden.has(f.name) ? " is-off" : ""}" data-family="${f.name}">
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="${f.color}" stroke="${f.color}">${shapePath(f.shape, 8, 8, 4.5)}</svg>
+            ${f.name}
+        </button>`).join("");
+    legend.querySelectorAll("[data-family]").forEach((chip) => {
+        chip.addEventListener("click", () => {
+            const name = chip.dataset.family;
+            if (costScatterHidden.has(name)) costScatterHidden.delete(name);
+            else if (costScatterHidden.size < MODEL_FAMILIES.length - 1) costScatterHidden.add(name);
+            renderCostScatter();
+        });
+    });
+
+    const tooltip = document.getElementById("cost-perf-tooltip");
+    const byKey = new Map(points.map((p) => [p.row.key, p]));
+    target.querySelectorAll(".scatter-mark").forEach((mark) => {
+        mark.addEventListener("click", () => {
+            const key = mark.dataset.key;
+            if (costScatterPinned.has(key)) costScatterPinned.delete(key);
+            else costScatterPinned.add(key);
+            renderCostScatter();
+        });
+        mark.addEventListener("pointerenter", () => {
+            const p = byKey.get(mark.dataset.key);
+            if (!p || costScatterHidden.has(p.family.name)) return;
+            if (costScatterPinned.has(p.row.key)) return; // its pinned tooltip is already showing
+            tooltip.innerHTML = tooltipHtml(p);
+            tooltip.hidden = false;
+        });
+        mark.addEventListener("pointermove", (event) => {
+            const rect = target.getBoundingClientRect();
+            const left = Math.min(event.clientX - rect.left + 14, rect.width - 190);
+            tooltip.style.left = `${Math.max(0, left)}px`;
+            tooltip.style.top = `${Math.max(4, event.clientY - rect.top - 12)}px`;
+        });
+        mark.addEventListener("pointerleave", () => { tooltip.hidden = true; });
+    });
+    // anywhere off a mark, including gaps inside the plot, hides the tooltip
+    if (!target.dataset.tooltipWired) {
+        target.dataset.tooltipWired = "true";
+        const hideUnlessMark = (event) => {
+            if (!event.target.closest || !event.target.closest(".scatter-mark")) {
+                const tip = document.getElementById("cost-perf-tooltip");
+                if (tip) tip.hidden = true;
+            }
+        };
+        target.addEventListener("pointermove", hideUnlessMark);
+        target.addEventListener("pointerleave", () => {
+            const tip = document.getElementById("cost-perf-tooltip");
+            if (tip) tip.hidden = true;
+        });
+    }
 }
 
 function renderTimeAblation() {
@@ -788,6 +1074,7 @@ renderAggregateCharts();
 renderScenarioBreakdown();
 renderLeaderboard();
 setupScenarioFocus();
+loadCostEfficiency();
 renderScenarioMatrix();
 renderOutcomes();
 renderHistogram();

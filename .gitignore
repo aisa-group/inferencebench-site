@@ -1,5 +1,5 @@
 screenshots/
-
+jobs/
 # Local environment and credentials
 .env
 .env.*
@@ -7,6 +7,8 @@ screenshots/
 *.p12
 *.pfx
 *.key
+COMMANDS.txt
 
 # Local OS/editor noise
 .DS_Store
+__pycache__/
