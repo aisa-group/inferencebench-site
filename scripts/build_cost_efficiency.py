@@ -48,6 +48,7 @@ CLAUDE_RATES = {
     "sonnet-4": (3.0, .3, 15.0, 3.75, 6.0),
     "haiku": (1.0, .1, 5.0, 1.25, 2.0),
     "glm-5.2": (1.4, .26, 4.4, 1.4, 1.4),
+    "glm-5.3": (1.4, .26, 4.4, 1.4, 1.4),
 }
 
 
@@ -77,6 +78,7 @@ CONFIGS = [
     config("sonnet-4-6", "claude_non_api_claude-sonnet-4-6_2h"),
     config("gpt-5-3-codex-high", "codex_non_api_gpt-5.3-codex-high_2h"),
     config("gpt-5-5-xhigh", "codex_non_api_gpt-5.5-xhigh_2h"),
+    config("glm-5-3-max", "claude_zai_glm-5.3[1m]_2h", family="claude"),
     config("gemini-3-1-pro", "opencode_opencode_gemini-3.1-pro_2h"),
     config("kimi-k2-6", "opencode_opencode_kimi-k2.6_2h"),
     config("opus-4-6", "claude_non_api_claude-opus-4-6_2h"),
@@ -139,6 +141,8 @@ def claude_rates(model):
         return CLAUDE_RATES["haiku"]
     if "glm-5.2" in model:
         return CLAUDE_RATES["glm-5.2"]
+    if "glm-5.3" in model:
+        return CLAUDE_RATES["glm-5.3"]
     raise ValueError(f"No price for Claude Code model {model}")
 
 
@@ -550,7 +554,7 @@ def summarize(item):
 def main():
     summaries = [summarize(item) for item in CONFIGS]
     payload = {
-        "generated_at": "2026-08-14",
+        "generated_at": "2026-08-21",
         "source_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "methodology": {
             "cost": "Sum of API-equivalent agent cost across all 12 selected runs. "

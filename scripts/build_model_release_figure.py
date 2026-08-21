@@ -11,7 +11,7 @@ OUT = Path(__file__).resolve().parents[1] / "assets/model-release-timeline.svg"
 LEADERBOARD = Path(__file__).resolve().parents[1] / "script.js"
 WIDTH, HEIGHT = 1600, 900
 LEFT, RIGHT, TOP, BOTTOM = 140, 1510, 170, 760
-START, END = date(2025, 9, 1), date(2026, 8, 14)
+START, END = date(2025, 9, 1), date(2026, 8, 21)
 
 # Dates use first documented public availability from provider release notes.
 # Variants share the underlying model's release date.
@@ -32,8 +32,10 @@ POINTS = [
     ("Claude Sonnet 4.6", "2026-02-17", 5.56),
     ("GPT-5.3 Codex (High)", "2026-02-05", 5.49),
     ("GPT-5.5 (xHigh)", "2026-04-23", 5.45),
+    ("GLM-5.3 (Max)", "2026-08-14", 4.98),
     ("Gemini 3.1 Pro", "2026-02-19", 4.92),
     ("Kimi K2.6", "2026-04-20", 4.51),
+    ("Ox Alpha (stealth)", "2026-08-20", 4.49),
     ("Claude Opus 4.6", "2026-02-05", 4.38),
     ("GPT-5.2", "2025-12-11", 4.28),
     ("GPT-5.5 (High)", "2026-04-23", 4.22),
@@ -57,8 +59,8 @@ SITE_NAMES = [
     "Claude Opus 4.8", "Claude Fable 5", "GPT-5.6 Sol (Ultra)",
     "Claude Opus 4.8 (xHigh)", "GLM-5.2 (Max)", "Grok 4.6", "Claude Sonnet 5",
     "Kimi K2.7 Code", "GPT-5.4 (High)", "Kimi K3", "Claude Sonnet 4.6",
-    "GPT-5.3 Codex (High)", "GPT-5.5 (xHigh)", "Gemini 3.1 Pro",
-    "Kimi K2.6", "Claude Opus 4.6", "GPT-5.2", "GPT-5.5 (High)",
+    "GPT-5.3 Codex (High)", "GPT-5.5 (xHigh)", "GLM-5.3 (Max)", "Gemini 3.1 Pro",
+    "Kimi K2.6", "Ox Alpha (stealth)", "Claude Opus 4.6", "GPT-5.2", "GPT-5.5 (High)",
     "Gemini 3.5 Flash", "Claude Opus 4.5", "Grok 4.5", "GPT-5.1 Codex Max", "Grok 4.5",
     "GLM-5", "Claude Sonnet 4.5", "Claude Fable 5", "Claude Haiku 4.5",
     "GPT-5.3 Codex (Medium)", "Claude Opus 4.7", "Claude Fable 5 (Low)",
@@ -74,6 +76,8 @@ LABELS = {
     "Grok 4.6 (Grok Build)": (-430, 190),
     "Grok 4.5 (Grok Build)": (-300, 84),
     "Grok 4.5 (OpenCode)": (-285, 128),
+    "GLM-5.3 (Max)": (-330, 270),
+    "Ox Alpha (stealth)": (-760, 220),
 }
 
 
@@ -111,7 +115,7 @@ def main():
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}">',
         "<title>InferenceBench model performance by public release date</title>",
-        "<desc>Scatter plot of 34 leaderboard configurations. Eight August additions are highlighted and labeled.</desc>",
+        "<desc>Scatter plot of 36 leaderboard configurations. Ten August additions are highlighted and labeled.</desc>",
         '<rect width="1600" height="900" fill="#f5f1e9"/>',
         '<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">',
         text(LEFT, 68, "Inference optimization by model release date", 42, "#202944", 720),

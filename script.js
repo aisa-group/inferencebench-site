@@ -101,24 +101,26 @@ const leaderboardRows = [
     { rank: 14, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01, key: "sonnet-4-6" },
     { rank: 15, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60, key: "gpt-5-3-codex-high" },
     { rank: 16, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14, key: "gpt-5-5-xhigh" },
-    { rank: 17, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97, key: "gemini-3-1-pro" },
-    { rank: 18, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51, key: "kimi-k2-6" },
-    { rank: 19, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21, key: "opus-4-6" },
-    { rank: 20, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57, key: "gpt-5-2" },
-    { rank: 21, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08, key: "gpt-5-5-high" },
-    { rank: 22, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50, key: "gemini-3-5-flash" },
-    { rank: 23, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95, key: "opus-4-5" },
-    { rank: 24, model: "Grok 4.5", scaffold: "Grok Build · strict prompt", value: 3.70, sem: 0.79, type: "agent", a: 2.95, b: 2.73, c: 15.59, d: 1.49, mark: "†", key: "grok-4-5-build" },
-    { rank: 25, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82, key: "gpt-5-1-codex-max" },
-    { rank: 26, model: "Grok 4.5", scaffold: "OpenCode · strict prompt", value: 3.42, sem: 1.23, type: "agent", a: 2.07, b: 2.75, c: 10.11, d: 2.37, mark: "†", key: "grok-4-5-opencode", variant: true },
-    { rank: 27, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87, key: "glm-5" },
-    { rank: 28, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32, key: "sonnet-4-5" },
-    { rank: 29, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
-    { rank: 30, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24, key: "haiku-4-5" },
-    { rank: 31, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82, key: "gpt-5-3-codex-medium" },
-    { rank: 32, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
-    { rank: 33, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low-regular", variant: true },
-    { rank: 34, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87, key: "gpt-5-2-codex" }
+    { rank: 17, model: "GLM-5.3 (Max)", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 4.98, sem: 0.89, type: "agent", a: 3.42, b: 7.80, c: 22.97, d: 1.00, mark: "†", key: "glm-5-3-max" },
+    { rank: 18, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97, key: "gemini-3-1-pro" },
+    { rank: 19, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51, key: "kimi-k2-6" },
+    { rank: 20, model: "Ox Alpha (stealth)", scaffold: "OpenCode · strict prompt", value: 4.49, sem: 0.69, type: "agent", a: 3.20, b: 6.28, c: 20.15, d: 1.00, mark: "†", key: "ox-alpha" },
+    { rank: 21, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21, key: "opus-4-6" },
+    { rank: 22, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57, key: "gpt-5-2" },
+    { rank: 23, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08, key: "gpt-5-5-high" },
+    { rank: 24, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50, key: "gemini-3-5-flash" },
+    { rank: 25, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95, key: "opus-4-5" },
+    { rank: 26, model: "Grok 4.5", scaffold: "Grok Build · strict prompt", value: 3.70, sem: 0.79, type: "agent", a: 2.95, b: 2.73, c: 15.59, d: 1.49, mark: "†", key: "grok-4-5-build" },
+    { rank: 27, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82, key: "gpt-5-1-codex-max" },
+    { rank: 28, model: "Grok 4.5", scaffold: "OpenCode · strict prompt", value: 3.42, sem: 1.23, type: "agent", a: 2.07, b: 2.75, c: 10.11, d: 2.37, mark: "†", key: "grok-4-5-opencode", variant: true },
+    { rank: 29, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87, key: "glm-5" },
+    { rank: 30, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32, key: "sonnet-4-5" },
+    { rank: 31, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
+    { rank: 32, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24, key: "haiku-4-5" },
+    { rank: 33, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82, key: "gpt-5-3-codex-medium" },
+    { rank: 34, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
+    { rank: 35, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low-regular", variant: true },
+    { rank: 36, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87, key: "gpt-5-2-codex" }
 ];
 
 // top three overall, plus the best GPT model and the best model from any
@@ -249,7 +251,7 @@ function formatUsd(value) {
 async function loadCostEfficiency() {
     const button = document.querySelector('[data-focus="cost"]');
     try {
-        const response = await fetch("./data/cost-efficiency.json?v=20260814-4");
+        const response = await fetch("./data/cost-efficiency.json?v=20260821-1");
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
         const byKey = new Map(payload.configs.map((item) => [item.key, item]));
