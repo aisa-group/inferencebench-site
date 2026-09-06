@@ -1,5 +1,6 @@
 screenshots/
 jobs/
+.claude/
 # Local environment and credentials
 .env
 .env.*

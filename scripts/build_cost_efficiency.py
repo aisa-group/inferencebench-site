@@ -15,6 +15,7 @@ OUTPUT = Path(__file__).resolve().parents[1] / "data/cost-efficiency.json"
 # plus whether the model has a documented long-context tier (>272K prompt:
 # 2x input and cached, 1.5x output). Only GPT-5.6+ bills cache writes.
 CODEX_RATES = {
+    "gpt-6-astra-ultra": (10.0, 1.0, 50.0, 12.5, True),
     "gpt-5-6-sol-ultra": (5.0, .5, 30.0, 6.25, True),
     "gpt-5-5-xhigh": (5.0, .5, 30.0, 0.0, True),
     "gpt-5-5-high": (5.0, .5, 30.0, 0.0, True),
@@ -32,6 +33,12 @@ CODEX_LONG_TOKENS = 272_000  # documented long-context threshold
 # Effective context ceiling in tokens before Codex compacts, calibrated from
 # observed "context compacted" event spacing per model family.
 def codex_cap_tokens(key):
+    if key.startswith("gpt-6"):
+        # Despite Astra's documented 1.05M-token window, Codex CLI compacts
+        # well before that: median spacing between real "context compacted"
+        # events across all 12 gpt-6-astra-ultra transcripts is ~204K tokens
+        # (16 intervals, 61K-495K range).
+        return 200_000
     if "5-3" in key:
         return 272_000  # documented max input
     if key.startswith(("gpt-5-4", "gpt-5-5", "gpt-5-6")):
@@ -43,6 +50,7 @@ def codex_cap_tokens(key):
 # stale model mappings, so the builder applies the current official rates.
 CLAUDE_RATES = {
     "fable": (10.0, 1.0, 50.0, 12.5, 20.0),
+    "fable-5.1": (10.0, .25, 50.0, 12.5, 20.0),
     "opus": (5.0, .5, 25.0, 6.25, 10.0),
     "sonnet-5": (2.0, .2, 10.0, 2.5, 4.0),
     "sonnet-4": (3.0, .3, 15.0, 3.75, 6.0),
@@ -62,11 +70,16 @@ def config(key, root, *, ids=None, family=None):
 
 
 CONFIGS = [
+    # Pinned: this directory was rescored twice while the 2h run was still
+    # finalizing (a gate result settling, then a failed seed replaced by a
+    # rerun) — see COMMANDS.txt 2026-09-04. Lock to the confirmed-final 12.
+    config("fable-5-1", "claude_non_api_claude-fable-5-1_2h", ids=[17504745, 17504746, 17504747, 17506658, 17506659, 17508182, 17508183, 17508184, 17508672, 17508673, 17508674, 17512336]),
     config("opus-5", "claude_non_api_claude-opus-5_2h"),
     config("fable-5-low-strict", "claude_non_api_claude-fable-5-low_2h", ids=[17334384, 17334386, 17334388, 17334385, 17334387, 17334389, 17334378, 17334380, 17334382, 17334379, 17334381, 17334383]),
     config("opus-4-7", "claude_non_api_claude-opus-4-7_2h"),
     config("opus-4-8", "claude_non_api_claude-opus-4-8_2h"),
     config("fable-5-strict", "claude_non_api_claude-fable-5_2h", ids=[17335746, 17335747, 17335748, 17335749, 17335751, 17335753, 17335750, 17335752, 17335754, 17335755, 17335756, 17335757]),
+    config("gpt-6-astra-ultra", "codex_non_api_gpt-6-astra-ultra_2h"),
     config("gpt-5-6-sol-ultra", "codex_non_api_gpt-5.6-sol-ultra_2h"),
     config("opus-4-8-xhigh", "claude_non_api_claude-opus-4-8-xhigh_2h"),
     config("glm-5-2-max", "claude_zai_glm-5.2[1m]_2h", family="claude"),
@@ -129,6 +142,8 @@ def json_lines(path):
 
 
 def claude_rates(model):
+    if "fable-5-1" in model:
+        return CLAUDE_RATES["fable-5.1"]
     if "fable" in model:
         return CLAUDE_RATES["fable"]
     if "opus" in model:
@@ -494,7 +509,42 @@ def run_cost(path, item):
 BENCH_WINDOW_MINUTES = 125  # 2h limit plus observed grace
 
 
+# gemini-3-5-flash's scenario-D run 17258321 was deleted from
+# /fast/jyeon/ptb_results after this cost was originally computed (2026-08-21),
+# so it can no longer be recomputed from source. All 12 records were
+# cost_method="recorded" (no imputation) in that run, so the prior result is
+# frozen here verbatim rather than silently dropping a seed and recomputing
+# on 2 runs for that scenario. Remove this once the run is restored, or the
+# config is recomputed on a fresh, complete set of seeds.
+FROZEN_SUMMARIES = {
+    "gemini-3-5-flash": {
+        "key": "gemini-3-5-flash",
+        "source": "opencode_opencode_gemini-3.5-flash_2h",
+        "full_12_run_cost_usd": 424.42578765000013,
+        "full_12_run_cost_low_usd": 424.42578765000013,
+        "full_12_run_cost_high_usd": 424.42578765000013,
+        "imputed_run_count": 0,
+        "runs": [
+            {"run_id": 17258307, "scenario": "A", "cost_usd": 89.0204064000001, "cost_method": "recorded", "cost_low_usd": 89.0204064000001, "cost_high_usd": 89.0204064000001},
+            {"run_id": 17258308, "scenario": "A", "cost_usd": 59.47308390000006, "cost_method": "recorded", "cost_low_usd": 59.47308390000006, "cost_high_usd": 59.47308390000006},
+            {"run_id": 17258320, "scenario": "C", "cost_usd": 16.877177850000006, "cost_method": "recorded", "cost_low_usd": 16.877177850000006, "cost_high_usd": 16.877177850000006},
+            {"run_id": 17258321, "scenario": "D", "cost_usd": 14.132655300000001, "cost_method": "recorded", "cost_low_usd": 14.132655300000001, "cost_high_usd": 14.132655300000001},
+            {"run_id": 17258322, "scenario": "B", "cost_usd": 45.246703349999976, "cost_method": "recorded", "cost_low_usd": 45.246703349999976, "cost_high_usd": 45.246703349999976},
+            {"run_id": 17258324, "scenario": "D", "cost_usd": 38.63654070000003, "cost_method": "recorded", "cost_low_usd": 38.63654070000003, "cost_high_usd": 38.63654070000003},
+            {"run_id": 17258325, "scenario": "B", "cost_usd": 36.66009794999999, "cost_method": "recorded", "cost_low_usd": 36.66009794999999, "cost_high_usd": 36.66009794999999},
+            {"run_id": 17258326, "scenario": "C", "cost_usd": 5.36640525, "cost_method": "recorded", "cost_low_usd": 5.36640525, "cost_high_usd": 5.36640525},
+            {"run_id": 17258327, "scenario": "D", "cost_usd": 40.895345700000036, "cost_method": "recorded", "cost_low_usd": 40.895345700000036, "cost_high_usd": 40.895345700000036},
+            {"run_id": 17331409, "scenario": "A", "cost_usd": 20.730858750000003, "cost_method": "recorded", "cost_low_usd": 20.730858750000003, "cost_high_usd": 20.730858750000003},
+            {"run_id": 17331410, "scenario": "B", "cost_usd": 22.83222765000001, "cost_method": "recorded", "cost_low_usd": 22.83222765000001, "cost_high_usd": 22.83222765000001},
+            {"run_id": 17331411, "scenario": "C", "cost_usd": 34.55428484999999, "cost_method": "recorded", "cost_low_usd": 34.55428484999999, "cost_high_usd": 34.55428484999999},
+        ],
+    },
+}
+
+
 def summarize(item):
+    if item["key"] in FROZEN_SUMMARIES:
+        return FROZEN_SUMMARIES[item["key"]]
     runs = selected_runs(item)
     if item["family"] == "codex":
         costed = codex_run_costs(item, runs)
@@ -554,7 +604,7 @@ def summarize(item):
 def main():
     summaries = [summarize(item) for item in CONFIGS]
     payload = {
-        "generated_at": "2026-08-21",
+        "generated_at": "2026-09-06",
         "source_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "methodology": {
             "cost": "Sum of API-equivalent agent cost across all 12 selected runs. "

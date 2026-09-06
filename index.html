@@ -128,8 +128,8 @@
                 </div>
                 <div class="leaderboard-type-note" aria-label="Leaderboard summary">
                     <span id="leaderboard-top-label">Top agent</span>
-                    <strong id="leaderboard-top-name">Claude Opus 5<sup class="rank-mark">†</sup></strong>
-                    <p id="leaderboard-top-copy">Claude Opus 5 ranks first by combining strong per-scenario speedups with valid final submissions. Failed or gated runs score at the PyTorch baseline, so repeatability remains part of the result.</p>
+                    <strong id="leaderboard-top-name">Claude Fable 5.1<sup class="rank-mark">*†</sup></strong>
+                    <p id="leaderboard-top-copy">Claude Fable 5.1 ranks first by combining strong per-scenario speedups with valid final submissions. Failed or gated runs score at the PyTorch baseline, so repeatability remains part of the result.</p>
                 </div>
             </div>
 
@@ -180,8 +180,8 @@
 
             <div class="leaderboard-notes" style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid var(--paper-line,#e3ddd2);border-radius:10px;font-size:0.86rem;line-height:1.5;color:#5a554c;">
                 <p style="margin:0 0 .5rem;font-weight:600;">Notes</p>
-                <p style="margin:0 0 .6rem;"><strong>Scaffold versions.</strong> Results were originally collected with Claude Code v2.1.114. Models marked with an asterisk (*) were re-run with Claude Code v2.1.175; the other new runs use the Codex CLI, OpenCode, or Grok Build scaffold shown in the table.</p>
-                <p style="margin:0;"><strong>Strict prompt.</strong> Models marked with a cross (†) were run under a more explicit prompt that spells out the disallowed behaviors: no third-party pre-quantized checkpoints, and no modifying the evaluation harness. This includes the latest Opus 5, Sonnet 5, GPT-5.6 Sol Ultra, GLM-5.2 / 5.3 Max, Ox Alpha, Kimi K2.7 Code, Kimi K3, and Grok 4.5 / 4.6 runs.</p>
+                <p style="margin:0 0 .6rem;"><strong>Scaffold versions.</strong> Results were originally collected with Claude Code v2.1.114. Models marked with an asterisk (*) were run with Claude Code v2.1.175 or later; the other new runs use the Codex CLI, OpenCode, or Grok Build scaffold shown in the table.</p>
+                <p style="margin:0;"><strong>Strict prompt.</strong> Models marked with a cross (†) were run under a more explicit prompt that spells out the disallowed behaviors: no third-party pre-quantized checkpoints, and no modifying the evaluation harness. This includes the latest Fable 5.1, Opus 5, Sonnet 5, GPT-6 Astra (Ultra), GPT-5.6 Sol Ultra, GLM-5.2 / 5.3 Max, Ox Alpha, Kimi K2.7 Code, Kimi K3, and Grok 4.5 / 4.6 runs.</p>
             </div>
 
             <div class="scenario-breakdown">
@@ -464,6 +464,12 @@
             </div>
             <div class="changelog-scroll">
                 <div class="changelog-entry">
+                    <div class="changelog-ver">v1.0.5 <span class="changelog-date">· Sep 2026</span></div>
+                    <ul>
+                        <li>Added Claude Fable 5.1 and GPT-6 Astra (Ultra) to the leaderboard. New SoTA!</li>
+                    </ul>
+                </div>
+                <div class="changelog-entry">
                     <div class="changelog-ver">v1.0.4 <span class="changelog-date">· Aug 2026</span></div>
                     <ul>
                         <li>Added the Cost column to the leaderboard.</li>
@@ -504,6 +510,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20260821-1"></script>
+    <script src="script.js?v=20260906-1"></script>
 </body>
 </html>

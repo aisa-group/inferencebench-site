@@ -11,14 +11,16 @@ OUT = Path(__file__).resolve().parents[1] / "assets/model-release-timeline.svg"
 LEADERBOARD = Path(__file__).resolve().parents[1] / "script.js"
 WIDTH, HEIGHT = 1600, 900
 LEFT, RIGHT, TOP, BOTTOM = 140, 1510, 170, 760
-START, END = date(2025, 9, 1), date(2026, 8, 21)
+START, END = date(2025, 9, 1), date(2026, 9, 4)
 
 # Dates use first documented public availability from provider release notes.
 # Variants share the underlying model's release date.
 POINTS = [
+    ("Claude Fable 5.1", "2026-09-01", 9.83),
     ("Claude Opus 5", "2026-07-24", 8.90),
     ("Claude Fable 5 (Low, strict)", "2026-06-09", 8.74),
     ("Claude Opus 4.7", "2026-04-16", 8.53),
+    ("GPT-6 Astra (Ultra)", "2026-09-03", 7.90),
     ("Claude Opus 4.8", "2026-05-28", 7.60),
     ("Claude Fable 5 (strict)", "2026-06-09", 7.52),
     ("GPT-5.6 Sol Ultra", "2026-07-09", 7.34),
@@ -55,8 +57,8 @@ POINTS = [
 ]
 
 SITE_NAMES = [
-    "Claude Opus 5", "Claude Fable 5 (Low)", "Claude Opus 4.7",
-    "Claude Opus 4.8", "Claude Fable 5", "GPT-5.6 Sol (Ultra)",
+    "Claude Fable 5.1", "Claude Opus 5", "Claude Fable 5 (Low)", "Claude Opus 4.7",
+    "GPT-6 Astra (Ultra)", "Claude Opus 4.8", "Claude Fable 5", "GPT-5.6 Sol (Ultra)",
     "Claude Opus 4.8 (xHigh)", "GLM-5.2 (Max)", "Grok 4.6", "Claude Sonnet 5",
     "Kimi K2.7 Code", "GPT-5.4 (High)", "Kimi K3", "Claude Sonnet 4.6",
     "GPT-5.3 Codex (High)", "GPT-5.5 (xHigh)", "GLM-5.3 (Max)", "Gemini 3.1 Pro",
@@ -68,6 +70,8 @@ SITE_NAMES = [
 ]
 
 LABELS = {
+    "Claude Fable 5.1": (-849, 2),
+    "GPT-6 Astra (Ultra)": (-956, -62),
     "Claude Opus 5": (-230, -54),
     "GPT-5.6 Sol Ultra": (-285, -42),
     "Claude Sonnet 5": (-286, -10),
@@ -115,7 +119,7 @@ def main():
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}">',
         "<title>InferenceBench model performance by public release date</title>",
-        "<desc>Scatter plot of 36 leaderboard configurations. Ten August additions are highlighted and labeled.</desc>",
+        "<desc>Scatter plot of 38 leaderboard configurations. Twelve recent additions are highlighted and labeled.</desc>",
         '<rect width="1600" height="900" fill="#f5f1e9"/>',
         '<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">',
         text(LEFT, 68, "Inference optimization by model release date", 42, "#202944", 720),
@@ -129,7 +133,7 @@ def main():
     months = [
         ("Sep ’25", "2025-09-01"), ("Nov", "2025-11-01"),
         ("Jan ’26", "2026-01-01"), ("Mar", "2026-03-01"),
-        ("May", "2026-05-01"), ("Jul", "2026-07-01"),
+        ("May", "2026-05-01"), ("Jul", "2026-07-01"), ("Sep ’26", "2026-09-01"),
     ]
     for label, value in months:
         x = x_pos(value)
@@ -182,7 +186,7 @@ def main():
         '<circle cx="1136" cy="119" r="7" fill="#a4a39e" fill-opacity="0.72"/>',
         text(1152, 126, "Earlier leaderboard results", 17, "#6f706b"),
         '<circle cx="1365" cy="119" r="9" fill="#d65f45"/>',
-        text(1383, 126, "August additions", 17, "#8e3828", 600),
+        text(1383, 126, "Recent additions", 17, "#8e3828", 600),
         "</g></svg>",
     ])
     OUT.write_text("\n".join(lines) + "\n")

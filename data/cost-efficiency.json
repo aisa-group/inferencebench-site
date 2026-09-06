@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-21",
-  "source_script_sha256": "a3edb96a11775dbbcd6e2fa057f37820e095fb1310c07feb0b522ca07bdf9065",
+  "generated_at": "2026-09-06",
+  "source_script_sha256": "7ca0e591a6e97c22244fe65a3b99ede1c87cf68a648107d21f5cb2010724cac8",
   "methodology": {
     "cost": "Sum of API-equivalent agent cost across all 12 selected runs. Claude and Grok runs are repriced from recorded token counts; OpenCode runs use recorded per-step dollars (verified against current rates to the cent); Codex runs are reconstructed from transcripts because the CLI's combined counter excludes cache reads: the counter is split into fresh input and output (including hidden reasoning), and cache-read volume is integrated from per-request context sizes with compaction-calibrated ceilings.",
     "cost_bands": "cost_low_usd/cost_high_usd bound method uncertainty: Codex text-vs-reasoning split and cache conversion, duration-scaled peer bounds for Claude runs missing a final usage record, and +/-30% on imputed runs. Grok Build rows report a context-normalized cost (cached context capped at 165K tokens, sub-200K rates) because those runs never compacted; the actual reconciled bill is the high bound.",
@@ -16,6 +16,112 @@
     }
   },
   "configs": [
+    {
+      "key": "fable-5-1",
+      "source": "claude_non_api_claude-fable-5-1_2h",
+      "full_12_run_cost_usd": 227.09450599999997,
+      "full_12_run_cost_low_usd": 227.09450599999997,
+      "full_12_run_cost_high_usd": 227.09450599999997,
+      "imputed_run_count": 0,
+      "runs": [
+        {
+          "run_id": 17504745,
+          "scenario": "A",
+          "cost_usd": 19.194906250000006,
+          "cost_method": "official-token",
+          "cost_low_usd": 19.194906250000006,
+          "cost_high_usd": 19.194906250000006
+        },
+        {
+          "run_id": 17504746,
+          "scenario": "A",
+          "cost_usd": 17.62864149999998,
+          "cost_method": "official-token",
+          "cost_low_usd": 17.62864149999998,
+          "cost_high_usd": 17.62864149999998
+        },
+        {
+          "run_id": 17504747,
+          "scenario": "A",
+          "cost_usd": 21.536628000000015,
+          "cost_method": "official-token",
+          "cost_low_usd": 21.536628000000015,
+          "cost_high_usd": 21.536628000000015
+        },
+        {
+          "run_id": 17506658,
+          "scenario": "B",
+          "cost_usd": 17.921542499999994,
+          "cost_method": "official-token",
+          "cost_low_usd": 17.921542499999994,
+          "cost_high_usd": 17.921542499999994
+        },
+        {
+          "run_id": 17506659,
+          "scenario": "B",
+          "cost_usd": 37.59984174999998,
+          "cost_method": "official-token",
+          "cost_low_usd": 37.59984174999998,
+          "cost_high_usd": 37.59984174999998
+        },
+        {
+          "run_id": 17508182,
+          "scenario": "C",
+          "cost_usd": 12.741678750000002,
+          "cost_method": "official-token",
+          "cost_low_usd": 12.741678750000002,
+          "cost_high_usd": 12.741678750000002
+        },
+        {
+          "run_id": 17508183,
+          "scenario": "C",
+          "cost_usd": 14.442299249999998,
+          "cost_method": "official-token",
+          "cost_low_usd": 14.442299249999998,
+          "cost_high_usd": 14.442299249999998
+        },
+        {
+          "run_id": 17508184,
+          "scenario": "C",
+          "cost_usd": 18.70553375000001,
+          "cost_method": "official-token",
+          "cost_low_usd": 18.70553375000001,
+          "cost_high_usd": 18.70553375000001
+        },
+        {
+          "run_id": 17508672,
+          "scenario": "D",
+          "cost_usd": 15.963850249999995,
+          "cost_method": "official-token",
+          "cost_low_usd": 15.963850249999995,
+          "cost_high_usd": 15.963850249999995
+        },
+        {
+          "run_id": 17508673,
+          "scenario": "D",
+          "cost_usd": 8.257065249999997,
+          "cost_method": "official-token",
+          "cost_low_usd": 8.257065249999997,
+          "cost_high_usd": 8.257065249999997
+        },
+        {
+          "run_id": 17508674,
+          "scenario": "D",
+          "cost_usd": 14.856536499999999,
+          "cost_method": "official-token",
+          "cost_low_usd": 14.856536499999999,
+          "cost_high_usd": 14.856536499999999
+        },
+        {
+          "run_id": 17512336,
+          "scenario": "B",
+          "cost_usd": 28.24598224999999,
+          "cost_method": "official-token",
+          "cost_low_usd": 28.24598224999999,
+          "cost_high_usd": 28.24598224999999
+        }
+      ]
+    },
     {
       "key": "opus-5",
       "source": "claude_non_api_claude-opus-5_2h",
@@ -543,6 +649,112 @@
           "cost_method": "official-token",
           "cost_low_usd": 9.425589,
           "cost_high_usd": 9.425589
+        }
+      ]
+    },
+    {
+      "key": "gpt-6-astra-ultra",
+      "source": "codex_non_api_gpt-6-astra-ultra_2h",
+      "full_12_run_cost_usd": 588.7358283423147,
+      "full_12_run_cost_low_usd": 448.6366569854814,
+      "full_12_run_cost_high_usd": 735.4127370625862,
+      "imputed_run_count": 0,
+      "runs": [
+        {
+          "run_id": 17513666,
+          "scenario": "A",
+          "cost_usd": 38.1926983712658,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 32.84266516015471,
+          "cost_high_usd": 48.5731524198372
+        },
+        {
+          "run_id": 17513668,
+          "scenario": "A",
+          "cost_usd": 66.96654997500012,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 48.089143967222306,
+          "cost_high_usd": 83.4780046738573
+        },
+        {
+          "run_id": 17513682,
+          "scenario": "C",
+          "cost_usd": 43.48509987500005,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 36.746325127777816,
+          "cost_high_usd": 56.24882766214293
+        },
+        {
+          "run_id": 17513683,
+          "scenario": "D",
+          "cost_usd": 53.787011875,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 39.13815909722222,
+          "cost_high_usd": 64.88482033928571
+        },
+        {
+          "run_id": 17513684,
+          "scenario": "B",
+          "cost_usd": 53.265055150000066,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 30.698726682777828,
+          "cost_high_usd": 59.694938349714384
+        },
+        {
+          "run_id": 17513685,
+          "scenario": "C",
+          "cost_usd": 40.07932425000002,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 32.30781251666669,
+          "cost_high_usd": 51.20428462285717
+        },
+        {
+          "run_id": 17513686,
+          "scenario": "D",
+          "cost_usd": 48.521056449999996,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 40.204442998333334,
+          "cost_high_usd": 63.19486072342856
+        },
+        {
+          "run_id": 17513687,
+          "scenario": "B",
+          "cost_usd": 50.43331638472663,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 43.53643716472663,
+          "cost_high_usd": 63.8150534687266
+        },
+        {
+          "run_id": 17513688,
+          "scenario": "C",
+          "cost_usd": 45.39005527499992,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 33.93824395777772,
+          "cost_high_usd": 58.15275049471418
+        },
+        {
+          "run_id": 17513689,
+          "scenario": "D",
+          "cost_usd": 46.10061283249997,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 30.638054987333305,
+          "cost_high_usd": 55.06723164019994
+        },
+        {
+          "run_id": 17514353,
+          "scenario": "B",
+          "cost_usd": 57.43269862882208,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 48.56674837326653,
+          "cost_high_usd": 74.63494496882208
+        },
+        {
+          "run_id": 17515618,
+          "scenario": "A",
+          "cost_usd": 45.0823492750001,
+          "cost_method": "reconstructed-token",
+          "cost_low_usd": 31.92989695222229,
+          "cost_high_usd": 56.46386769900013
         }
       ]
     },
