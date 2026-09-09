@@ -1,6 +1,8 @@
 screenshots/
 jobs/
 .claude/
+scripts/
+
 # Local environment and credentials
 .env
 .env.*
@@ -9,6 +11,7 @@ jobs/
 *.pfx
 *.key
 COMMANDS.txt
+CLAUDE.md
 
 # Local OS/editor noise
 .DS_Store
