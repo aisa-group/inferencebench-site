@@ -17,6 +17,7 @@ START, END = date(2025, 9, 1), date(2026, 9, 4)
 # Variants share the underlying model's release date.
 POINTS = [
     ("Claude Fable 5.1", "2026-09-01", 9.83),
+    ("Claude Fable 5.1 (Max)", "2026-09-01", 9.31),
     ("Claude Opus 5", "2026-07-24", 8.90),
     ("Claude Fable 5 (Low, strict)", "2026-06-09", 8.74),
     ("Claude Opus 4.7", "2026-04-16", 8.53),
@@ -37,7 +38,7 @@ POINTS = [
     ("GLM-5.3 (Max)", "2026-08-14", 4.98),
     ("Gemini 3.1 Pro", "2026-02-19", 4.92),
     ("Kimi K2.6", "2026-04-20", 4.51),
-    ("Ox Alpha (stealth)", "2026-08-20", 4.49),
+    ("GLM-5.3 Flash", "2026-08-20", 4.49),
     ("Claude Opus 4.6", "2026-02-05", 4.38),
     ("GPT-5.2", "2025-12-11", 4.28),
     ("GPT-5.5 (High)", "2026-04-23", 4.22),
@@ -57,12 +58,12 @@ POINTS = [
 ]
 
 SITE_NAMES = [
-    "Claude Fable 5.1", "Claude Opus 5", "Claude Fable 5 (Low)", "Claude Opus 4.7",
+    "Claude Fable 5.1", "Claude Fable 5.1 (Max)", "Claude Opus 5", "Claude Fable 5 (Low)", "Claude Opus 4.7",
     "GPT-6 Astra (Ultra)", "Claude Opus 4.8", "Claude Fable 5", "GPT-5.6 Sol (Ultra)",
     "Claude Opus 4.8 (xHigh)", "GLM-5.2 (Max)", "Grok 4.6", "Claude Sonnet 5",
     "Kimi K2.7 Code", "GPT-5.4 (High)", "Kimi K3", "Claude Sonnet 4.6",
     "GPT-5.3 Codex (High)", "GPT-5.5 (xHigh)", "GLM-5.3 (Max)", "Gemini 3.1 Pro",
-    "Kimi K2.6", "Ox Alpha (stealth)", "Claude Opus 4.6", "GPT-5.2", "GPT-5.5 (High)",
+    "Kimi K2.6", "GLM-5.3 Flash", "Claude Opus 4.6", "GPT-5.2", "GPT-5.5 (High)",
     "Gemini 3.5 Flash", "Claude Opus 4.5", "Grok 4.5", "GPT-5.1 Codex Max", "Grok 4.5",
     "GLM-5", "Claude Sonnet 4.5", "Claude Fable 5", "Claude Haiku 4.5",
     "GPT-5.3 Codex (Medium)", "Claude Opus 4.7", "Claude Fable 5 (Low)",
@@ -71,6 +72,7 @@ SITE_NAMES = [
 
 LABELS = {
     "Claude Fable 5.1": (-849, 2),
+    "Claude Fable 5.1 (Max)": (-899, 71),
     "GPT-6 Astra (Ultra)": (-956, -62),
     "Claude Opus 5": (-230, -54),
     "GPT-5.6 Sol Ultra": (-285, -42),
@@ -81,7 +83,7 @@ LABELS = {
     "Grok 4.5 (Grok Build)": (-300, 84),
     "Grok 4.5 (OpenCode)": (-285, 128),
     "GLM-5.3 (Max)": (-330, 270),
-    "Ox Alpha (stealth)": (-760, 220),
+    "GLM-5.3 Flash": (-760, 220),
 }
 
 
@@ -119,7 +121,7 @@ def main():
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}">',
         "<title>InferenceBench model performance by public release date</title>",
-        "<desc>Scatter plot of 38 leaderboard configurations. Twelve recent additions are highlighted and labeled.</desc>",
+        "<desc>Scatter plot of 39 leaderboard configurations. Thirteen recent additions are highlighted and labeled.</desc>",
         '<rect width="1600" height="900" fill="#f5f1e9"/>',
         '<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">',
         text(LEFT, 68, "Inference optimization by model release date", 42, "#202944", 720),

@@ -16,7 +16,7 @@ OUTPUT = Path(__file__).resolve().parents[1] / "data/cost-efficiency.json"
 # 2x input and cached, 1.5x output). Only GPT-5.6+ bills cache writes.
 CODEX_RATES = {
     "gpt-6-astra-ultra": (10.0, 1.0, 50.0, 12.5, True),
-    "gpt-5-6-sol-ultra": (5.0, .5, 30.0, 6.25, True),
+    "gpt-5-6-sol-ultra": (4.0, .4, 20.0, 5.0, True),
     "gpt-5-5-xhigh": (5.0, .5, 30.0, 0.0, True),
     "gpt-5-5-high": (5.0, .5, 30.0, 0.0, True),
     "gpt-5-4-high": (2.5, .25, 15.0, 0.0, True),
@@ -60,12 +60,13 @@ CLAUDE_RATES = {
 }
 
 
-def config(key, root, *, ids=None, family=None):
+def config(key, root, *, ids=None, family=None, extra_runs=()):
     return {
         "key": key,
         "root": RESULTS / root,
         "ids": set(ids or []),
         "family": family or root.split("_", 1)[0],
+        "extra_runs": [RESULTS / path for path in extra_runs],
     }
 
 
@@ -74,6 +75,7 @@ CONFIGS = [
     # finalizing (a gate result settling, then a failed seed replaced by a
     # rerun) — see COMMANDS.txt 2026-09-04. Lock to the confirmed-final 12.
     config("fable-5-1", "claude_non_api_claude-fable-5-1_2h", ids=[17504745, 17504746, 17504747, 17506658, 17506659, 17508182, 17508183, 17508184, 17508672, 17508673, 17508674, 17512336]),
+    config("fable-5-1-max", "claude_non_api_claude-fable-5-1-max_2h", ids=[17512339,17522268,17522269,17523232,17523233,17523902,17524727,17524728,17524729,17531611,17531612,17531613]),
     config("opus-5", "claude_non_api_claude-opus-5_2h"),
     config("fable-5-low-strict", "claude_non_api_claude-fable-5-low_2h", ids=[17334384, 17334386, 17334388, 17334385, 17334387, 17334389, 17334378, 17334380, 17334382, 17334379, 17334381, 17334383]),
     config("opus-4-7", "claude_non_api_claude-opus-4-7_2h"),
@@ -86,10 +88,12 @@ CONFIGS = [
     config("grok-4-6-build", "grok_build_grok-4.6_2h_grok_build", family="grok-4.6"),
     config("sonnet-5", "claude_non_api_claude-sonnet-5_2h"),
     config("kimi-k2-7-code", "opencode_opencode_kimi-k2.7-code_2h"),
-    config("gpt-5-4-high", "codex_non_api_gpt-5.4-high_2h"),
+    config("gpt-5-4-high", "codex_non_api_gpt-5.4-high_2h",
+           ids=[17076897, 17076899, 17076901, 17078827, 17078833, 17078855, 17079017, 17079018, 17079019, 17093784, 17120863, 17120864],
+           extra_runs=["codex_non_api_gpt-5.4-high_2h_extra_seeds/inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17093784"]),
     config("kimi-k3", "opencode_opencode_kimi-k3_2h"),
     config("sonnet-4-6", "claude_non_api_claude-sonnet-4-6_2h"),
-    config("gpt-5-3-codex-high", "codex_non_api_gpt-5.3-codex-high_2h"),
+    config("gpt-5-3-codex-high", "codex_non_api_gpt-5.3-codex-high_2h", ids=[17076097, 17076103, 17076114, 17078592, 17078596, 17078825, 17078828, 17078843, 17078853, 17079277, 17120857, 17120858]),
     config("gpt-5-5-xhigh", "codex_non_api_gpt-5.5-xhigh_2h"),
     config("glm-5-3-max", "claude_zai_glm-5.3[1m]_2h", family="claude"),
     config("gemini-3-1-pro", "opencode_opencode_gemini-3.1-pro_2h"),
@@ -102,6 +106,7 @@ CONFIGS = [
     config("grok-4-5-build", "grok_build_grok-4.5_2h_grok_build", family="grok-4.5"),
     config("gpt-5-1-codex-max", "codex_non_api_gpt-5.1-codex-max_2h"),
     config("grok-4-5-opencode", "opencode_opencode_grok-4.5_2h"),
+    config("ox-alpha", "openrouter_stealth_ox-alpha_2h", ids=[17473053, 17473054, 17473055, 17473056, 17473058, 17473059, 17473060, 17473061, 17473062, 17473063, 17473064, 17473065], family="opencode"),
     config("glm-5", "opencode_opencode_glm-5_2h"),
     config("sonnet-4-5", "claude_non_api_claude-sonnet-4-5_2h"),
     config("fable-5-regular", "claude_non_api_claude-fable-5_2h", ids=[17330896, 17330897, 17330898, 17330899, 17330900, 17330901, 17331053, 17331054, 17331055, 17331078, 17331079, 17331080]),
@@ -118,6 +123,7 @@ def run_id(path):
 
 def selected_runs(item):
     runs = [path for path in item["root"].iterdir() if path.is_dir()]
+    runs.extend(path for path in item["extra_runs"] if path.is_dir())
     if item["ids"]:
         runs = [path for path in runs if run_id(path) in item["ids"]]
     return sorted(runs, key=run_id)
@@ -193,25 +199,71 @@ def price_claude_usage(model, counts, cache_creation=None):
 def claude_cost(path):
     records = []
     seen = set()
+    input_fields = ("input", "cache_read", "cache_create")
+    spans, message_history = {}, set()
+    uncertain, initialized, child_sessions = set(), set(), set()
     for transcript in sorted(path.glob("solve_out_run*.txt")):
-        for event in json_lines(transcript):
+        for number, event in enumerate(json_lines(transcript)):
+            session = event.get("session_id") or event.get("uuid")
+            if event.get("type") == "system" and event.get("subtype") == "init":
+                initialized.add(session)
+            message = event.get("message", {})
+            if event.get("type") == "assistant" and isinstance(message.get("usage"), dict):
+                if event.get("parent_tool_use_id"):
+                    child_sessions.add(session)
+                    continue
+                key = (session, message.get("model"))
+                identity = message.get("id", event.get("uuid", (transcript, number)))
+                counts = token_counts(message["usage"])
+                vector = tuple(counts[field] for field in input_fields)
+                span = spans.setdefault(key, {})
+                if ((identity in span and span[identity] != vector)
+                        or (identity not in span and (key, identity) in message_history)):
+                    uncertain.add(key)
+                if any(part.get("type") == "tool_use" and part.get("name", "").lower() in ("task", "agent")
+                       for part in message.get("content", []) if isinstance(part, dict)):
+                    uncertain.add(key)
+                span[identity] = vector
+                message_history.add((key, identity))
             if event.get("type") != "result" or not isinstance(event.get("modelUsage"), dict):
                 continue
             record_id = event.get("uuid") or f"{transcript}:{len(records)}"
-            if record_id not in seen:
-                records.append(event)
-                seen.add(record_id)
+            if record_id in seen:
+                continue
+            seen.add(record_id)
+            independent = set()
+            primary_models = [model for model in event["modelUsage"] if "haiku" not in model]
+            for model, usage in event["modelUsage"].items():
+                if not isinstance(usage, dict):
+                    continue
+                key = (session, model)
+                counts = token_counts(usage)
+                span_input = tuple(sum(vector[i] for vector in spans.get(key, {}).values())
+                                   for i in range(len(input_fields)))
+                # A new invocation can exceed every previous counter. Accept
+                # it as independent only when root messages and result usage
+                # agree, with no replay, changing chunks, or subagent usage.
+                if (session in initialized and session not in child_sessions
+                        and key not in uncertain and primary_models == [model]
+                        and not (event.get("subagent_stats", {}).get("spawned") or 0)
+                        and token_counts(event.get("usage", {})) == counts
+                        and span_input == tuple(counts[field] for field in input_fields)):
+                    independent.add(model)
+                if any(counts.values()):
+                    spans.pop(key, None)
+                    uncertain.discard(key)
+            records.append((event, independent))
+            initialized.discard(session)
+            child_sessions.discard(session)
 
     if records:
         # Result records are cumulative while a session grows and reset when a
-        # harness loop starts a fresh turn. Charge the increase while every
-        # counter grew, and the full record on any reset. Validated against
-        # Claude Code's own running cost tracker (exact match on cumulative
-        # runs) and per-message usage sums (reset-style runs).
+        # harness loop starts a fresh turn. Charge the full result on a reset
+        # proven by messages, or when any counter drops; otherwise use deltas.
         previous = {}
         previous_split = {}
         cost = 0.0
-        for event in records:
+        for event, independent in records:
             session = event.get("session_id") or event.get("uuid")
             # The 5-minute/1-hour write split is event-level and follows the
             # same cumulative-or-reset pattern as the token counters.
@@ -232,11 +284,14 @@ def claude_cost(path):
                 counts = token_counts(usage)
                 key = (session, model)
                 prior = previous.get(key)
+                creation = cache_creation if "haiku" not in model else None
                 if prior and all(counts[field] >= prior[field] for field in counts):
                     billed = {field: counts[field] - prior[field] for field in counts}
+                    if model in independent and any(prior[field] for field in input_fields):
+                        billed = counts
+                        creation = current_split
                 else:
                     billed = counts
-                creation = cache_creation if "haiku" not in model else None
                 cost += price_claude_usage(model, billed, creation)
                 previous[key] = counts
         return cost, "official-token", cost, cost
@@ -282,14 +337,31 @@ def xai_cost(fresh, cached, created, output, model, cached_in_threshold=True):
     return ((fresh + created) * input_rate + cached * cache_rate + output * output_rate) / 1_000_000
 
 
+# USD per million input, cached-input, and output tokens for OpenCode runs whose
+# recorded per-step dollars are unusable (the OpenRouter stealth period billed
+# $0). Reasoning tokens bill as output; cache writes bill as input.
+OPENCODE_TOKEN_RATES = {
+    "ox-alpha": (0.15, 0.03, 0.50),  # GLM-5.3 Flash list price
+}
+
+
 def opencode_cost(path, item):
     costs, lows = [], []
+    token_rates = OPENCODE_TOKEN_RATES.get(item["key"])
     for transcript in sorted(path.glob("solve_out_run*.txt")):
         for event in json_lines(transcript):
             if event.get("type") == "step_finish":
                 part = event.get("part", {})
                 tokens = part.get("tokens", {})
-                if item["key"] == "grok-4-5-opencode" and tokens:
+                if token_rates and tokens:
+                    input_rate, cache_rate, output_rate = token_rates
+                    cache = tokens.get("cache", {})
+                    usd = ((tokens.get("input", 0) + cache.get("write", 0)) * input_rate
+                           + cache.get("read", 0) * cache_rate
+                           + (tokens.get("output", 0) + tokens.get("reasoning", 0)) * output_rate) / 1_000_000
+                    costs.append(usd)
+                    lows.append(usd)
+                elif item["key"] == "grok-4-5-opencode" and tokens:
                     cache = tokens.get("cache", {})
                     args = (tokens.get("input", 0), cache.get("read", 0), cache.get("write", 0),
                             tokens.get("output", 0) + tokens.get("reasoning", 0), "grok-4.5")
@@ -300,7 +372,7 @@ def opencode_cost(path, item):
                     lows.append(part["cost"])
     if not costs:
         return None, "no-reported-token", None, None
-    method = "official-token" if item["key"] == "grok-4-5-opencode" else "recorded"
+    method = "official-token" if (token_rates or item["key"] == "grok-4-5-opencode") else "recorded"
     return sum(costs), method, sum(lows), sum(costs)
 
 
@@ -453,10 +525,9 @@ def codex_run_costs(item, runs):
     def price(fresh, out, cache_tokens, ctx_frac, req_frac):
         if not tiered:
             ctx_frac = req_frac = 0.0
-        return (fresh * input_rate * (1 + req_frac)
+        return (fresh * (write_rate or input_rate) * (1 + req_frac)
                 + out * output_rate * (1 + 0.5 * req_frac)
-                + cache_tokens * cache_rate * (1 + ctx_frac)
-                + fresh * write_rate * (1 + req_frac)) / 1_000_000
+                + cache_tokens * cache_rate * (1 + ctx_frac)) / 1_000_000
 
     results = []
     for agg in parsed:
@@ -604,7 +675,7 @@ def summarize(item):
 def main():
     summaries = [summarize(item) for item in CONFIGS]
     payload = {
-        "generated_at": "2026-09-06",
+        "generated_at": "2026-09-10",
         "source_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "methodology": {
             "cost": "Sum of API-equivalent agent cost across all 12 selected runs. "

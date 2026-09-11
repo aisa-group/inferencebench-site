@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260814-4">
+    <link rel="stylesheet" href="styles.css?v=20260910-1">
 </head>
 <body>
     <header class="site-header">
@@ -181,7 +181,7 @@
             <div class="leaderboard-notes" style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid var(--paper-line,#e3ddd2);border-radius:10px;font-size:0.86rem;line-height:1.5;color:#5a554c;">
                 <p style="margin:0 0 .5rem;font-weight:600;">Notes</p>
                 <p style="margin:0 0 .6rem;"><strong>Scaffold versions.</strong> Results were originally collected with Claude Code v2.1.114. Models marked with an asterisk (*) were run with Claude Code v2.1.175 or later; the other new runs use the Codex CLI, OpenCode, or Grok Build scaffold shown in the table.</p>
-                <p style="margin:0;"><strong>Strict prompt.</strong> Models marked with a cross (†) were run under a more explicit prompt that spells out the disallowed behaviors: no third-party pre-quantized checkpoints, and no modifying the evaluation harness. This includes the latest Fable 5.1, Opus 5, Sonnet 5, GPT-6 Astra (Ultra), GPT-5.6 Sol Ultra, GLM-5.2 / 5.3 Max, Ox Alpha, Kimi K2.7 Code, Kimi K3, and Grok 4.5 / 4.6 runs.</p>
+                <p style="margin:0;"><strong>Strict prompt.</strong> Models marked with a cross (†) were run under a more explicit prompt that spells out the disallowed behaviors: no third-party pre-quantized checkpoints, and no modifying the evaluation harness. This includes the latest Fable 5.1, Opus 5, Sonnet 5, GPT-6 Astra (Ultra), GPT-5.6 Sol Ultra, GLM-5.2 / 5.3 Max, GLM-5.3 Flash, Kimi K2.7 Code, Kimi K3, and Grok 4.5 / 4.6 runs.</p>
             </div>
 
             <div class="scenario-breakdown">
@@ -473,7 +473,7 @@
                     <div class="changelog-ver">v1.0.4 <span class="changelog-date">· Aug 2026</span></div>
                     <ul>
                         <li>Added the Cost column to the leaderboard.</li>
-                        <li>Added GLM-5.3 (Max), Ox Alpha (stealth), Grok 4.5, and Grok 4.6 (Grok Build) to the leaderboard.</li>
+                        <li>Added GLM-5.3 (Max), GLM-5.3 Flash, Grok 4.5, and Grok 4.6 (Grok Build) to the leaderboard.</li>
                         <li>Added a cost effectiveness figure to the Analysis section.</li>
                     </ul>
                 </div>
@@ -510,6 +510,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20260906-1"></script>
+    <script src="script.js?v=20260910-3"></script>
 </body>
 </html>

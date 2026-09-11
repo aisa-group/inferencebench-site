@@ -86,43 +86,44 @@ const scenarioData = [
 
 const leaderboardRows = [
     { rank: 1, model: "Claude Fable 5.1", scaffold: "Claude Code · v2.1.258 · strict prompt", value: 9.83, sem: 0.51, type: "agent", a: 5.15, b: 14.67, c: 33.12, d: 3.73, mark: "*†", key: "fable-5-1" },
-    { rank: 2, model: "Claude Opus 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 8.90, sem: 1.32, type: "agent", a: 4.65, b: 15.01, c: 32.42, d: 2.77, mark: "†", key: "opus-5" },
-    { rank: 3, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 8.74, sem: 1.91, type: "agent", a: 4.17, b: 13.38, c: 21.37, d: 4.89, mark: "*†", key: "fable-5-low-strict", variant: true },
-    { rank: 4, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.175", value: 8.53, sem: 0.80, type: "agent", a: 2.83, b: 11.63, c: 38.52, d: 4.18, mark: "*", key: "opus-4-7" },
-    { rank: 5, model: "GPT-6 Astra (Ultra)", scaffold: "Codex CLI · strict prompt", value: 7.90, sem: 0.33, type: "agent", a: 4.71, b: 6.47, c: 36.70, d: 3.48, mark: "†", key: "gpt-6-astra-ultra" },
-    { rank: 6, model: "Claude Opus 4.8", scaffold: "Claude Code · v2.1.175", value: 7.60, sem: 2.16, type: "agent", a: 4.53, b: 12.16, c: 18.62, d: 3.25, mark: "*", key: "opus-4-8" },
-    { rank: 7, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 7.52, sem: 1.58, type: "agent", a: 4.27, b: 15.64, c: 11.90, d: 4.03, mark: "*†", key: "fable-5-strict", variant: true },
-    { rank: 8, model: "GPT-5.6 Sol (Ultra)", scaffold: "Codex CLI · strict prompt", value: 7.34, sem: 0.21, type: "agent", a: 4.24, b: 8.61, c: 33.92, d: 2.35, mark: "†", key: "gpt-5-6-sol-ultra" },
-    { rank: 9, model: "Claude Opus 4.8 (xHigh)", scaffold: "Claude Code", value: 7.34, sem: 2.37, type: "agent", a: 4.30, b: 7.72, c: 18.77, d: 4.65, key: "opus-4-8-xhigh" },
-    { rank: 10, model: "GLM-5.2 (Max)", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 7.00, sem: 0.24, type: "agent", a: 3.86, b: 5.77, c: 32.47, d: 3.32, mark: "†", key: "glm-5-2-max" },
-    { rank: 11, model: "Grok 4.6", scaffold: "Grok Build · strict prompt", value: 6.65, sem: 1.14, type: "agent", a: 2.99, b: 6.24, c: 30.17, d: 3.47, mark: "†", key: "grok-4-6-build" },
-    { rank: 12, model: "Claude Sonnet 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 6.43, sem: 1.46, type: "agent", a: 3.30, b: 4.48, c: 36.09, d: 3.20, mark: "†", key: "sonnet-5" },
-    { rank: 13, model: "Kimi K2.7 Code", scaffold: "OpenCode · strict prompt", value: 6.27, sem: 0.22, type: "agent", a: 3.97, b: 5.33, c: 22.99, d: 3.17, mark: "†", key: "kimi-k2-7-code" },
-    { rank: 14, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25, key: "gpt-5-4-high" },
-    { rank: 15, model: "Kimi K3", scaffold: "OpenCode · strict prompt", value: 5.70, sem: 1.69, type: "agent", a: 3.50, b: 4.25, c: 19.59, d: 3.64, mark: "†", key: "kimi-k3" },
-    { rank: 16, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01, key: "sonnet-4-6" },
-    { rank: 17, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.49, sem: 0.54, type: "agent", a: 3.56, b: 3.38, c: 29.00, d: 2.60, key: "gpt-5-3-codex-high" },
-    { rank: 18, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14, key: "gpt-5-5-xhigh" },
-    { rank: 19, model: "GLM-5.3 (Max)", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 4.98, sem: 0.89, type: "agent", a: 3.42, b: 7.80, c: 22.97, d: 1.00, mark: "†", key: "glm-5-3-max" },
-    { rank: 20, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97, key: "gemini-3-1-pro" },
-    { rank: 21, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51, key: "kimi-k2-6" },
-    { rank: 22, model: "Ox Alpha (stealth)", scaffold: "OpenCode · strict prompt", value: 4.49, sem: 0.69, type: "agent", a: 3.20, b: 6.28, c: 20.15, d: 1.00, mark: "†", key: "ox-alpha" },
-    { rank: 23, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21, key: "opus-4-6" },
-    { rank: 24, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57, key: "gpt-5-2" },
-    { rank: 25, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08, key: "gpt-5-5-high" },
-    { rank: 26, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50, key: "gemini-3-5-flash" },
-    { rank: 27, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95, key: "opus-4-5" },
-    { rank: 28, model: "Grok 4.5", scaffold: "Grok Build · strict prompt", value: 3.70, sem: 0.79, type: "agent", a: 2.95, b: 2.73, c: 15.59, d: 1.49, mark: "†", key: "grok-4-5-build" },
-    { rank: 29, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82, key: "gpt-5-1-codex-max" },
-    { rank: 30, model: "Grok 4.5", scaffold: "OpenCode · strict prompt", value: 3.42, sem: 1.23, type: "agent", a: 2.07, b: 2.75, c: 10.11, d: 2.37, mark: "†", key: "grok-4-5-opencode", variant: true },
-    { rank: 31, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87, key: "glm-5" },
-    { rank: 32, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32, key: "sonnet-4-5" },
-    { rank: 33, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
-    { rank: 34, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24, key: "haiku-4-5" },
-    { rank: 35, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82, key: "gpt-5-3-codex-medium" },
-    { rank: 36, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
-    { rank: 37, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low-regular", variant: true },
-    { rank: 38, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87, key: "gpt-5-2-codex" }
+    { rank: 2, model: "Claude Fable 5.1 (Max)", scaffold: "Claude Code · v2.1.258 · strict prompt", value: 9.31, sem: 0.67, type: "agent", a: 4.77, b: 13.30, c: 32.98, d: 3.59, mark: "*†", key: "fable-5-1-max" },
+    { rank: 3, model: "Claude Opus 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 8.90, sem: 1.32, type: "agent", a: 4.65, b: 15.01, c: 32.42, d: 2.77, mark: "†", key: "opus-5" },
+    { rank: 4, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 8.74, sem: 1.91, type: "agent", a: 4.17, b: 13.38, c: 21.37, d: 4.89, mark: "*†", key: "fable-5-low-strict", variant: true },
+    { rank: 5, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.175", value: 8.53, sem: 0.80, type: "agent", a: 2.83, b: 11.63, c: 38.52, d: 4.18, mark: "*", key: "opus-4-7" },
+    { rank: 6, model: "GPT-6 Astra (Ultra)", scaffold: "Codex CLI · strict prompt", value: 7.90, sem: 0.33, type: "agent", a: 4.71, b: 6.47, c: 36.70, d: 3.48, mark: "†", key: "gpt-6-astra-ultra" },
+    { rank: 7, model: "Claude Opus 4.8", scaffold: "Claude Code · v2.1.175", value: 7.60, sem: 2.16, type: "agent", a: 4.53, b: 12.16, c: 18.62, d: 3.25, mark: "*", key: "opus-4-8" },
+    { rank: 8, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175 · strict prompt", value: 7.52, sem: 1.58, type: "agent", a: 4.27, b: 15.64, c: 11.90, d: 4.03, mark: "*†", key: "fable-5-strict", variant: true },
+    { rank: 9, model: "GPT-5.6 Sol (Ultra)", scaffold: "Codex CLI · strict prompt", value: 7.34, sem: 0.21, type: "agent", a: 4.24, b: 8.61, c: 33.92, d: 2.35, mark: "†", key: "gpt-5-6-sol-ultra" },
+    { rank: 10, model: "Claude Opus 4.8 (xHigh)", scaffold: "Claude Code", value: 7.34, sem: 2.37, type: "agent", a: 4.30, b: 7.72, c: 18.77, d: 4.65, key: "opus-4-8-xhigh" },
+    { rank: 11, model: "GLM-5.2 (Max)", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 7.00, sem: 0.24, type: "agent", a: 3.86, b: 5.77, c: 32.47, d: 3.32, mark: "†", key: "glm-5-2-max" },
+    { rank: 12, model: "Grok 4.6", scaffold: "Grok Build · strict prompt", value: 6.65, sem: 1.14, type: "agent", a: 2.99, b: 6.24, c: 30.17, d: 3.47, mark: "†", key: "grok-4-6-build" },
+    { rank: 13, model: "Claude Sonnet 5", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 6.43, sem: 1.46, type: "agent", a: 3.30, b: 4.48, c: 36.09, d: 3.20, mark: "†", key: "sonnet-5" },
+    { rank: 14, model: "Kimi K2.7 Code", scaffold: "OpenCode · strict prompt", value: 6.27, sem: 0.22, type: "agent", a: 3.97, b: 5.33, c: 22.99, d: 3.17, mark: "†", key: "kimi-k2-7-code" },
+    { rank: 15, model: "GPT-5.4 (High)", scaffold: "Codex CLI", value: 6.16, sem: 1.16, type: "agent", a: 3.60, b: 6.93, c: 17.78, d: 3.25, key: "gpt-5-4-high" },
+    { rank: 16, model: "Kimi K3", scaffold: "OpenCode · strict prompt", value: 5.70, sem: 1.69, type: "agent", a: 3.50, b: 4.25, c: 19.59, d: 3.64, mark: "†", key: "kimi-k3" },
+    { rank: 17, model: "Claude Sonnet 4.6", scaffold: "Claude Code", value: 5.56, sem: 1.62, type: "agent", a: 1.62, b: 8.21, c: 23.87, d: 3.01, key: "sonnet-4-6" },
+    { rank: 18, model: "GPT-5.3 Codex (High)", scaffold: "Codex CLI", value: 5.53, sem: 0.50, type: "agent", a: 3.67, b: 3.38, c: 29.00, d: 2.60, key: "gpt-5-3-codex-high" },
+    { rank: 19, model: "GPT-5.5 (xHigh)", scaffold: "Codex CLI", value: 5.45, sem: 1.25, type: "agent", a: 2.74, b: 6.07, c: 16.94, d: 3.14, key: "gpt-5-5-xhigh" },
+    { rank: 20, model: "GLM-5.3 (Max)", scaffold: "Claude Code · v2.1.119 · strict prompt", value: 4.98, sem: 0.89, type: "agent", a: 3.42, b: 7.80, c: 22.97, d: 1.00, mark: "†", key: "glm-5-3-max" },
+    { rank: 21, model: "Gemini 3.1 Pro", scaffold: "OpenCode", value: 4.92, sem: 0.81, type: "agent", a: 2.52, b: 3.78, c: 31.24, d: 1.97, key: "gemini-3-1-pro" },
+    { rank: 22, model: "Kimi K2.6", scaffold: "OpenCode", value: 4.51, sem: 0.48, type: "agent", a: 1.99, b: 4.73, c: 29.19, d: 1.51, key: "kimi-k2-6" },
+    { rank: 23, model: "GLM-5.3 Flash", scaffold: "OpenCode · strict prompt", value: 4.49, sem: 0.69, type: "agent", a: 3.20, b: 6.28, c: 20.15, d: 1.00, mark: "†", key: "ox-alpha" },
+    { rank: 24, model: "Claude Opus 4.6", scaffold: "Claude Code", value: 4.38, sem: 1.25, type: "agent", a: 1.00, b: 4.80, c: 23.85, d: 3.21, key: "opus-4-6" },
+    { rank: 25, model: "GPT-5.2", scaffold: "Codex CLI", value: 4.28, sem: 1.29, type: "agent", a: 2.26, b: 2.87, c: 20.15, d: 2.57, key: "gpt-5-2" },
+    { rank: 26, model: "GPT-5.5 (High)", scaffold: "Codex CLI", value: 4.22, sem: 1.01, type: "agent", a: 3.06, b: 2.59, c: 19.11, d: 2.08, key: "gpt-5-5-high" },
+    { rank: 27, model: "Gemini 3.5 Flash", scaffold: "OpenCode", value: 4.16, sem: 0.72, type: "agent", a: 3.70, b: 3.05, c: 17.71, d: 1.50, key: "gemini-3-5-flash" },
+    { rank: 28, model: "Claude Opus 4.5", scaffold: "Claude Code", value: 3.76, sem: 0.89, type: "agent", a: 3.69, b: 2.78, c: 10.03, d: 1.95, key: "opus-4-5" },
+    { rank: 29, model: "Grok 4.5", scaffold: "Grok Build · strict prompt", value: 3.70, sem: 0.79, type: "agent", a: 2.95, b: 2.73, c: 15.59, d: 1.49, mark: "†", key: "grok-4-5-build" },
+    { rank: 30, model: "GPT-5.1 Codex Max", scaffold: "Codex CLI", value: 3.59, sem: 1.24, type: "agent", a: 2.57, b: 3.44, c: 10.33, d: 1.82, key: "gpt-5-1-codex-max" },
+    { rank: 31, model: "Grok 4.5", scaffold: "OpenCode · strict prompt", value: 3.42, sem: 1.23, type: "agent", a: 2.07, b: 2.75, c: 10.11, d: 2.37, mark: "†", key: "grok-4-5-opencode", variant: true },
+    { rank: 32, model: "GLM-5", scaffold: "OpenCode", value: 3.22, sem: 0.85, type: "agent", a: 2.19, b: 1.00, c: 26.36, d: 1.87, key: "glm-5" },
+    { rank: 33, model: "Claude Sonnet 4.5", scaffold: "Claude Code", value: 3.18, sem: 0.90, type: "agent", a: 2.67, b: 1.71, c: 9.65, d: 2.32, key: "sonnet-4-5" },
+    { rank: 34, model: "Claude Fable 5", scaffold: "Claude Code · v2.1.175", value: 3.16, sem: 0.67, type: "agent", a: 3.92, b: 1.00, c: 25.42, d: 1.00, mark: "*", key: "fable-5-regular" },
+    { rank: 35, model: "Claude Haiku 4.5", scaffold: "Claude Code", value: 2.78, sem: 0.57, type: "agent", a: 1.00, b: 1.99, c: 9.27, d: 3.24, key: "haiku-4-5" },
+    { rank: 36, model: "GPT-5.3 Codex (Medium)", scaffold: "Codex CLI", value: 2.32, sem: 0.31, type: "agent", a: 2.75, b: 3.73, c: 1.00, d: 2.82, key: "gpt-5-3-codex-medium" },
+    { rank: 37, model: "Claude Opus 4.7", scaffold: "Claude Code · v2.1.114", value: 2.25, sem: 0.32, type: "agent", a: 1.07, b: 1.00, c: 19.02, d: 1.27, key: "opus-4-7-v2114", variant: true },
+    { rank: 38, model: "Claude Fable 5 (Low)", scaffold: "Claude Code · v2.1.175", value: 2.15, sem: 0.46, type: "agent", a: 1.00, b: 1.00, c: 21.21, d: 1.00, mark: "*", key: "fable-5-low-regular", variant: true },
+    { rank: 39, model: "GPT-5.2 Codex", scaffold: "Codex CLI", value: 1.98, sem: 0.18, type: "agent", a: 3.32, b: 2.48, c: 1.00, d: 1.87, key: "gpt-5-2-codex" }
 ];
 
 // top three overall, plus the best GPT model and the best model from any
@@ -136,6 +137,7 @@ const aggregateChartRows = (() => {
     return picks;
 })();
 const aggregateShortLabels = {
+    "fable-5-1-max": "Fable 5.1 Max",
     "gpt-6-astra-ultra": "GPT-6 Astra",
     "gpt-5-6-sol-ultra": "GPT-5.6 Sol",
     "grok-4-6-build": "Grok 4.6 Build",
@@ -254,7 +256,7 @@ function formatUsd(value) {
 async function loadCostEfficiency() {
     const button = document.querySelector('[data-focus="cost"]');
     try {
-        const response = await fetch("./data/cost-efficiency.json?v=20260906-1");
+        const response = await fetch("./data/cost-efficiency.json?v=20260910-3");
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
         const byKey = new Map(payload.configs.map((item) => [item.key, item]));
@@ -688,7 +690,7 @@ function renderCostScatter() {
     const pad = { left: 46, right: 18, top: 16, bottom: 44 };
     const plotW = width - pad.left - pad.right;
     const plotH = height - pad.top - pad.bottom;
-    const xMin = Math.log10(25);
+    const xMin = Math.log10(3);
     const xMax = Math.log10(800);
     const yMax = 10;
     const xPos = (cost) => pad.left + ((Math.log10(cost) - xMin) / (xMax - xMin)) * plotW;
@@ -714,7 +716,7 @@ function renderCostScatter() {
         fitNote.textContent = `Best fit: ${perDouble >= 0 ? "+" : ""}${perDouble.toFixed(2)}× aggregate per doubling of cost (R² = ${r2.toFixed(2)}).`;
     }
 
-    const xTicks = [25, 50, 100, 200, 400, 800];
+    const xTicks = [3, 6, 12, 25, 50, 100, 200, 400, 800];
     const yTicks = [0, 2, 4, 6, 8, 10];
     const gridColor = "rgba(196, 188, 176, 0.55)";
 
@@ -766,7 +768,7 @@ function renderCostScatter() {
                 <text class="scatter-axis" x="${xPos(t)}" y="${height - pad.bottom + 16}" text-anchor="middle">$${t}</text>`).join("")}
             <text class="scatter-axis-title" x="${pad.left + plotW / 2}" y="${height - 6}" text-anchor="middle">12-run API cost (log scale)</text>
             <text class="scatter-axis-title" x="14" y="${pad.top + plotH / 2}" text-anchor="middle" transform="rotate(-90 14 ${pad.top + plotH / 2})">Aggregate speedup</text>
-            <line x1="${xPos(25)}" y1="${yPos(fitY1)}" x2="${xPos(800)}" y2="${yPos(fitY2)}"
+            <line x1="${xPos(3)}" y1="${yPos(fitY1)}" x2="${xPos(800)}" y2="${yPos(fitY2)}"
                   stroke="#8e887d" stroke-width="2" stroke-dasharray="6 5" opacity="0.85"/>
             ${marks}
         </svg>

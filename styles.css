@@ -749,6 +749,11 @@ h3 {
     line-height: 1.2;
 }
 
+.aggregate-label[title^="Claude Fable 5.1 (Max)"] {
+    max-width: none;
+    white-space: nowrap;
+}
+
 .aggregate-name {
     display: block;
 }
