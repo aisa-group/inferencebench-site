@@ -11,17 +11,19 @@ OUT = Path(__file__).resolve().parents[1] / "assets/model-release-timeline.svg"
 LEADERBOARD = Path(__file__).resolve().parents[1] / "script.js"
 WIDTH, HEIGHT = 1600, 900
 LEFT, RIGHT, TOP, BOTTOM = 140, 1510, 170, 760
-START, END = date(2025, 9, 1), date(2026, 9, 4)
+START, END = date(2025, 9, 1), date(2026, 9, 24)
 
 # Dates use first documented public availability from provider release notes.
 # Variants share the underlying model's release date.
 POINTS = [
+    ("Claude Opus 5.5 (Max)", "2026-09-22", 12.08),
     ("Claude Fable 5.1", "2026-09-01", 9.83),
     ("Claude Fable 5.1 (Max)", "2026-09-01", 9.31),
     ("Claude Opus 5", "2026-07-24", 8.90),
     ("Claude Fable 5 (Low, strict)", "2026-06-09", 8.74),
     ("Claude Opus 4.7", "2026-04-16", 8.53),
     ("GPT-6 Astra (Ultra)", "2026-09-03", 7.90),
+    ("GPT-6 Sol (Ultra)", "2026-09-23", 7.64),
     ("Claude Opus 4.8", "2026-05-28", 7.60),
     ("Claude Fable 5 (strict)", "2026-06-09", 7.52),
     ("GPT-5.6 Sol Ultra", "2026-07-09", 7.34),
@@ -33,10 +35,11 @@ POINTS = [
     ("GPT-5.4 (High)", "2026-03-05", 6.16),
     ("Kimi K3", "2026-07-16", 5.70),
     ("Claude Sonnet 4.6", "2026-02-17", 5.56),
-    ("GPT-5.3 Codex (High)", "2026-02-05", 5.49),
+    ("GPT-5.3 Codex (High)", "2026-02-05", 5.53),
     ("GPT-5.5 (xHigh)", "2026-04-23", 5.45),
     ("GLM-5.3 (Max)", "2026-08-14", 4.98),
     ("Gemini 3.1 Pro", "2026-02-19", 4.92),
+    ("Muse Spark 1.3", "2026-09-02", 4.53),
     ("Kimi K2.6", "2026-04-20", 4.51),
     ("GLM-5.3 Flash", "2026-08-20", 4.49),
     ("Claude Opus 4.6", "2026-02-05", 4.38),
@@ -58,12 +61,12 @@ POINTS = [
 ]
 
 SITE_NAMES = [
-    "Claude Fable 5.1", "Claude Fable 5.1 (Max)", "Claude Opus 5", "Claude Fable 5 (Low)", "Claude Opus 4.7",
-    "GPT-6 Astra (Ultra)", "Claude Opus 4.8", "Claude Fable 5", "GPT-5.6 Sol (Ultra)",
+    "Claude Opus 5.5 (Max)", "Claude Fable 5.1", "Claude Fable 5.1 (Max)", "Claude Opus 5", "Claude Fable 5 (Low)", "Claude Opus 4.7",
+    "GPT-6 Astra (Ultra)", "GPT-6 Sol (Ultra)", "Claude Opus 4.8", "Claude Fable 5", "GPT-5.6 Sol (Ultra)",
     "Claude Opus 4.8 (xHigh)", "GLM-5.2 (Max)", "Grok 4.6", "Claude Sonnet 5",
     "Kimi K2.7 Code", "GPT-5.4 (High)", "Kimi K3", "Claude Sonnet 4.6",
     "GPT-5.3 Codex (High)", "GPT-5.5 (xHigh)", "GLM-5.3 (Max)", "Gemini 3.1 Pro",
-    "Kimi K2.6", "GLM-5.3 Flash", "Claude Opus 4.6", "GPT-5.2", "GPT-5.5 (High)",
+    "Muse Spark 1.3", "Kimi K2.6", "GLM-5.3 Flash", "Claude Opus 4.6", "GPT-5.2", "GPT-5.5 (High)",
     "Gemini 3.5 Flash", "Claude Opus 4.5", "Grok 4.5", "GPT-5.1 Codex Max", "Grok 4.5",
     "GLM-5", "Claude Sonnet 4.5", "Claude Fable 5", "Claude Haiku 4.5",
     "GPT-5.3 Codex (Medium)", "Claude Opus 4.7", "Claude Fable 5 (Low)",
@@ -71,19 +74,21 @@ SITE_NAMES = [
 ]
 
 LABELS = {
-    "Claude Fable 5.1": (-849, 2),
-    "Claude Fable 5.1 (Max)": (-899, 71),
-    "GPT-6 Astra (Ultra)": (-956, -62),
-    "Claude Opus 5": (-230, -54),
-    "GPT-5.6 Sol Ultra": (-285, -42),
-    "Claude Sonnet 5": (-286, -10),
-    "Kimi K2.7 Code": (-265, 42),
-    "Kimi K3": (-158, 54),
-    "Grok 4.6 (Grok Build)": (-430, 190),
-    "Grok 4.5 (Grok Build)": (-300, 84),
-    "Grok 4.5 (OpenCode)": (-285, 128),
-    "GLM-5.3 (Max)": (-330, 270),
-    "GLM-5.3 Flash": (-760, 220),
+    "Claude Opus 5.5 (Max)": (-1063, -111),
+    "GPT-6 Sol (Ultra)": (-1066, -88),
+    "Claude Fable 5.1": (-989, -164),
+    "Claude Fable 5.1 (Max)": (-989, -144),
+    "GPT-6 Astra (Ultra)": (-996, -119),
+    "Claude Opus 5": (-851, -119),
+    "GPT-5.6 Sol Ultra": (-798, -59),
+    "Claude Sonnet 5": (-766, -13),
+    "Kimi K2.7 Code": (-703, 22),
+    "Kimi K3": (-823, 40),
+    "Grok 4.6 (Grok Build)": (-918, -46),
+    "Grok 4.5 (Grok Build)": (-795, 82),
+    "Grok 4.5 (OpenCode)": (-795, 112),
+    "GLM-5.3 (Max)": (-925, 52),
+    "GLM-5.3 Flash": (-946, 73),
 }
 
 
@@ -93,7 +98,7 @@ def x_pos(value):
 
 
 def y_pos(value):
-    return BOTTOM - value / 10 * (BOTTOM - TOP)
+    return BOTTOM - value / 14 * (BOTTOM - TOP)
 
 
 def text(x, y, value, size=24, fill="#24282f", weight=400, anchor="start"):
@@ -121,13 +126,13 @@ def main():
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}">',
         "<title>InferenceBench model performance by public release date</title>",
-        "<desc>Scatter plot of 39 leaderboard configurations. Thirteen recent additions are highlighted and labeled.</desc>",
+        "<desc>Scatter plot of 41 leaderboard configurations. Fifteen recent additions are highlighted and labeled.</desc>",
         '<rect width="1600" height="900" fill="#f5f1e9"/>',
         '<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">',
         text(LEFT, 68, "Inference optimization by model release date", 42, "#202944", 720),
     ]
 
-    for value in range(0, 11, 2):
+    for value in range(0, 15, 2):
         y = y_pos(value)
         lines.append(f'<line x1="{LEFT}" y1="{y:.1f}" x2="{RIGHT}" y2="{y:.1f}" stroke="#d9d3c9" stroke-width="1"/>')
         lines.append(text(LEFT - 22, y + 7, f"{value}×", 19, "#777870", anchor="end"))

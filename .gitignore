@@ -3,6 +3,7 @@ jobs/
 .claude/
 scripts/
 
+
 # Local environment and credentials
 .env
 .env.*

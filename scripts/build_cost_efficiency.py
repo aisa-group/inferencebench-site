@@ -16,6 +16,7 @@ OUTPUT = Path(__file__).resolve().parents[1] / "data/cost-efficiency.json"
 # 2x input and cached, 1.5x output). Only GPT-5.6+ bills cache writes.
 CODEX_RATES = {
     "gpt-6-astra-ultra": (10.0, 1.0, 50.0, 12.5, True),
+    "gpt-6-sol-ultra": (2.0, .2, 10.0, 2.5, True),
     "gpt-5-6-sol-ultra": (4.0, .4, 20.0, 5.0, True),
     "gpt-5-5-xhigh": (5.0, .5, 30.0, 0.0, True),
     "gpt-5-5-high": (5.0, .5, 30.0, 0.0, True),
@@ -33,6 +34,11 @@ CODEX_LONG_TOKENS = 272_000  # documented long-context threshold
 # Effective context ceiling in tokens before Codex compacts, calibrated from
 # observed "context compacted" event spacing per model family.
 def codex_cap_tokens(key):
+    if key.startswith("gpt-6-sol"):
+        # Same calibration as Astra below: median spacing between real
+        # "context compacted" events across all 12 gpt-6-sol-ultra transcripts
+        # is ~872K tokens (15 intervals, 456K-2.2M range).
+        return 870_000
     if key.startswith("gpt-6"):
         # Despite Astra's documented 1.05M-token window, Codex CLI compacts
         # well before that: median spacing between real "context compacted"
@@ -51,6 +57,7 @@ def codex_cap_tokens(key):
 CLAUDE_RATES = {
     "fable": (10.0, 1.0, 50.0, 12.5, 20.0),
     "fable-5.1": (10.0, .25, 50.0, 12.5, 20.0),
+    "opus-5.5": (4.0, .2, 20.0, 5.0, 8.0),
     "opus": (5.0, .5, 25.0, 6.25, 10.0),
     "sonnet-5": (2.0, .2, 10.0, 2.5, 4.0),
     "sonnet-4": (3.0, .3, 15.0, 3.75, 6.0),
@@ -82,6 +89,8 @@ CONFIGS = [
     config("opus-4-8", "claude_non_api_claude-opus-4-8_2h"),
     config("fable-5-strict", "claude_non_api_claude-fable-5_2h", ids=[17335746, 17335747, 17335748, 17335749, 17335751, 17335753, 17335750, 17335752, 17335754, 17335755, 17335756, 17335757]),
     config("gpt-6-astra-ultra", "codex_non_api_gpt-6-astra-ultra_2h"),
+    config("gpt-6-sol-ultra", "codex_non_api_gpt-6-sol-ultra_2h"),
+    config("opus-5-5-max", "claude_non_api_claude-opus-5-5-max_2h"),
     config("gpt-5-6-sol-ultra", "codex_non_api_gpt-5.6-sol-ultra_2h"),
     config("opus-4-8-xhigh", "claude_non_api_claude-opus-4-8-xhigh_2h"),
     config("glm-5-2-max", "claude_zai_glm-5.2[1m]_2h", family="claude"),
@@ -97,6 +106,7 @@ CONFIGS = [
     config("gpt-5-5-xhigh", "codex_non_api_gpt-5.5-xhigh_2h"),
     config("glm-5-3-max", "claude_zai_glm-5.3[1m]_2h", family="claude"),
     config("gemini-3-1-pro", "opencode_opencode_gemini-3.1-pro_2h"),
+    config("muse-spark-1-3", "opencode_opencode_muse-spark-1.3-contributor-free_2h"),
     config("kimi-k2-6", "opencode_opencode_kimi-k2.6_2h"),
     config("opus-4-6", "claude_non_api_claude-opus-4-6_2h"),
     config("gpt-5-2", "codex_non_api_gpt-5.2_2h", ids=[17061039, 17066082, 17070473, 17070477, 17076095, 17076107, 17078526, 17078529, 17078532, 17078776, 17078780, 17120855]),
@@ -152,6 +162,8 @@ def claude_rates(model):
         return CLAUDE_RATES["fable-5.1"]
     if "fable" in model:
         return CLAUDE_RATES["fable"]
+    if "opus-5-5" in model:
+        return CLAUDE_RATES["opus-5.5"]
     if "opus" in model:
         return CLAUDE_RATES["opus"]
     if "sonnet-5" in model:
@@ -342,6 +354,7 @@ def xai_cost(fresh, cached, created, output, model, cached_in_threshold=True):
 # $0). Reasoning tokens bill as output; cache writes bill as input.
 OPENCODE_TOKEN_RATES = {
     "ox-alpha": (0.15, 0.03, 0.50),  # GLM-5.3 Flash list price
+    "muse-spark-1-3": (1.25, 0.15, 4.25),  # Muse Spark 1.3 Standard tier list price (the run used the free Contributor tier)
 }
 
 
@@ -675,7 +688,7 @@ def summarize(item):
 def main():
     summaries = [summarize(item) for item in CONFIGS]
     payload = {
-        "generated_at": "2026-09-10",
+        "generated_at": "2026-09-24",
         "source_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "methodology": {
             "cost": "Sum of API-equivalent agent cost across all 12 selected runs. "

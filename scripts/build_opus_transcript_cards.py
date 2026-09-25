@@ -18,6 +18,7 @@ BLUE = "#617f9c"
 GREEN = "#4f846e"
 CARD = "#fffdf8"
 LINE = "#d9d3c8"
+MODEL_LABEL = "CLAUDE OPUS 5"   # overridden by build_opus55_transcript_cards.py
 
 POST2 = (
     (
@@ -118,16 +119,16 @@ def quote_box(
         f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="16" '
         f'fill="{CARD}" stroke="{LINE}" stroke-width="1.5"/>'
     )
-    parts.append(text(x + 26, y + 34, "CLAUDE OPUS 5", 14, color=MUTED, weight=700))
+    parts.append(text(x + 26, y + 34, MODEL_LABEL, 14, color=MUTED, weight=700))
     parts.append(quote_svg)
     return y + height
 
 
-def build_workload_card():
+def build_workload_card(posts=POST2):
     parts = base()
     panel_y, panel_w, panel_h = 16, 504, 868
     box_w, box_h, gap = panel_w - 32, 382, 16
-    for x, (label, color, quotes) in zip((16, 548, 1080), POST2):
+    for x, (label, color, quotes) in zip((16, 548, 1080), posts):
         parts.extend(
             (
                 f'<rect x="{x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" rx="22" fill="#ffffff" fill-opacity="0.5" stroke="{LINE}" stroke-width="1.5"/>',
@@ -151,11 +152,11 @@ def build_workload_card():
     return "\n".join(parts)
 
 
-def build_recovery_card():
+def build_recovery_card(posts=POST3):
     parts = base()
     panel_y, panel_w, panel_h = 16, 776, 868
     box_w, box_h, gap = panel_w - 32, 248, 16
-    for x, (label, color, quotes) in zip((16, 808), POST3):
+    for x, (label, color, quotes) in zip((16, 808), posts):
         parts.extend(
             (
                 f'<rect x="{x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" rx="22" fill="#ffffff" fill-opacity="0.5" stroke="{LINE}" stroke-width="1.5"/>',
