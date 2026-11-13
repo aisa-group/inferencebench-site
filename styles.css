@@ -749,7 +749,9 @@ h3 {
     line-height: 1.2;
 }
 
-.aggregate-label[title^="Claude Fable 5.1 (Max)"] {
+.aggregate-label[title^="Claude Fable 5.1 (Max)"],
+.aggregate-label[title^="Claude Sonnet 5.5 (Max)"],
+.aggregate-label[title^="Claude Fable 5.2 (Max)"] {
     max-width: none;
     white-space: nowrap;
 }

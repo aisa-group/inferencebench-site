@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260925-1">
+    <link rel="stylesheet" href="styles.css?v=20261113-1">
 </head>
 <body>
     <header class="site-header">
@@ -63,7 +63,7 @@
                     <p class="eyebrow">Main results</p>
                     <h2>Main Results</h2>
                 </div>
-                <p>Across all four scenarios, agents outperform the vanilla PyTorch baseline and most inference engines with default configs (e.g., vLLM, SGLang, and TGI), but, apart from the newest Claude Opus 5.5 (Max) run, remain worse than simple hyperparameter searches over existing engine settings given the same time budget.</p>
+                <p>Across all four scenarios, agents outperform the vanilla PyTorch baseline and most inference engines with default configs (e.g., vLLM, SGLang, and TGI), but, apart from the newest Claude Opus 5.5 (Max) and Sonnet 5.5 (Max) runs, remain worse than simple hyperparameter searches over existing engine settings given the same time budget.</p>
             </div>
 
             <div class="aggregate-panel">
@@ -381,7 +381,7 @@
                 <div>
                     <p class="eyebrow">Insights</p>
                     <h2>Failure modes.</h2>
-                    <p>Across the 503 scored runs behind the current leaderboard (42 configurations), agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
+                    <p>Across the 551 scored runs behind the current leaderboard (46 configurations), agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
                 </div>
                 <div class="outcome-card">
                     <h3>Run outcomes</h3>
@@ -393,13 +393,13 @@
             <div class="behavior-panel">
                 <div class="behavior-summary">
                     <h3>Agent behavior patterns</h3>
-                    <p><strong>91.5%</strong> of runs submit a vLLM-based server.</p>
+                    <p><strong>92.2%</strong> of runs submit a vLLM-based server.</p>
                     <hr>
                     <span>Transcripts repeatedly name relevant optimizations, while the measured search remains shallow.</span>
                     <div class="technique-mentions">
-                        <span><strong>83%</strong> Chunked prefill</span>
+                        <span><strong>82%</strong> Chunked prefill</span>
                         <span><strong>99%</strong> Quantization</span>
-                        <span><strong>78%</strong> Speculative decoding</span>
+                        <span><strong>75%</strong> Speculative decoding</span>
                     </div>
                 </div>
                 <div class="histogram">
@@ -416,7 +416,7 @@
                     <p class="found-conclusion">Agents are aware of relevant techniques but conduct <strong>shallow search</strong>, then frequently fail to preserve their best configuration in the final submission.</p>
                     <div class="legend">
                         <span><i class="legend-solid"></i> Speedup</span>
-                        <span><i class="legend-dashed"></i> Drop relative to previous stage</span>
+                        <span><i class="legend-dashed"></i> Gap to the next stage</span>
                     </div>
                 </div>
                 <div class="found-chart" id="found-chart" aria-label="Found versus submitted performance"></div>
@@ -459,7 +459,7 @@
 
     <div class="changelog-widget" id="changelog-widget" data-open="true">
         <button class="changelog-pill" id="changelog-pill" type="button" aria-label="Open changelog">
-            <span class="changelog-pulse"></span> What's new · v1.0.6
+            <span class="changelog-pulse"></span> What's new · v1.0.7
         </button>
         <div class="changelog-card" id="changelog-card" role="dialog" aria-label="Changelog">
             <div class="changelog-head">
@@ -468,9 +468,15 @@
             </div>
             <div class="changelog-scroll">
                 <div class="changelog-entry">
+                    <div class="changelog-ver">v1.0.7 <span class="changelog-date">· Nov 2026</span></div>
+                    <ul>
+                        <li>Added Claude Fable 5.2 (Max) and Claude Haiku 5.5 (Max) to the leaderboard. Haiku 5.5 (Max) sets the best Scenario D score.</li>
+                    </ul>
+                </div>
+                <div class="changelog-entry">
                     <div class="changelog-ver">v1.0.6 <span class="changelog-date">· Sep 2026</span></div>
                     <ul>
-                        <li>Added Claude Opus 5.5 (Max) and GPT-6 Sol (Ultra) to the leaderboard. New SoTA!</li>
+                        <li>Added Claude Opus 5.5 (Max), Sonnet 5.5 (Max), Sonnet 5.5, and GPT-6 Sol (Ultra) to the leaderboard. New SoTA!</li>
                     </ul>
                 </div>
                 <div class="changelog-entry">
@@ -520,6 +526,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20260925-5"></script>
+    <script src="script.js?v=20261113-3"></script>
 </body>
 </html>

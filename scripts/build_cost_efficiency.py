@@ -57,11 +57,15 @@ def codex_cap_tokens(key):
 CLAUDE_RATES = {
     "fable": (10.0, 1.0, 50.0, 12.5, 20.0),
     "fable-5.1": (10.0, .25, 50.0, 12.5, 20.0),
+    "fable-5.2": (8.0, .2, 40.0, 10.0, 16.0),
     "opus-5.5": (4.0, .2, 20.0, 5.0, 8.0),
     "opus": (5.0, .5, 25.0, 6.25, 10.0),
     "sonnet-5": (2.0, .2, 10.0, 2.5, 4.0),
     "sonnet-4": (3.0, .3, 15.0, 3.75, 6.0),
     "haiku": (1.0, .1, 5.0, 1.25, 2.0),
+    # Haiku 5.5 bills prompts over 100K tokens at 5x its base rates. About 90%
+    # of its benchmark requests exceed 100K, so all usage takes the higher rates.
+    "haiku-5.5": (.5, .05, 2.5, .625, 1.0),
     "glm-5.2": (1.4, .26, 4.4, 1.4, 1.4),
     "glm-5.3": (1.4, .26, 4.4, 1.4, 1.4),
 }
@@ -91,6 +95,10 @@ CONFIGS = [
     config("gpt-6-astra-ultra", "codex_non_api_gpt-6-astra-ultra_2h"),
     config("gpt-6-sol-ultra", "codex_non_api_gpt-6-sol-ultra_2h"),
     config("opus-5-5-max", "claude_non_api_claude-opus-5-5-max_2h"),
+    config("sonnet-5-5-max", "claude_non_api_claude-sonnet-5-5-max_2h"),  # list prices equal Sonnet 5's
+    config("sonnet-5-5", "claude_non_api_claude-sonnet-5-5_2h"),  # list prices equal Sonnet 5's
+    config("fable-5-2-max", "claude_non_api_claude-fable-5-2-max_2h"),
+    config("haiku-5-5-max", "claude_non_api_claude-haiku-5-5-max_2h"),
     config("gpt-5-6-sol-ultra", "codex_non_api_gpt-5.6-sol-ultra_2h"),
     config("opus-4-8-xhigh", "claude_non_api_claude-opus-4-8-xhigh_2h"),
     config("glm-5-2-max", "claude_zai_glm-5.2[1m]_2h", family="claude"),
@@ -132,7 +140,8 @@ def run_id(path):
 
 
 def selected_runs(item):
-    runs = [path for path in item["root"].iterdir() if path.is_dir()]
+    runs = [path for path in item["root"].iterdir()
+            if path.is_dir() and path.name.startswith("inference_scenario_")]
     runs.extend(path for path in item["extra_runs"] if path.is_dir())
     if item["ids"]:
         runs = [path for path in runs if run_id(path) in item["ids"]]
@@ -157,9 +166,16 @@ def json_lines(path):
                 continue
 
 
+def is_helper(model):
+    # Claude Code's background calls use an older Haiku; Haiku 5.5 runs it as the main model.
+    return "haiku" in model and "haiku-5-5" not in model
+
+
 def claude_rates(model):
     if "fable-5-1" in model:
         return CLAUDE_RATES["fable-5.1"]
+    if "fable-5-2" in model:
+        return CLAUDE_RATES["fable-5.2"]
     if "fable" in model:
         return CLAUDE_RATES["fable"]
     if "opus-5-5" in model:
@@ -170,6 +186,8 @@ def claude_rates(model):
         return CLAUDE_RATES["sonnet-5"]
     if "sonnet-4" in model:
         return CLAUDE_RATES["sonnet-4"]
+    if "haiku-5-5" in model:
+        return CLAUDE_RATES["haiku-5.5"]
     if "haiku" in model:
         return CLAUDE_RATES["haiku"]
     if "glm-5.2" in model:
@@ -208,6 +226,22 @@ def price_claude_usage(model, counts, cache_creation=None):
     ) / 1_000_000
 
 
+def message_cost(path):
+    messages = {}
+    for transcript in sorted(path.glob("solve_out_run*.txt")):
+        for event in json_lines(transcript):
+            message = event.get("message", {})
+            if event.get("type") == "assistant" and isinstance(message.get("usage"), dict):
+                messages[message.get("id", event.get("uuid", f"{transcript}:{len(messages)}"))] = message
+    priced = [(message, token_counts(message["usage"])) for message in messages.values()]
+    priced = [(message, usage) for message, usage in priced if any(usage.values())]
+    cost = sum(
+        price_claude_usage(message.get("model", ""), usage, message["usage"].get("cache_creation"))
+        for message, usage in priced
+    )
+    return cost, bool(priced)
+
+
 def claude_cost(path):
     records = []
     seen = set()
@@ -244,7 +278,7 @@ def claude_cost(path):
                 continue
             seen.add(record_id)
             independent = set()
-            primary_models = [model for model in event["modelUsage"] if "haiku" not in model]
+            primary_models = [model for model in event["modelUsage"] if not is_helper(model)]
             for model, usage in event["modelUsage"].items():
                 if not isinstance(usage, dict):
                     continue
@@ -296,7 +330,7 @@ def claude_cost(path):
                 counts = token_counts(usage)
                 key = (session, model)
                 prior = previous.get(key)
-                creation = cache_creation if "haiku" not in model else None
+                creation = None if is_helper(model) else cache_creation
                 if prior and all(counts[field] >= prior[field] for field in counts):
                     billed = {field: counts[field] - prior[field] for field in counts}
                     if model in independent and any(prior[field] for field in input_fields):
@@ -310,18 +344,7 @@ def claude_cost(path):
 
     # Some interrupted Claude Code runs have message-level token records but
     # no final result. Deduplicate messages and price the recorded tokens.
-    messages = {}
-    for transcript in sorted(path.glob("solve_out_run*.txt")):
-        for event in json_lines(transcript):
-            message = event.get("message", {})
-            if event.get("type") == "assistant" and isinstance(message.get("usage"), dict):
-                messages[message.get("id", event.get("uuid", f"{transcript}:{len(messages)}"))] = message
-    counts = [token_counts(message["usage"]) for message in messages.values()]
-    cost = sum(
-        price_claude_usage(message.get("model", ""), usage, message["usage"].get("cache_creation"))
-        for message, usage in zip(messages.values(), counts)
-    )
-    has_tokens = any(any(usage.values()) for usage in counts)
+    cost, has_tokens = message_cost(path)
     if has_tokens:
         return cost, "official-message-token", cost, cost
     return None, "no-reported-token", None, None
@@ -688,7 +711,7 @@ def summarize(item):
 def main():
     summaries = [summarize(item) for item in CONFIGS]
     payload = {
-        "generated_at": "2026-09-24",
+        "generated_at": "2026-11-13",
         "source_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "methodology": {
             "cost": "Sum of API-equivalent agent cost across all 12 selected runs. "
@@ -697,7 +720,9 @@ def main():
                     "Codex runs are reconstructed from transcripts because the CLI's combined "
                     "counter excludes cache reads: the counter is split into fresh input and "
                     "output (including hidden reasoning), and cache-read volume is integrated "
-                    "from per-request context sizes with compaction-calibrated ceilings.",
+                    "from per-request context sizes with compaction-calibrated ceilings. "
+                    "Claude Haiku 5.5 usage is priced at its over-100K-token prompt rates, "
+                    "which cover about 90% of its requests, so its cost is an upper bound.",
             "cost_bands": "cost_low_usd/cost_high_usd bound method uncertainty: Codex text-vs-"
                           "reasoning split and cache conversion, duration-scaled peer bounds "
                           "for Claude runs missing a final usage record, and +/-30% on imputed "
@@ -708,7 +733,7 @@ def main():
                             "transcripts (crashed runs from their text, worked runs scaled by "
                             "activity). Other missing runs use the scenario mean, or the "
                             "configuration mean when the entire scenario is missing.",
-            "pricing_date": "2026-08-14",
+            "pricing_date": "2026-11-13",
             "pricing_sources": {
                 "Anthropic": "https://platform.claude.com/docs/en/about-claude/pricing",
                 "OpenAI": "https://developers.openai.com/api/docs/pricing",
