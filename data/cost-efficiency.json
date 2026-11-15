@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-11-13",
-  "source_script_sha256": "6b49c102a428ff4e6ffae73cc9f2a9e0733a60221277014e7f3f691fc07c89e7",
+  "source_script_sha256": "edcef4854407ae85c0942f90c3d3d1d8b66e14528f923d8f697e73a88d39cd51",
   "methodology": {
     "cost": "Sum of API-equivalent agent cost across all 12 selected runs. Claude and Grok runs are repriced from recorded token counts; OpenCode runs use recorded per-step dollars (verified against current rates to the cent); Codex runs are reconstructed from transcripts because the CLI's combined counter excludes cache reads: the counter is split into fresh input and output (including hidden reasoning), and cache-read volume is integrated from per-request context sizes with compaction-calibrated ceilings. Claude Haiku 5.5 usage is priced at its over-100K-token prompt rates, which cover about 90% of its requests, so its cost is an upper bound.",
     "cost_bands": "cost_low_usd/cost_high_usd bound method uncertainty: Codex text-vs-reasoning split and cache conversion, duration-scaled peer bounds for Claude runs missing a final usage record, and +/-30% on imputed runs. Grok Build rows report a context-normalized cost (cached context capped at 165K tokens, sub-200K rates) because those runs never compacted; the actual reconciled bill is the high bound.",
@@ -2769,6 +2769,430 @@
           "cost_method": "official-token",
           "cost_low_usd": 1.5258960799999999,
           "cost_high_usd": 1.5258960799999999
+        }
+      ]
+    },
+    {
+      "key": "gemini-3-8-flash",
+      "source": "opencode_opencode_gemini-3.8-flash_2h",
+      "full_12_run_cost_usd": 117.178223025,
+      "full_12_run_cost_low_usd": 117.178223025,
+      "full_12_run_cost_high_usd": 117.178223025,
+      "imputed_run_count": 0,
+      "runs": [
+        {
+          "run_id": 17945890,
+          "scenario": "A",
+          "cost_usd": 17.684454974999998,
+          "cost_method": "recorded",
+          "cost_low_usd": 17.684454974999998,
+          "cost_high_usd": 17.684454974999998
+        },
+        {
+          "run_id": 17945894,
+          "scenario": "B",
+          "cost_usd": 11.757770999999993,
+          "cost_method": "recorded",
+          "cost_low_usd": 11.757770999999993,
+          "cost_high_usd": 11.757770999999993
+        },
+        {
+          "run_id": 17945898,
+          "scenario": "C",
+          "cost_usd": 5.182763175000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.182763175000001,
+          "cost_high_usd": 5.182763175000001
+        },
+        {
+          "run_id": 17945902,
+          "scenario": "D",
+          "cost_usd": 5.484908024999999,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.484908024999999,
+          "cost_high_usd": 5.484908024999999
+        },
+        {
+          "run_id": 17945906,
+          "scenario": "A",
+          "cost_usd": 7.436788049999993,
+          "cost_method": "recorded",
+          "cost_low_usd": 7.436788049999993,
+          "cost_high_usd": 7.436788049999993
+        },
+        {
+          "run_id": 17945910,
+          "scenario": "B",
+          "cost_usd": 14.592214650000022,
+          "cost_method": "recorded",
+          "cost_low_usd": 14.592214650000022,
+          "cost_high_usd": 14.592214650000022
+        },
+        {
+          "run_id": 17945915,
+          "scenario": "C",
+          "cost_usd": 9.212239274999996,
+          "cost_method": "recorded",
+          "cost_low_usd": 9.212239274999996,
+          "cost_high_usd": 9.212239274999996
+        },
+        {
+          "run_id": 17945923,
+          "scenario": "A",
+          "cost_usd": 6.0045149250000005,
+          "cost_method": "recorded",
+          "cost_low_usd": 6.0045149250000005,
+          "cost_high_usd": 6.0045149250000005
+        },
+        {
+          "run_id": 17945927,
+          "scenario": "B",
+          "cost_usd": 15.314276849999997,
+          "cost_method": "recorded",
+          "cost_low_usd": 15.314276849999997,
+          "cost_high_usd": 15.314276849999997
+        },
+        {
+          "run_id": 17945931,
+          "scenario": "C",
+          "cost_usd": 3.7517540250000003,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.7517540250000003,
+          "cost_high_usd": 3.7517540250000003
+        },
+        {
+          "run_id": 17945935,
+          "scenario": "D",
+          "cost_usd": 10.462310325000002,
+          "cost_method": "recorded",
+          "cost_low_usd": 10.462310325000002,
+          "cost_high_usd": 10.462310325000002
+        },
+        {
+          "run_id": 17946012,
+          "scenario": "D",
+          "cost_usd": 10.294227750000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 10.294227750000001,
+          "cost_high_usd": 10.294227750000001
+        }
+      ]
+    },
+    {
+      "key": "gemini-4-argon-high",
+      "source": "opencode_opencode_gemini-4-argon-high_2h",
+      "full_12_run_cost_usd": 64.2888169,
+      "full_12_run_cost_low_usd": 64.2888169,
+      "full_12_run_cost_high_usd": 64.2888169,
+      "imputed_run_count": 0,
+      "runs": [
+        {
+          "run_id": 17946228,
+          "scenario": "A",
+          "cost_usd": 7.4051303000000015,
+          "cost_method": "recorded",
+          "cost_low_usd": 7.4051303000000015,
+          "cost_high_usd": 7.4051303000000015
+        },
+        {
+          "run_id": 17946230,
+          "scenario": "B",
+          "cost_usd": 3.283221400000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.283221400000001,
+          "cost_high_usd": 3.283221400000001
+        },
+        {
+          "run_id": 17946232,
+          "scenario": "C",
+          "cost_usd": 3.9056689999999983,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.9056689999999983,
+          "cost_high_usd": 3.9056689999999983
+        },
+        {
+          "run_id": 17946234,
+          "scenario": "D",
+          "cost_usd": 7.199789500000005,
+          "cost_method": "recorded",
+          "cost_low_usd": 7.199789500000005,
+          "cost_high_usd": 7.199789500000005
+        },
+        {
+          "run_id": 17946236,
+          "scenario": "A",
+          "cost_usd": 6.787162499999998,
+          "cost_method": "recorded",
+          "cost_low_usd": 6.787162499999998,
+          "cost_high_usd": 6.787162499999998
+        },
+        {
+          "run_id": 17946238,
+          "scenario": "B",
+          "cost_usd": 7.527953500000002,
+          "cost_method": "recorded",
+          "cost_low_usd": 7.527953500000002,
+          "cost_high_usd": 7.527953500000002
+        },
+        {
+          "run_id": 17946240,
+          "scenario": "C",
+          "cost_usd": 5.413766300000002,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.413766300000002,
+          "cost_high_usd": 5.413766300000002
+        },
+        {
+          "run_id": 17946242,
+          "scenario": "D",
+          "cost_usd": 0.5902762,
+          "cost_method": "recorded",
+          "cost_low_usd": 0.5902762,
+          "cost_high_usd": 0.5902762
+        },
+        {
+          "run_id": 17946244,
+          "scenario": "A",
+          "cost_usd": 4.439727899999999,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.439727899999999,
+          "cost_high_usd": 4.439727899999999
+        },
+        {
+          "run_id": 17946246,
+          "scenario": "B",
+          "cost_usd": 6.389840100000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 6.389840100000001,
+          "cost_high_usd": 6.389840100000001
+        },
+        {
+          "run_id": 17946248,
+          "scenario": "C",
+          "cost_usd": 5.2468456,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.2468456,
+          "cost_high_usd": 5.2468456
+        },
+        {
+          "run_id": 17946402,
+          "scenario": "D",
+          "cost_usd": 6.0994346,
+          "cost_method": "recorded",
+          "cost_low_usd": 6.0994346,
+          "cost_high_usd": 6.0994346
+        }
+      ]
+    },
+    {
+      "key": "gemini-4-carbon-high",
+      "source": "opencode_opencode_gemini-4-carbon-high_2h",
+      "full_12_run_cost_usd": 50.438786099999994,
+      "full_12_run_cost_low_usd": 50.438786099999994,
+      "full_12_run_cost_high_usd": 50.438786099999994,
+      "imputed_run_count": 0,
+      "runs": [
+        {
+          "run_id": 17946229,
+          "scenario": "A",
+          "cost_usd": 4.330989199999999,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.330989199999999,
+          "cost_high_usd": 4.330989199999999
+        },
+        {
+          "run_id": 17946231,
+          "scenario": "B",
+          "cost_usd": 3.593057299999999,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.593057299999999,
+          "cost_high_usd": 3.593057299999999
+        },
+        {
+          "run_id": 17946233,
+          "scenario": "C",
+          "cost_usd": 6.508936600000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 6.508936600000001,
+          "cost_high_usd": 6.508936600000001
+        },
+        {
+          "run_id": 17946235,
+          "scenario": "D",
+          "cost_usd": 4.873448500000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.873448500000001,
+          "cost_high_usd": 4.873448500000001
+        },
+        {
+          "run_id": 17946237,
+          "scenario": "A",
+          "cost_usd": 3.8673243000000004,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.8673243000000004,
+          "cost_high_usd": 3.8673243000000004
+        },
+        {
+          "run_id": 17946239,
+          "scenario": "B",
+          "cost_usd": 4.8467637,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.8467637,
+          "cost_high_usd": 4.8467637
+        },
+        {
+          "run_id": 17946241,
+          "scenario": "C",
+          "cost_usd": 7.3863531999999985,
+          "cost_method": "recorded",
+          "cost_low_usd": 7.3863531999999985,
+          "cost_high_usd": 7.3863531999999985
+        },
+        {
+          "run_id": 17946243,
+          "scenario": "D",
+          "cost_usd": 3.8157692999999986,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.8157692999999986,
+          "cost_high_usd": 3.8157692999999986
+        },
+        {
+          "run_id": 17946245,
+          "scenario": "A",
+          "cost_usd": 4.142352400000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.142352400000001,
+          "cost_high_usd": 4.142352400000001
+        },
+        {
+          "run_id": 17946249,
+          "scenario": "C",
+          "cost_usd": 1.7881945999999997,
+          "cost_method": "recorded",
+          "cost_low_usd": 1.7881945999999997,
+          "cost_high_usd": 1.7881945999999997
+        },
+        {
+          "run_id": 17946251,
+          "scenario": "D",
+          "cost_usd": 2.7607070999999994,
+          "cost_method": "recorded",
+          "cost_low_usd": 2.7607070999999994,
+          "cost_high_usd": 2.7607070999999994
+        },
+        {
+          "run_id": 17946399,
+          "scenario": "B",
+          "cost_usd": 2.5248899000000002,
+          "cost_method": "recorded",
+          "cost_low_usd": 2.5248899000000002,
+          "cost_high_usd": 2.5248899000000002
+        }
+      ]
+    },
+    {
+      "key": "gemini-4-hydrogen",
+      "source": "opencode_opencode_gemini-4-hydrogen_2h",
+      "full_12_run_cost_usd": 50.15761139999999,
+      "full_12_run_cost_low_usd": 50.15761139999999,
+      "full_12_run_cost_high_usd": 50.15761139999999,
+      "imputed_run_count": 0,
+      "runs": [
+        {
+          "run_id": 17945893,
+          "scenario": "A",
+          "cost_usd": 5.057833200000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.057833200000001,
+          "cost_high_usd": 5.057833200000001
+        },
+        {
+          "run_id": 17945897,
+          "scenario": "B",
+          "cost_usd": 4.900283325,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.900283325,
+          "cost_high_usd": 4.900283325
+        },
+        {
+          "run_id": 17945905,
+          "scenario": "D",
+          "cost_usd": 1.9687562250000001,
+          "cost_method": "recorded",
+          "cost_low_usd": 1.9687562250000001,
+          "cost_high_usd": 1.9687562250000001
+        },
+        {
+          "run_id": 17945909,
+          "scenario": "A",
+          "cost_usd": 2.8448249999999997,
+          "cost_method": "recorded",
+          "cost_low_usd": 2.8448249999999997,
+          "cost_high_usd": 2.8448249999999997
+        },
+        {
+          "run_id": 17945914,
+          "scenario": "B",
+          "cost_usd": 6.059640899999998,
+          "cost_method": "recorded",
+          "cost_low_usd": 6.059640899999998,
+          "cost_high_usd": 6.059640899999998
+        },
+        {
+          "run_id": 17945918,
+          "scenario": "C",
+          "cost_usd": 3.1296281999999986,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.1296281999999986,
+          "cost_high_usd": 3.1296281999999986
+        },
+        {
+          "run_id": 17945922,
+          "scenario": "D",
+          "cost_usd": 5.0290461749999995,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.0290461749999995,
+          "cost_high_usd": 5.0290461749999995
+        },
+        {
+          "run_id": 17945926,
+          "scenario": "A",
+          "cost_usd": 4.152746249999999,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.152746249999999,
+          "cost_high_usd": 4.152746249999999
+        },
+        {
+          "run_id": 17945930,
+          "scenario": "B",
+          "cost_usd": 3.2909412750000007,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.2909412750000007,
+          "cost_high_usd": 3.2909412750000007
+        },
+        {
+          "run_id": 17945934,
+          "scenario": "C",
+          "cost_usd": 4.88531535,
+          "cost_method": "recorded",
+          "cost_low_usd": 4.88531535,
+          "cost_high_usd": 4.88531535
+        },
+        {
+          "run_id": 17946005,
+          "scenario": "C",
+          "cost_usd": 5.742103725000002,
+          "cost_method": "recorded",
+          "cost_low_usd": 5.742103725000002,
+          "cost_high_usd": 5.742103725000002
+        },
+        {
+          "run_id": 17946039,
+          "scenario": "D",
+          "cost_usd": 3.096491775,
+          "cost_method": "recorded",
+          "cost_low_usd": 3.096491775,
+          "cost_high_usd": 3.096491775
         }
       ]
     },

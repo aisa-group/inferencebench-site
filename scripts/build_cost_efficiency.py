@@ -113,6 +113,10 @@ CONFIGS = [
     config("gpt-5-3-codex-high", "codex_non_api_gpt-5.3-codex-high_2h", ids=[17076097, 17076103, 17076114, 17078592, 17078596, 17078825, 17078828, 17078843, 17078853, 17079277, 17120857, 17120858]),
     config("gpt-5-5-xhigh", "codex_non_api_gpt-5.5-xhigh_2h"),
     config("glm-5-3-max", "claude_zai_glm-5.3[1m]_2h", family="claude"),
+    config("gemini-3-8-flash", "opencode_opencode_gemini-3.8-flash_2h", ids=[17945890, 17945894, 17945898, 17945902, 17945906, 17945910, 17945915, 17945923, 17945927, 17945931, 17945935, 17946012]),  # pinned: GPU-check aborts that never started are excluded
+    config("gemini-4-argon-high", "opencode_opencode_gemini-4-argon-high_2h", ids=[17946228, 17946230, 17946232, 17946234, 17946236, 17946238, 17946240, 17946242, 17946244, 17946246, 17946248, 17946402]),  # pinned: GPU-check aborts that never started are excluded
+    config("gemini-4-carbon-high", "opencode_opencode_gemini-4-carbon-high_2h", ids=[17946229, 17946231, 17946233, 17946235, 17946237, 17946239, 17946241, 17946243, 17946245, 17946249, 17946251, 17946399]),  # pinned: GPU-check aborts that never started are excluded
+    config("gemini-4-hydrogen", "opencode_opencode_gemini-4-hydrogen_2h", ids=[17945893, 17945897, 17945905, 17945909, 17945914, 17945918, 17945922, 17945926, 17945930, 17945934, 17946005, 17946039]),  # pinned: GPU-check aborts that never started are excluded
     config("gemini-3-1-pro", "opencode_opencode_gemini-3.1-pro_2h"),
     config("muse-spark-1-3", "opencode_opencode_muse-spark-1.3-contributor-free_2h"),
     config("kimi-k2-6", "opencode_opencode_kimi-k2.6_2h"),

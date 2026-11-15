@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261113-1">
+    <link rel="stylesheet" href="styles.css?v=20261115-1">
 </head>
 <body>
     <header class="site-header">
@@ -381,7 +381,7 @@
                 <div>
                     <p class="eyebrow">Insights</p>
                     <h2>Failure modes.</h2>
-                    <p>Across the 551 scored runs behind the current leaderboard (46 configurations), agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
+                    <p>Across the 599 scored runs behind the current leaderboard (50 configurations), agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
                 </div>
                 <div class="outcome-card">
                     <h3>Run outcomes</h3>
@@ -393,13 +393,13 @@
             <div class="behavior-panel">
                 <div class="behavior-summary">
                     <h3>Agent behavior patterns</h3>
-                    <p><strong>92.2%</strong> of runs submit a vLLM-based server.</p>
+                    <p><strong>92.8%</strong> of runs submit a vLLM-based server.</p>
                     <hr>
                     <span>Transcripts repeatedly name relevant optimizations, while the measured search remains shallow.</span>
                     <div class="technique-mentions">
-                        <span><strong>82%</strong> Chunked prefill</span>
+                        <span><strong>83%</strong> Chunked prefill</span>
                         <span><strong>99%</strong> Quantization</span>
-                        <span><strong>75%</strong> Speculative decoding</span>
+                        <span><strong>77%</strong> Speculative decoding</span>
                     </div>
                 </div>
                 <div class="histogram">
@@ -471,6 +471,7 @@
                     <div class="changelog-ver">v1.0.7 <span class="changelog-date">· Nov 2026</span></div>
                     <ul>
                         <li>Added Claude Fable 5.2 (Max) and Claude Haiku 5.5 (Max) to the leaderboard. Haiku 5.5 (Max) sets the best Scenario D score.</li>
+                        <li>Added Gemini 4 Carbon (High), Gemini 4 Hydrogen, Gemini 4 Argon (High), and Gemini 3.8 Flash. Gemini 4 Carbon (High) enters at #3.</li>
                     </ul>
                 </div>
                 <div class="changelog-entry">
@@ -526,6 +527,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20261113-3"></script>
+    <script src="script.js?v=20261115-3"></script>
 </body>
 </html>
