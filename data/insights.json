@@ -1,25 +1,25 @@
 {
- "generated_at": "2026-11-15T16:22:42Z",
+ "generated_at": "2026-11-18T01:44:55Z",
  "cohort": {
-  "configs": 50,
-  "runs": 599,
+  "configs": 52,
+  "runs": 623,
   "note": "12 scored runs per leaderboard configuration, selected as the scorer selects them; gemini-3-5-flash has 11 because its scenario-D run 17258321 was deleted."
  },
  "outcomes": {
   "counts": {
-   "passed": 455,
+   "passed": 479,
    "quality_gate": 60,
    "server_failure": 23,
    "integrity": 61
   },
   "pct": {
-   "integrity": 10.2,
-   "passed": 76.0,
-   "quality_gate": 10.0,
-   "server_failure": 3.8
+   "integrity": 9.8,
+   "passed": 76.9,
+   "quality_gate": 9.6,
+   "server_failure": 3.7
   },
   "raw_counts": {
-   "passed": 455,
+   "passed": 479,
    "gate_failed": 60,
    "primary_failed": 23,
    "judge_failed": 56,
@@ -34,37 +34,37 @@
  },
  "final_engine": {
   "parsed_counts": {
-   "vllm": 382,
-   "unknown": 193,
-   "sglang": 21,
+   "vllm": 390,
+   "unknown": 208,
+   "sglang": 22,
    "none": 3
   },
   "parsed_pct": {
    "none": 0.5,
    "sglang": 3.5,
-   "unknown": 32.2,
-   "vllm": 63.8
+   "unknown": 33.4,
+   "vllm": 62.6
   },
   "text_counts": {
-   "vllm": 556,
-   "sglang": 21,
+   "vllm": 579,
+   "sglang": 22,
    "none": 3,
    "custom": 19
   },
   "text_pct": {
-   "custom": 3.2,
+   "custom": 3.0,
    "none": 0.5,
    "sglang": 3.5,
-   "vllm": 92.8
+   "vllm": 92.9
   },
-  "ship_vllm_pct": 92.8,
+  "ship_vllm_pct": 92.9,
   "note": "text: first engine marker found in task/start_server.sh (sglang, tgi, lmdeploy, tensorrt, vllm; else custom); parsed: the trajectory parser's exec-line engine. ship_vllm_pct uses the text classification."
  },
  "technique_mentions": {
   "pct": {
-   "chunked_prefill": 83.3,
+   "chunked_prefill": 83.9,
    "quantization": 99.0,
-   "speculative_decoding": 77.1
+   "speculative_decoding": 78.0
   },
   "regex": {
    "chunked_prefill": "chunked[-_ ]?prefill|enable[-_]chunked",
@@ -75,18 +75,18 @@
  },
  "distinct_configs": {
   "pct": {
-   "0": 29.0,
-   "1": 44.1,
-   "2": 16.0,
-   "3": 10.8
+   "0": 30.4,
+   "1": 43.9,
+   "2": 15.4,
+   "3": 10.4
   },
   "counts": {
-   "0": 161,
-   "1": 245,
+   "0": 176,
+   "1": 254,
    "2": 89,
    "3": 60
   },
-  "runs_matched": 555,
+  "runs_matched": 579,
   "note": "metrics.n_distinct_configs from data/trajectories.json; bucket 3 = three or more"
  },
  "found_vs_submitted": {
@@ -454,6 +454,82 @@
      "n_runs": 12
     },
     "n_attempt_evaluations": 0
+   },
+   {
+    "key": "gpt-6-2-astra-ultra",
+    "n_runs": 12,
+    "final": {
+     "cells": {
+      "A": 5.0118,
+      "B": 14.9581,
+      "C": 41.8462,
+      "D": 4.2776
+     },
+     "value": 10.7629,
+     "sem": 0.681,
+     "n_runs": 12
+    },
+    "best_seen": {
+     "cells": {
+      "A": 5.3994,
+      "B": 14.9581,
+      "C": 45.4758,
+      "D": 4.4961
+     },
+     "value": 11.336,
+     "sem": null,
+     "n_runs": 12
+    },
+    "best_seen_strict": {
+     "cells": {
+      "A": 5.3994,
+      "B": 14.9581,
+      "C": 45.4758,
+      "D": 4.4961
+     },
+     "value": 11.336,
+     "sem": null,
+     "n_runs": 12
+    },
+    "n_attempt_evaluations": 9
+   },
+   {
+    "key": "gpt-6-2-sol-ultra",
+    "n_runs": 12,
+    "final": {
+     "cells": {
+      "A": 3.6124,
+      "B": 7.418,
+      "C": 40.6885,
+      "D": 3.6486
+     },
+     "value": 7.9418,
+     "sem": 0.5594,
+     "n_runs": 12
+    },
+    "best_seen": {
+     "cells": {
+      "A": 4.0004,
+      "B": 7.418,
+      "C": 43.9724,
+      "D": 3.7957
+     },
+     "value": 8.3891,
+     "sem": null,
+     "n_runs": 12
+    },
+    "best_seen_strict": {
+     "cells": {
+      "A": 4.0004,
+      "B": 7.418,
+      "C": 43.9724,
+      "D": 3.7957
+     },
+     "value": 8.3891,
+     "sem": null,
+     "n_runs": 12
+    },
+    "n_attempt_evaluations": 12
    },
    {
     "key": "opus-5-5-max",
@@ -4605,6 +4681,486 @@
    "best_seen": 3.4836,
    "best_seen_strict": 3.4836,
    "n_attempt_evaluations": 0
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "A",
+   "seed": 17967003,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967003",
+   "speedup": 5.9528,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 6.605,
+   "best_seen_strict": 6.605,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "A",
+   "seed": 17967011,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967011",
+   "speedup": 4.3562,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 4.8669,
+   "best_seen_strict": 4.8669,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "A",
+   "seed": 17967019,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967019",
+   "speedup": 4.7263,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 4.7263,
+   "best_seen_strict": 4.7263,
+   "n_attempt_evaluations": 0
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "B",
+   "seed": 17967005,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967005",
+   "speedup": 10.0951,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 10.0951,
+   "best_seen_strict": 10.0951,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "B",
+   "seed": 17967013,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967013",
+   "speedup": 11.1464,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 11.1464,
+   "best_seen_strict": 11.1464,
+   "n_attempt_evaluations": 0
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "B",
+   "seed": 17967021,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967021",
+   "speedup": 23.6327,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 23.6327,
+   "best_seen_strict": 23.6327,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "C",
+   "seed": 17967007,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17967007",
+   "speedup": 39.4983,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 39.4983,
+   "best_seen_strict": 39.4983,
+   "n_attempt_evaluations": 0
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "C",
+   "seed": 17967015,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17967015",
+   "speedup": 43.3456,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 48.8996,
+   "best_seen_strict": 48.8996,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "C",
+   "seed": 17967023,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17967023",
+   "speedup": 42.6947,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 48.0294,
+   "best_seen_strict": 48.0294,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "D",
+   "seed": 17967009,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17967009",
+   "speedup": 4.0528,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 4.2622,
+   "best_seen_strict": 4.2622,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "D",
+   "seed": 17967017,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17967017",
+   "speedup": 4.0265,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 4.2213,
+   "best_seen_strict": 4.2213,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-astra-ultra",
+   "scenario": "D",
+   "seed": 17967025,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17967025",
+   "speedup": 4.7536,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 5.0048,
+   "best_seen_strict": 5.0048,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "A",
+   "seed": 17967004,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967004",
+   "speedup": 4.3976,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 4.8258,
+   "best_seen_strict": 4.8258,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "A",
+   "seed": 17967012,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967012",
+   "speedup": 1.4552,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 1.6901,
+   "best_seen_strict": 1.6901,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "A",
+   "seed": 17967020,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967020",
+   "speedup": 4.9843,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "vllm",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 5.4853,
+   "best_seen_strict": 5.4853,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "B",
+   "seed": 17967006,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967006",
+   "speedup": 7.3908,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 7.3908,
+   "best_seen_strict": 7.3908,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "B",
+   "seed": 17967014,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967014",
+   "speedup": 7.2476,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 7.2476,
+   "best_seen_strict": 7.2476,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "B",
+   "seed": 17967022,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17967022",
+   "speedup": 7.6157,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 7.6157,
+   "best_seen_strict": 7.6157,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "C",
+   "seed": 17967008,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17967008",
+   "speedup": 47.3571,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 47.3571,
+   "best_seen_strict": 47.3571,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "C",
+   "seed": 17967016,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17967016",
+   "speedup": 41.0708,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 46.9994,
+   "best_seen_strict": 46.9994,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "C",
+   "seed": 17967024,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17967024",
+   "speedup": 33.6377,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "sglang",
+   "engine_text": "sglang",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 37.5607,
+   "best_seen_strict": 37.5607,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "D",
+   "seed": 17967010,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17967010",
+   "speedup": 3.5961,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 3.8009,
+   "best_seen_strict": 3.8009,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "D",
+   "seed": 17967018,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17967018",
+   "speedup": 3.6889,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 3.9252,
+   "best_seen_strict": 3.9252,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gpt-6-2-sol-ultra",
+   "scenario": "D",
+   "seed": 17967026,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17967026",
+   "speedup": 3.6609,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 3.6609,
+   "best_seen_strict": 3.6609,
+   "n_attempt_evaluations": 1
   },
   {
    "key": "opus-5-5-max",

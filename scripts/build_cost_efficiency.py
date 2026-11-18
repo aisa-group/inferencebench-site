@@ -15,6 +15,8 @@ OUTPUT = Path(__file__).resolve().parents[1] / "data/cost-efficiency.json"
 # plus whether the model has a documented long-context tier (>272K prompt:
 # 2x input and cached, 1.5x output). Only GPT-5.6+ bills cache writes.
 CODEX_RATES = {
+    "gpt-6-2-astra-ultra": (8.0, .4, 40.0, 10.0, True),  # launch pricing 2026-11-17; cache write 1.25x input as for GPT-6
+    "gpt-6-2-sol-ultra": (2.0, .1, 10.0, 2.5, True),
     "gpt-6-astra-ultra": (10.0, 1.0, 50.0, 12.5, True),
     "gpt-6-sol-ultra": (2.0, .2, 10.0, 2.5, True),
     "gpt-5-6-sol-ultra": (4.0, .4, 20.0, 5.0, True),
@@ -34,6 +36,14 @@ CODEX_LONG_TOKENS = 272_000  # documented long-context threshold
 # Effective context ceiling in tokens before Codex compacts, calibrated from
 # observed "context compacted" event spacing per model family.
 def codex_cap_tokens(key):
+    # GPT-6.2 (Codex CLI 0.169.0), calibrated as median tokens of transcript text
+    # before the first "context compacted" event (this metric reproduces the
+    # GPT-6 caps below: 192K Astra, 866K Sol). Astra: 114K over the 7 runs that
+    # compacted. Sol never compacted (longest run 441K), so its cap does not bind.
+    if key.startswith("gpt-6-2-astra"):
+        return 115_000
+    if key.startswith("gpt-6-2-sol"):
+        return 1_000_000
     if key.startswith("gpt-6-sol"):
         # Same calibration as Astra below: median spacing between real
         # "context compacted" events across all 12 gpt-6-sol-ultra transcripts
@@ -94,6 +104,8 @@ CONFIGS = [
     config("fable-5-strict", "claude_non_api_claude-fable-5_2h", ids=[17335746, 17335747, 17335748, 17335749, 17335751, 17335753, 17335750, 17335752, 17335754, 17335755, 17335756, 17335757]),
     config("gpt-6-astra-ultra", "codex_non_api_gpt-6-astra-ultra_2h"),
     config("gpt-6-sol-ultra", "codex_non_api_gpt-6-sol-ultra_2h"),
+    config("gpt-6-2-astra-ultra", "codex_non_api_gpt-6.2-astra-ultra_2h"),
+    config("gpt-6-2-sol-ultra", "codex_non_api_gpt-6.2-sol-ultra_2h"),
     config("opus-5-5-max", "claude_non_api_claude-opus-5-5-max_2h"),
     config("sonnet-5-5-max", "claude_non_api_claude-sonnet-5-5-max_2h"),  # list prices equal Sonnet 5's
     config("sonnet-5-5", "claude_non_api_claude-sonnet-5-5_2h"),  # list prices equal Sonnet 5's

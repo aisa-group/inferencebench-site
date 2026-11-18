@@ -381,7 +381,7 @@
                 <div>
                     <p class="eyebrow">Insights</p>
                     <h2>Failure modes.</h2>
-                    <p>Across the 599 scored runs behind the current leaderboard (50 configurations), agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
+                    <p>Across the 623 scored runs behind the current leaderboard (52 configurations), agents identify appropriate optimizations in transcripts but fail to validate them, commit to them, or preserve them in the final submitted server.</p>
                 </div>
                 <div class="outcome-card">
                     <h3>Run outcomes</h3>
@@ -393,11 +393,11 @@
             <div class="behavior-panel">
                 <div class="behavior-summary">
                     <h3>Agent behavior patterns</h3>
-                    <p><strong>92.8%</strong> of runs submit a vLLM-based server.</p>
+                    <p><strong>92.9%</strong> of runs submit a vLLM-based server.</p>
                     <hr>
                     <span>Transcripts repeatedly name relevant optimizations, while the measured search remains shallow.</span>
                     <div class="technique-mentions">
-                        <span><strong>83%</strong> Chunked prefill</span>
+                        <span><strong>84%</strong> Chunked prefill</span>
                         <span><strong>99%</strong> Quantization</span>
                         <span><strong>77%</strong> Speculative decoding</span>
                     </div>
@@ -459,7 +459,7 @@
 
     <div class="changelog-widget" id="changelog-widget" data-open="true">
         <button class="changelog-pill" id="changelog-pill" type="button" aria-label="Open changelog">
-            <span class="changelog-pulse"></span> What's new · v1.0.7
+            <span class="changelog-pulse"></span> What's new · v1.0.8
         </button>
         <div class="changelog-card" id="changelog-card" role="dialog" aria-label="Changelog">
             <div class="changelog-head">
@@ -467,6 +467,12 @@
                 <button class="changelog-min" id="changelog-min" type="button" aria-label="Minimize">&minus;</button>
             </div>
             <div class="changelog-scroll">
+                <div class="changelog-entry">
+                    <div class="changelog-ver">v1.0.8 <span class="changelog-date">· Nov 2026</span></div>
+                    <ul>
+                        <li>Added GPT-6.2 Astra (Ultra) and GPT-6.2 Sol (Ultra) to the leaderboard. GPT-6.2 Astra (Ultra) ranks #3 overall and sets the Scenario C best agent at 41.85×.</li>
+                    </ul>
+                </div>
                 <div class="changelog-entry">
                     <div class="changelog-ver">v1.0.7 <span class="changelog-date">· Nov 2026</span></div>
                     <ul>
@@ -527,6 +533,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js?v=20261115-3"></script>
+    <script src="script.js?v=20261118-3"></script>
 </body>
 </html>
