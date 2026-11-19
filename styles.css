@@ -753,7 +753,8 @@ h3 {
 .aggregate-label[title^="Claude Sonnet 5.5 (Max)"],
 .aggregate-label[title^="Claude Fable 5.2 (Max)"],
 .aggregate-label[title^="Gemini 4 Carbon (High)"],
-.aggregate-label[title^="Gemini 4 Hydrogen"] {
+.aggregate-label[title^="Gemini 4 Hydrogen"],
+.aggregate-label[title^="Gemini 4 Neon (High)"] {
     max-width: none;
     white-space: nowrap;
 }

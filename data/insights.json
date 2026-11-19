@@ -1,25 +1,25 @@
 {
- "generated_at": "2026-11-18T01:44:55Z",
+ "generated_at": "2026-11-19T03:16:10Z",
  "cohort": {
-  "configs": 52,
-  "runs": 623,
+  "configs": 53,
+  "runs": 635,
   "note": "12 scored runs per leaderboard configuration, selected as the scorer selects them; gemini-3-5-flash has 11 because its scenario-D run 17258321 was deleted."
  },
  "outcomes": {
   "counts": {
-   "passed": 479,
+   "passed": 491,
    "quality_gate": 60,
    "server_failure": 23,
    "integrity": 61
   },
   "pct": {
-   "integrity": 9.8,
-   "passed": 76.9,
-   "quality_gate": 9.6,
-   "server_failure": 3.7
+   "integrity": 9.6,
+   "passed": 77.3,
+   "quality_gate": 9.4,
+   "server_failure": 3.6
   },
   "raw_counts": {
-   "passed": 479,
+   "passed": 491,
    "gate_failed": 60,
    "primary_failed": 23,
    "judge_failed": 56,
@@ -34,37 +34,37 @@
  },
  "final_engine": {
   "parsed_counts": {
-   "vllm": 390,
-   "unknown": 208,
-   "sglang": 22,
+   "vllm": 389,
+   "unknown": 219,
+   "sglang": 24,
    "none": 3
   },
   "parsed_pct": {
    "none": 0.5,
-   "sglang": 3.5,
-   "unknown": 33.4,
-   "vllm": 62.6
+   "sglang": 3.8,
+   "unknown": 34.5,
+   "vllm": 61.3
   },
   "text_counts": {
-   "vllm": 579,
-   "sglang": 22,
+   "vllm": 589,
+   "sglang": 24,
    "none": 3,
    "custom": 19
   },
   "text_pct": {
    "custom": 3.0,
    "none": 0.5,
-   "sglang": 3.5,
-   "vllm": 92.9
+   "sglang": 3.8,
+   "vllm": 92.8
   },
-  "ship_vllm_pct": 92.9,
+  "ship_vllm_pct": 92.8,
   "note": "text: first engine marker found in task/start_server.sh (sglang, tgi, lmdeploy, tensorrt, vllm; else custom); parsed: the trajectory parser's exec-line engine. ship_vllm_pct uses the text classification."
  },
  "technique_mentions": {
   "pct": {
-   "chunked_prefill": 83.9,
-   "quantization": 99.0,
-   "speculative_decoding": 78.0
+   "chunked_prefill": 84.3,
+   "quantization": 99.1,
+   "speculative_decoding": 78.4
   },
   "regex": {
    "chunked_prefill": "chunked[-_ ]?prefill|enable[-_]chunked",
@@ -75,18 +75,18 @@
  },
  "distinct_configs": {
   "pct": {
-   "0": 30.4,
-   "1": 43.9,
-   "2": 15.4,
-   "3": 10.4
+   "0": 31.6,
+   "1": 43.1,
+   "2": 15.1,
+   "3": 10.2
   },
   "counts": {
-   "0": 176,
-   "1": 254,
+   "0": 187,
+   "1": 255,
    "2": 89,
    "3": 60
   },
-  "runs_matched": 579,
+  "runs_matched": 591,
   "note": "metrics.n_distinct_configs from data/trajectories.json; bucket 3 = three or more"
  },
  "found_vs_submitted": {
@@ -474,9 +474,9 @@
       "A": 5.3994,
       "B": 14.9581,
       "C": 45.4758,
-      "D": 4.4961
+      "D": 4.4893
      },
-     "value": 11.336,
+     "value": 11.3317,
      "sem": null,
      "n_runs": 12
     },
@@ -485,9 +485,9 @@
       "A": 5.3994,
       "B": 14.9581,
       "C": 45.4758,
-      "D": 4.4961
+      "D": 4.4893
      },
-     "value": 11.336,
+     "value": 11.3317,
      "sem": null,
      "n_runs": 12
     },
@@ -1252,6 +1252,44 @@
      "n_runs": 12
     },
     "n_attempt_evaluations": 11
+   },
+   {
+    "key": "gemini-4-neon-high",
+    "n_runs": 12,
+    "final": {
+     "cells": {
+      "A": 5.6983,
+      "B": 17.8097,
+      "C": 40.8849,
+      "D": 3.4809
+     },
+     "value": 10.9626,
+     "sem": 0.8771,
+     "n_runs": 12
+    },
+    "best_seen": {
+     "cells": {
+      "A": 6.3115,
+      "B": 17.8097,
+      "C": 41.9098,
+      "D": 3.5618
+     },
+     "value": 11.3814,
+     "sem": null,
+     "n_runs": 12
+    },
+    "best_seen_strict": {
+     "cells": {
+      "A": 6.3115,
+      "B": 17.8097,
+      "C": 41.9098,
+      "D": 3.5618
+     },
+     "value": 11.3814,
+     "sem": null,
+     "n_runs": 12
+    },
+    "n_attempt_evaluations": 10
    },
    {
     "key": "gemini-4-carbon-high",
@@ -4870,16 +4908,16 @@
    "speedup": 4.0528,
    "outcome": "passed",
    "category": "passed",
-   "engine_parsed": "vllm",
+   "engine_parsed": "unknown",
    "engine_text": "vllm",
    "mentions": {
     "chunked_prefill": true,
     "quantization": true,
     "speculative_decoding": true
    },
-   "n_distinct_configs": 1,
-   "best_seen": 4.2622,
-   "best_seen_strict": 4.2622,
+   "n_distinct_configs": 0,
+   "best_seen": 4.2419,
+   "best_seen_strict": 4.2419,
    "n_attempt_evaluations": 1
   },
   {
@@ -9720,6 +9758,246 @@
    "n_distinct_configs": 2,
    "best_seen": 3.2293,
    "best_seen_strict": 3.2293,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "A",
+   "seed": 17976058,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17976058",
+   "speedup": 5.2261,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 5.6525,
+   "best_seen_strict": 5.6525,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "A",
+   "seed": 17976062,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17976062",
+   "speedup": 6.2675,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "sglang",
+   "engine_text": "sglang",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 6.9224,
+   "best_seen_strict": 6.9224,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "A",
+   "seed": 17976066,
+   "dir": "inference_scenario_a_input_heavy_mistralai_Mistral-7B-Instruct-v0.3_17976066",
+   "speedup": 5.6013,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "sglang",
+   "engine_text": "sglang",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 1,
+   "best_seen": 6.3597,
+   "best_seen_strict": 6.3597,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "B",
+   "seed": 17976059,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17976059",
+   "speedup": 26.8007,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 26.8007,
+   "best_seen_strict": 26.8007,
+   "n_attempt_evaluations": 0
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "B",
+   "seed": 17976063,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17976063",
+   "speedup": 20.7316,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 20.7316,
+   "best_seen_strict": 20.7316,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "B",
+   "seed": 17976067,
+   "dir": "inference_scenario_b_output_heavy_mistralai_Mistral-7B-Instruct-v0.3_17976067",
+   "speedup": 5.8968,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 5.8968,
+   "best_seen_strict": 5.8968,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "C",
+   "seed": 17976060,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17976060",
+   "speedup": 37.4837,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 37.4837,
+   "best_seen_strict": 37.4837,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "C",
+   "seed": 17976064,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17976064",
+   "speedup": 42.9121,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 45.9868,
+   "best_seen_strict": 45.9868,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "C",
+   "seed": 17976068,
+   "dir": "inference_scenario_c_high_load_mistralai_Mistral-7B-Instruct-v0.3_17976068",
+   "speedup": 42.2589,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 42.2589,
+   "best_seen_strict": 42.2589,
+   "n_attempt_evaluations": 0
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "D",
+   "seed": 17976061,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17976061",
+   "speedup": 3.4574,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 3.4574,
+   "best_seen_strict": 3.4574,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "D",
+   "seed": 17976065,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17976065",
+   "speedup": 3.5582,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 3.7422,
+   "best_seen_strict": 3.7422,
+   "n_attempt_evaluations": 1
+  },
+  {
+   "key": "gemini-4-neon-high",
+   "scenario": "D",
+   "seed": 17976069,
+   "dir": "inference_scenario_d_general_mistralai_Mistral-7B-Instruct-v0.3_17976069",
+   "speedup": 3.4272,
+   "outcome": "passed",
+   "category": "passed",
+   "engine_parsed": "unknown",
+   "engine_text": "vllm",
+   "mentions": {
+    "chunked_prefill": true,
+    "quantization": true,
+    "speculative_decoding": true
+   },
+   "n_distinct_configs": 0,
+   "best_seen": 3.4858,
+   "best_seen_strict": 3.4858,
    "n_attempt_evaluations": 1
   },
   {
